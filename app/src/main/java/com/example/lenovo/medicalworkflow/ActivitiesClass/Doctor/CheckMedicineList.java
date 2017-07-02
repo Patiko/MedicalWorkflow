@@ -87,7 +87,7 @@ public class CheckMedicineList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-                // TODO Auto-generated method stub
+
                 int id_To_Search = cursor.getInt(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_ID));
                 //          boolean visibility=true;
                 if(id_To_Search!=0){
@@ -127,7 +127,7 @@ public class CheckMedicineList extends AppCompatActivity {
         obj.setOnItemClickListener(new OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-                // TODO Auto-generated method stub
+
                 int id_To_Search = arg2+1;
 
                 Bundle dataBundle = new Bundle();

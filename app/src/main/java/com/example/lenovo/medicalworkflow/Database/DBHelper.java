@@ -96,7 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
+
         db.execSQL(
                 "CREATE TABLE " + MEDICINE_TABLE_NAME + "(" +
                         "_id integer primary key, name text,type text,quantity text, refundable text,injection_way text, creator_id integer, submission_id integer)"
@@ -122,7 +122,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
+
         db.execSQL("DROP TABLE IF EXISTS "+ MEDICINE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ USER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ SUBMISSION_TABLE_NAME);

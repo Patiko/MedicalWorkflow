@@ -88,7 +88,7 @@ public class CheckSubmissionListByPatient extends Activity implements AdapterVie
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                // TODO Auto-generated method stub
+
                 int id_To_Search = cursor.getInt(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_ID));
                 //          boolean visibility=true;
                 if(id_To_Search!=0){
