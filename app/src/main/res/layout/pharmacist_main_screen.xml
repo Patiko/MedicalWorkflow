@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivitiesClass.Pharmacist.PharmacistMainScreen"
+    android:paddingTop="5sp"
+    android:paddingBottom="5sp"
+    android:paddingLeft="5sp"
+    android:paddingRight="5sp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/mainPharmacistPanelTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15sp"
+                    android:gravity="center"
+                    android:text="@string/pharmacistMainPanel"
+                    android:textColor="#003a4d"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/logout_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@mipmap/ic_exit_to_app_black_36dp"
+                    android:clickable="true"
+                    android:onClick="imageClick"
+                    android:layout_alignParentBottom="true" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/go_to_pharmacist_detailsB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="3sp"
+
+                    android:layout_marginLeft="3sp"
+                    android:layout_marginRight="3sp"
+                    android:layout_marginTop="3sp"
+                    android:background="@drawable/button_shape"
+                    android:text="@string/accountSettings"
+                    android:textAllCaps="false"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/createSubmissionB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="3sp"
+                    android:layout_marginLeft="3sp"
+                    android:layout_marginRight="3sp"
+                    android:layout_marginTop="3sp"
+                    android:background="@drawable/button_shape"
+
+                    android:text="@string/createSubmissionTitle"
+                    android:textAllCaps="false"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/checkSubmissionListB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="3sp"
+                    android:layout_marginLeft="3sp"
+                    android:layout_marginRight="3sp"
+                    android:layout_marginTop="3sp"
+                    android:background="@drawable/button_shape"
+                    android:text="@string/checkSubmissionListText"
+                    android:textAllCaps="false"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/checkSubmissionListByPatientB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="3sp"
+                    android:layout_marginLeft="3sp"
+                    android:layout_marginRight="3sp"
+                    android:layout_marginTop="3sp"
+                    android:background="@drawable/button_shape"
+                    android:text="@string/checkSubmissionListByPatientText"
+                    android:textAllCaps="false"
+                    android:textSize="15sp" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

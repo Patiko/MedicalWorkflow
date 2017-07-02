@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lenovo.medicalworkflow">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorMainScreen" />
+        <activity android:name="com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DisplayMedicine" />
+        <activity android:name="com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.CheckMedicineList"
+            android:label="@string/provideMedicineName"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/medicine_searchable" />
+
+        </activity>
+        <activity android:name="com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorUserDetails"/>
+        <activity android:name="com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.SearchPatient"
+            android:label="@string/providePesel"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+
+        <activity android:name=".ActivitiesClass.Doctor.SearchPatientForSubmissionList"/>
+        <activity android:name=".ActivitiesClass.CheckSubmissionListByPatient"/>
+
+        <activity android:name=".ActivitiesClass.CheckSubmissionList"/>
+        <activity android:name=".ActivitiesClass.DisplaySubmission"/>
+        <activity android:name=".ActivitiesClass.AddSubmission"/>
+
+        <activity android:name=".ActivitiesClass.Doctor.UsedPatientDetails"/>
+
+        <activity android:name=".ActivitiesClass.NFZWorker.NfzWorkerMainScreen"/>
+        <activity android:name=".ActivitiesClass.NFZWorker.NfzWorkerUserDetails"/>
+
+        <activity android:name=".ActivitiesClass.Pharmacist.PharmacistMainScreen"/>
+        <activity android:name=".ActivitiesClass.Pharmacist.PharmacistUserDetails"/>
+
+
+        <activity android:name=".ActivitiesClass.Patient.PatientMainScreen"/>
+        <activity android:name=".ActivitiesClass.Patient.PatientUserDetails"/>
+        <activity android:name=".ActivitiesClass.Registration.RegisterUser"/>
+
+        <activity android:name="com.example.lenovo.medicalworkflow.Database.AndroidDatabaseManager"/>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,119 @@
+<resources>
+    <string name="app_name">Medical Workflow</string>
+    <string name="app_name_pl">Workflow Medyczny</string>
+    <string name="login_screen">Ekran logowania</string>
+    <string name="give_login">Podaj login</string>
+    <string name="login">Login</string>
+    <string name="password">Hasło</string>
+    <string name="loginBtn">Zaloguj</string>
+    <string name="register_link">Nie masz konta? Zarejestruj się.</string>
+    <string name="cancel">Anuluj</string>
+    <string name="remaining_attempts">Pozostało prób:</string>
+    <string name="doctorMainPanel">Główny panel lekarza</string>
+
+    <string name="patientMainPanel">Główny panel pacjenta</string>
+    <string name="accountSettings">Ustawienia konta</string>
+    <string name="additionalSettings">Dodatkowe informacje</string>
+    <string name="birthdate">Data urodzenia (DD.MM.RRRR)</string>
+
+    <string name="npwz">Numer Prawa Wykonywania Zawodu</string>
+    <string name="specialisations">Specjalizacje</string>
+
+    <string name="workData">Dane miejsca pracy</string>
+    <string name="regon">REGON</string>
+    <string name="workName">Nazwa placówki</string>
+    <string name="registryEntry">Nr wpisu w rejestrze</string>
+
+    <string name="searchPatientTitle">Wyszukaj pacjenta</string>
+    <string name="providePesel">Podaj PESEL pacjenta</string>
+    <string name="search">Szukaj</string>
+    <string name="chooseUser">Wybierz tego pacjenta</string>
+    <string name="createSubmissionTitle">Utwórz recepte</string>
+
+    <string name="searchMedicineTitle">Wyszukaj lek</string>
+    <string name="provideMedicineName">Podaj nazwe leku</string>
+
+    <string name="checkSubmissionList">Lista wniosków</string>
+    <string name="submissionTypeTV">Typ wniosku</string>
+    <string name="checkSubmissionListText">Lista wszystkich wniosków</string>
+    <string name="checkSubmissionListByPatientText">Lista wniosków dla wybranego pacjenta</string>
+    <string name="createdDate">Data wystawienia: </string>
+    <string name="doc_id">ID: </string>
+    <string name="recepta">Recepta</string>
+    <string name="patientPanel">Pacjent</string>
+    <string name="patientPayerPanel">Płatnik</string>
+    <string name="doctorPanel">Wystawca dokumentu</string>
+    <string name="doctorPlacePanel">Miejsce wystawienia</string>
+    <string name="docType">Typ wniosku</string>
+    <string name="docName">Nazwa wniosku</string>
+    <string name="addSubmissionTitle">Dodaj wniosek</string>
+    <string name="saveSubmission">Utwórz</string>
+
+
+    <string name="patientTV">Wybrany pacjent:</string>
+    <string name="address">Adres miejsca zamieszkania</string>
+    <string name="workAddress">Adres miejsca pracy</string>
+    <string name="phoneNumber">Nr telefonu</string>
+    <string name="street">Ulica</string>
+    <string name="nrDom">Nr domu</string>
+    <string name="nrMies">Nr lokalu</string>
+    <string name="postCode">Kod pocztowy</string>
+    <string name="city">Miasto</string>
+    <string name="saveSettings">Zapisz zmiany</string>
+    <string name="first_nameE">Imię</string>
+    <string name="last_nameE">Naziwsko</string>
+    <string name="peselE">PESEL</string>
+    <string name="loginTVE">Login</string>
+    <string name="passwordYourE">Twoje hasło</string>
+    <string name="profilE">Profil</string>
+
+
+    <string name="addUser">Rejestracja konta</string>
+    <string name="first_name">Imię*</string>
+    <string name="last_name">Naziwsko*</string>
+    <string name="pesel">PESEL*</string>
+    <string name="loginTV">Login*</string>
+    <string name="passwordYour">Twoje hasło*</string>
+    <string name="profil">Profil*</string>
+    <string name="insured">Nr dokumentu uprawnień</string>
+    <string name="saveUser">Utwórz konto</string>
+
+
+
+
+    <string name="checkMedicineList">Lista dodanych leków</string>
+    <string name="save">Zapisz lek</string>
+    <string name="medicine_details">Szczegóły leku</string>
+    <string name="medicine_name">Nazwa*</string>
+    <string name="medicine_type">Typ*</string>
+    <string name="medicine_quantity">Ilość*</string>
+    <string name="medicine_refundable">Refundowalny?*</string>
+    <string name="medicine_injectionway">Sposób podania</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="Add_New">Add New</string>
+    <string name="addMedicine">Dodaj lek</string>
+    <string name="edit">Edytuj lek</string>
+    <string name="delete">Usuń lek</string>
+    <string name="title_activity_display_contact">DisplayContact</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+
+
+
+    <string name="nfzWorkerMainPanel">Panel pracownika NFZ</string>
+
+    <string name="pharmacistMainPanel">Główny panel farmaceuty</string>
+
+    <string name="country">City/State/Zip</string>
+    <string name="deleteContact">Are you sure, you want to delete it.</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+
+
+
+
+</resources>

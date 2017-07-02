@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="profil_array">
+        <item>Pacjent</item>
+        <item>Lekarz</item>
+        <item>Pracownik NFZ</item>
+        <item>Farmaceuta</item>
+    </string-array>
+
+    <string-array name="submission_type_array">
+        <item>Recepta standardowa</item>
+        <item>Recepta farmaceutyczna</item>
+        <item>Skierowanie na leczenie uzdrowiskowe</item>
+        <item>Zlecenie na wyroby medyczne</item>
+    </string-array>
+
+
+</resources>

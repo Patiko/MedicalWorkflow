@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height = "match_parent" tools:context = ".LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="5sp"
+        android:paddingBottom="5sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp">
+
+        <TextView
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:text = "@string/app_name_pl"
+            android:textColor="#003a4d"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:id = "@+id/appTitle"
+            android:layout_gravity="center"/>
+
+        <TextView android:text = "@string/login_screen"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/login_textview"
+            android:textColor="#003a41"
+            android:textSize = "28sp"
+            android:layout_gravity="center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_header_textview"
+            android:text="@string/login"
+            android:layout_marginTop = "35dp"
+            />
+
+        <EditText
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/editText"
+            android:hint = "@string/give_login"
+            android:focusable = "true"
+            android:textColorHighlight = "#ff7eff15"
+            android:textColorHint = "#248f8f"
+
+            android:maxLines="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pass_header_textview"
+            android:text="@string/password"
+            android:layout_marginTop="20sp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/editText2"
+            android:textColorHint="#248f8f"
+            android:hint="@string/password"
+            android:maxLines="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10sp"
+
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remaining_attempts"
+                android:id="@+id/textView2"
+                android:textSize="15sp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView3"
+                android:textSize="15sp"
+
+                android:layout_weight="1.5"
+                />
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/layout1"
+            android:paddingTop="10sp"
+            android:gravity="center"
+>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zaloguj"
+                android:id="@+id/button1"
+
+                android:background="@drawable/button_shape"
+                android:textAllCaps="false"
+                android:layout_marginBottom="3sp"
+                android:layout_marginTop="3sp"
+                android:layout_marginRight="3sp"
+                android:layout_marginLeft="3sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/registerLink"
+                android:text="@string/register_link"
+                android:layout_marginTop="10sp"
+                android:textSize="15sp"
+                android:textColor="#248f8f"
+                />
+
+ <!--           <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button1"
+                android:background="@drawable/button_shape"
+                android:fontFamily="sans-serif"
+                android:text="Anuluj"
+                android:textAllCaps="false"
+                android:layout_marginBottom="3sp"
+                android:layout_marginTop="3sp"
+                android:layout_marginRight="3sp"
+                android:layout_marginLeft="3sp"/>-->
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

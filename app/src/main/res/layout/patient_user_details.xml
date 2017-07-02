@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivitiesClass.Patient.PatientUserDetails"
+    android:paddingTop="5sp"
+    android:paddingBottom="5sp"
+    android:paddingLeft="5sp"
+    android:paddingRight="5sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="5sp"
+        android:paddingBottom="5sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/home_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="homeClick"
+                android:src="@mipmap/home1"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignBottom="@+id/logout_button" />
+            <TextView
+                android:text="@string/accountSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/accountSettingsTitle"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#003a4d"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:id="@+id/logout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@mipmap/ic_exit_to_app_black_36dp"
+                android:clickable="true"
+                android:onClick="imageClick"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/layoutTop">
+            <TextView
+                android:id="@+id/firstNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/first_nameE"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/firstNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.80"
+                android:inputType="text">
+                <requestFocus />
+            </EditText>
+            <TextView
+                android:id="@+id/lastNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/last_nameE"
+                android:textSize="13sp"
+                android:layout_weight="0.9"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5sp"
+                android:layout_marginRight="5sp"/>
+            <EditText
+                android:id="@+id/lastNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:inputType="text"
+                >
+
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/layoutTop2">
+            <TextView
+                android:id="@+id/peselTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="@string/peselE"/>
+
+            <EditText
+                android:id="@+id/peselET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:inputType="number" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/loginTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="@string/loginTVE"/>
+
+            <EditText
+                android:id="@+id/loginET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:inputType="text"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/passwordTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/passwordYourE"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/passwordET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="12sp"
+            android:layout_marginBottom="14sp"
+            >
+            <TextView
+                android:id="@+id/profilTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/profilE"
+
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/profilContentTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/insuredTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/insured"
+
+                android:layout_weight="1"
+                android:textSize="11.5sp"/>
+            <EditText
+                android:id="@+id/insuredET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:inputType="text" />
+        </LinearLayout>
+        <TextView
+            android:text="@string/additionalSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/additionalSettingsTitle"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#003a4d"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginTop="35sp"
+            android:layout_marginBottom="5sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/layoutt">
+            <TextView
+                android:id="@+id/birthdateTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/birthdate"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                />
+            <EditText
+                android:id="@+id/birthdateET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:inputType="date"
+                android:maxLength="10"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/layouttt">
+            <TextView
+                android:id="@+id/phoneNumberTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phoneNumber"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                />
+            <EditText
+                android:id="@+id/phoneNumberET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:inputType="phone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/addressTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:textSize="15sp"
+
+                android:layout_gravity="center"
+                android:text="@string/address"
+                android:layout_weight="0.5"/>
+
+            <EditText
+                android:id="@+id/addressET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="phone"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/streetTV"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/street"
+                android:layout_weight="1"
+                android:textSize="11.5sp"
+
+                />
+            <EditText
+                android:id="@+id/streetET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:inputType="text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/nrDomTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/nrDom"
+                android:layout_weight="0.98"
+                android:textSize="11.5sp"/>
+            <EditText
+                android:id="@+id/nrDomET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.80"
+                android:inputType="number"/>
+
+            <TextView
+                android:id="@+id/nrMiesTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nrMies"
+                android:layout_gravity="center"
+                android:textSize="11.5sp"
+                android:layout_weight="1" />
+            <EditText
+                android:id="@+id/nrMiesET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:inputType="number"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/postCodeTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/postCode"
+                android:layout_weight="0.98"
+                android:textSize="11.5sp"
+                android:layout_gravity="center"
+                />
+            <EditText
+                android:id="@+id/postCodeET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.80"
+                android:inputType="textPostalAddress"
+                android:maxLength="6">
+            </EditText>
+            <TextView
+                android:id="@+id/cityTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/city"
+                android:textSize="11.5sp"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
+            <EditText
+                android:id="@+id/cityET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:inputType="text">
+            </EditText>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="runUpdateUser"
+            android:visibility="gone"
+            android:text="@string/saveSettings"
+            android:background="@drawable/button_shape"
+            android:textAllCaps="false"
+            android:textSize="11.5sp"
+            android:layout_marginBottom="3sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginRight="3sp"
+            android:layout_marginLeft="3sp"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:visibility="gone"
+            android:text="@string/chooseUser"
+            android:background="@drawable/button_shape"
+            android:textAllCaps="false"
+            android:textSize="11.5sp"
+            android:layout_marginBottom="3sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginRight="3sp"
+            android:layout_marginLeft="3sp"
+            />
+    </LinearLayout>
+
+</ScrollView>

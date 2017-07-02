@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"  >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="3sp"
+        android:paddingRight="3sp"
+        android:paddingBottom="3sp"
+        android:paddingTop="3sp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="@string/docName"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/docNameTV"
+                android:gravity="center"
+                android:background="@drawable/border_ui"
+
+                />
+            <TextView
+                android:text="@string/docType"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/docTypeTV"
+                android:gravity="center"
+                android:background="@drawable/border_ui"
+                />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/linearlayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/border_ui"
+            android:orientation="horizontal"
+            android:paddingLeft="3sp"
+            android:paddingRight="3sp"
+            android:paddingBottom="3sp"
+            android:paddingTop="3sp">
+
+            <TextView
+                android:id="@+id/createdDateTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="0.3"
+                android:text="@string/createdDate"
+                android:textSize="12sp" />
+
+            <!-- android:layout_weight="0.3"-->
+
+            <TextView
+                android:textSize="12sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:id="@+id/docIdTV"
+                android:text="@string/doc_id"
+                android:layout_weight="1"
+               />
+            <!--  android:layout_weight="1"-->
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <LinearLayout
+                android:id="@+id/linearlayout5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:scrollbars="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/patientTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="147dp"
+                    android:background="@drawable/border_ui1"
+                    android:text="@string/patientPanel"
+
+                    android:textSize="12sp" />
+                <!-- android:layout_weight="0.3"-->
+                <TextView
+                    android:id="@+id/patientPayerTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_ui1"
+                    android:text="@string/patientPayerPanel"
+
+                    android:textSize="12sp" />
+
+                <!-- android:layout_weight="1"-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearlayout3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:scrollbars="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:textSize="12sp"
+                    android:id="@+id/doctorTV"
+                    android:text="@string/doctorPanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:background="@drawable/border_ui1"
+                   />
+                <!-- android:layout_weight="1"-->
+
+                <TextView
+                    android:id="@+id/doctorPlaceTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="136dp"
+                    android:background="@drawable/border_ui1"
+                    android:text="@string/doctorPlacePanel"
+                    android:textSize="12sp" />
+                <!--android:layout_weight="0.62" -->
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearlayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/insuredTV"
+                android:text="@string/insured"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_ui1" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearlayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            >
+            <ListView
+                android:textSize="12sp"
+                android:id="@+id/medicinesListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_ui1" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
+
+
+
+
+<!--
+    <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#ffffff"  >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="3sp"
+    android:paddingRight="3sp"
+    android:paddingBottom="3sp"
+    android:paddingTop="3sp">
+
+    <TextView
+        android:text="@string/docName"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/docNameTV"
+        android:gravity="center"
+        android:background="@drawable/border_ui"
+        />
+    <TextView
+        android:text="@string/docType"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/docTypeTV"
+        android:gravity="center"
+        android:background="@drawable/border_ui"
+        android:layout_below="@id/docNameTV"/>
+
+    <LinearLayout
+        android:id="@+id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/docTypeTV"
+        android:background="@drawable/border_ui"
+        android:orientation="horizontal"
+        android:paddingLeft="3sp"
+        android:paddingRight="3sp"
+        android:paddingBottom="3sp"
+        android:paddingTop="3sp">
+
+        <TextView
+            android:id="@+id/createdDateTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+
+            android:text="@string/createdDate"
+            android:textSize="12sp" />
+
+        &lt;!&ndash; android:layout_weight="0.3"&ndash;&gt;
+
+        <TextView
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:id="@+id/docIdTV"
+            android:text="@string/doc_id"
+            />
+        &lt;!&ndash;  android:layout_weight="1"&ndash;&gt;
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearlayout1"
+        android:orientation="horizontal"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/linearlayout5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            >
+            <TextView
+                android:textSize="12sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/patientTV"
+                android:text="@string/patientPanel"
+
+                android:background="@drawable/border_ui1"/>
+            &lt;!&ndash; android:layout_weight="0.3"&ndash;&gt;
+            <TextView
+                android:textSize="12sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/patientPayerTV"
+                android:text="@string/patientPayerPanel"
+
+                android:background="@drawable/border_ui1"/>
+
+            &lt;!&ndash; android:layout_weight="1"&ndash;&gt;
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/doctorTV"
+                android:text="@string/doctorPanel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_ui1"
+                />
+            &lt;!&ndash; android:layout_weight="1"&ndash;&gt;
+
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/doctorPlaceTV"
+                android:text="@string/doctorPlacePanel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_ui1"
+                />
+            &lt;!&ndash;android:layout_weight="0.62" &ndash;&gt;
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearlayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearlayout2"
+        android:orientation="vertical">
+
+        <TextView
+            android:textSize="12sp"
+            android:id="@+id/insuredTV"
+            android:text="@string/insured"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_ui1" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearlayout7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearlayout4"
+        android:orientation="vertical"
+        >
+        <ListView
+            android:textSize="12sp"
+            android:id="@+id/medicinesListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_ui1" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+</LinearLayout>-->
