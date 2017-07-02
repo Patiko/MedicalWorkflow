@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,7 +19,7 @@ import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMai
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistMainScreen;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
-import com.example.lenovo.medicalworkflow.LoginActivity;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
 
 /**

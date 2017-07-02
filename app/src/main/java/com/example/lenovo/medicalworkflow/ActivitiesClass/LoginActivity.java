@@ -1,4 +1,4 @@
-package com.example.lenovo.medicalworkflow;
+package com.example.lenovo.medicalworkflow.ActivitiesClass;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,6 +25,7 @@ import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistU
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Registration.RegisterUser;
 import com.example.lenovo.medicalworkflow.Database.AndroidDatabaseManager;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
+import com.example.lenovo.medicalworkflow.R;
 
 public class LoginActivity extends Activity {
 

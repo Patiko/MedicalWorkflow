@@ -18,7 +18,7 @@ import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorMainScree
 import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
-import com.example.lenovo.medicalworkflow.LoginActivity;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
 
 /**

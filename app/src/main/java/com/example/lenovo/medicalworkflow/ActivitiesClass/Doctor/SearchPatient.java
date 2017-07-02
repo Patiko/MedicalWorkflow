@@ -1,6 +1,5 @@
 package com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,14 +19,11 @@ import android.widget.Toast;
 
 import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
-import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientUserDetails;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistMainScreen;
-import com.example.lenovo.medicalworkflow.CustomAdapterPatients;
+import com.example.lenovo.medicalworkflow.CustomAdapters.CustomAdapterPatients;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
-import com.example.lenovo.medicalworkflow.LoginActivity;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
-
-import java.util.ArrayList;
 
 /**
  * Created by Lenovo on 21.05.2017.

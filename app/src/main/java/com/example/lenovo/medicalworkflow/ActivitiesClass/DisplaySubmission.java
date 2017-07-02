@@ -6,27 +6,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.CheckMedicineList;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DisplayMedicine;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistMainScreen;
-import com.example.lenovo.medicalworkflow.CustomAdapterMedicines;
+import com.example.lenovo.medicalworkflow.CustomAdapters.CustomAdapterMedicines;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
-import com.example.lenovo.medicalworkflow.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
 
 

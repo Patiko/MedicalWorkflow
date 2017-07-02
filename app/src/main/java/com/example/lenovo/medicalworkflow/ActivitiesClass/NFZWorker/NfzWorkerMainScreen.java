@@ -10,9 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientUserDetails;
 import com.example.lenovo.medicalworkflow.Database.AndroidDatabaseManager;
-import com.example.lenovo.medicalworkflow.LoginActivity;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
 
 /**

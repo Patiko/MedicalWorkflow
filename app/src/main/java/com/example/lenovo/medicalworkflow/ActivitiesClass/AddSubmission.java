@@ -4,30 +4,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.CheckMedicineList;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistMainScreen;
-import com.example.lenovo.medicalworkflow.ActivitiesClass.Registration.RegisterUser;
-import com.example.lenovo.medicalworkflow.CustomAdapterMedicines;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
-import com.example.lenovo.medicalworkflow.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Lenovo on 26.06.2017.

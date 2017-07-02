@@ -1,4 +1,4 @@
-package com.example.lenovo.medicalworkflow;
+package com.example.lenovo.medicalworkflow.CustomAdapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
+import com.example.lenovo.medicalworkflow.R;
 
 /**
  * Created by Lenovo on 22.05.2017.

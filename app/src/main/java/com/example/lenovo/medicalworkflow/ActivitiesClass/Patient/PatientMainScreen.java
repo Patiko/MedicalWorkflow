@@ -5,17 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.CheckMedicineList;
-import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DisplayMedicine;
-import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorMainScreen;
 import com.example.lenovo.medicalworkflow.Database.AndroidDatabaseManager;
-import com.example.lenovo.medicalworkflow.LoginActivity;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
 
 /**
