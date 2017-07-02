@@ -33,6 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String MEDICINE_COLUMN_INJECTION_WAY = "injection_way";
     public static final String MEDICINE_COLUMN_CREATOR_ID = "creator_id";
     public static final String MEDICINE_COLUMN_SUBMISSION_ID = "submission_id";
+    public static final String a="1";
 
     public static final String USER_TABLE_NAME="USER";
     public static final String USER_COLUMN_ID = "_id";
