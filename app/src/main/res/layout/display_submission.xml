@@ -15,18 +15,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:text="@string/docName"
-                android:textSize="20sp"
-                android:textStyle="bold"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/docNameTV"
-                android:gravity="center"
-                android:background="@drawable/border_ui"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="@string/docName"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/docNameTV"
+                    android:gravity="center"
+                    android:background="@drawable/border_ui" />
+                <ImageView
+                    android:id="@+id/editSubmissionStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:clickable="true"
+                    android:onClick="statusPopUp"
 
-                />
+                    android:src="@mipmap/edit1_icon"
+                    android:layout_alignBottom="@+id/docNameTV" />
+
+
+            </RelativeLayout>
+
+
             <TextView
                 android:text="@string/docType"
                 android:textSize="16sp"

@@ -6,9 +6,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +47,10 @@ public class DisplaySubmission extends Activity {
     TextView doctorPlace;
     ListView medicineListView;
     CustomAdapterMedicines customAdapterMedicines;
+
+    ImageView editStatusPopUp;
+    ImageView openStatusPopUp;
+    Button acceptSubmission, rejectSubmission;
 
     Cursor rs, rs2, rs3,rs4;
 
@@ -238,7 +247,19 @@ public class DisplaySubmission extends Activity {
 
             }
         }
+
+        openStatusPopUp = (ImageView) findViewById(R.id.editSubmissionStatus);
+        openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
+            public void onClick(View a){
+                startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));
+            }
+        });
+
+
+
     }
+
+
 
 
     public void imageClick(View view){

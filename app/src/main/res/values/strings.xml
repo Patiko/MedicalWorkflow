@@ -30,6 +30,10 @@
     <string name="chooseUser">Wybierz tego pacjenta</string>
     <string name="createSubmissionTitle">Utwórz recepte</string>
 
+    <string name="statusPopUpTitle">Zmień status wniosku</string>
+    <string name="acceptSubmission">Zaakceptuj wniosek</string>
+    <string name="rejectSubmission">Odrzuć wniosek</string>
+
     <string name="searchMedicineTitle">Wyszukaj lek</string>
     <string name="provideMedicineName">Podaj nazwe leku</string>
 

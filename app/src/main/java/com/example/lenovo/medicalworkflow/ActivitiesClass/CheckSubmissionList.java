@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +45,10 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
     CustomAdapterSubmissions customAdapterSubmissions;
 
     TextView patientTV, userFirstName, userLastName;
+    TextView statusTV;
+    Button editStatusPopUp;
+    Button openStatusPopUp;
+    Button acceptSubmission, rejectSubmission;
 
 
 
@@ -54,6 +62,12 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
         patientTV.setVisibility(View.GONE);
         userFirstName.setVisibility(View.GONE);
         userLastName.setVisibility(View.GONE);
+        statusTV =(TextView) findViewById(R.id.txtStatus);
+      //  editStatusPopUp = (Button)findViewById(R.id.editSubmissionStatus);
+
+
+
+
 
 
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES,Context.MODE_PRIVATE);
@@ -122,6 +136,42 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
             }
         });
 
+
+/*
+
+        openStatusPopUp = (Button) findViewById(R.id.editSubmissionStatus);
+        openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
+            public void onClick(View a){
+                LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popUpView = layoutInflater.inflate(R.layout.edit_status_popup,null);
+                final PopupWindow popupWindow = new PopupWindow(
+                        popUpView,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                acceptSubmission = (Button)popUpView.findViewById(R.id.acceptButton);
+                acceptSubmission.setOnClickListener(new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+
+                        popupWindow.dismiss();
+                    }});
+                rejectSubmission = (Button)popUpView.findViewById(R.id.rejectButton);
+                rejectSubmission.setOnClickListener(new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+
+                        popupWindow.dismiss();
+                    }});
+
+                popupWindow.showAsDropDown(openStatusPopUp, 50, -30);
+            }
+        });
+*/
+
+
+    }
+
+    public void updateStatus(){
 
     }
 

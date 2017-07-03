@@ -1,6 +1,7 @@
 package com.example.lenovo.medicalworkflow.CustomAdapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.example.lenovo.medicalworkflow.ActivitiesClass.DisplaySubmission;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
 import com.example.lenovo.medicalworkflow.R;
 
@@ -25,6 +27,7 @@ public class CustomAdapterSubmissions  extends CursorAdapter {
     }
 
 
+
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View   view    =    mInflater.inflate(R.layout.submission_item, parent, false);
@@ -32,6 +35,7 @@ public class CustomAdapterSubmissions  extends CursorAdapter {
         //   holder.txtId    =   (TextView)  view.findViewById(R.id.txtId);
         holder.txtName    =   (TextView)  view.findViewById(R.id.txtName);
         holder.txtCreatedAt = (TextView) view.findViewById(R.id.txtCreatedAT);
+        holder.txtStatus = (TextView) view.findViewById(R.id.txtStatus);
        /* holder.txtFirstNamePat    =   (TextView)  view.findViewById(R.id.txtFirstNamePat);
         holder.txtLastNamePat   =   (TextView)  view.findViewById(R.id.txtLastNamePat);
         holder.txtPesel   =   (TextView)  view.findViewById(R.id.txtPesel);
@@ -54,6 +58,7 @@ public class CustomAdapterSubmissions  extends CursorAdapter {
         // holder.txtId.setText(cursor.getString(cursor.getColumnIndex(DBHelper.USER_COLUMN_ID)));
         holder.txtName.setText(cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_NAME)));
         holder.txtCreatedAt.setText(cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_CREATED_AT)));
+        holder.txtStatus.setText(cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS)));
 
 /*        holder.txtFirstNameDoc.setText(cursor.getString(cursor.getColumnIndex(DBHelper.USER_COLUMN_FIRST_NAME)));
         holder.txtLastNameDoc.setText(cursor.getString(cursor.getColumnIndex(DBHelper.USER_COLUMN_LAST_NAME)));
@@ -67,10 +72,13 @@ public class CustomAdapterSubmissions  extends CursorAdapter {
         //   TextView txtId;
         TextView txtName;
         TextView txtCreatedAt;
+        TextView txtStatus;
         TextView txtFirstNamePat;
         TextView txtLastNamePat;
         TextView txtFirstNameDoc;
         TextView txtLastNameDoc;
         TextView txtPesel;
     }
+
+
 }

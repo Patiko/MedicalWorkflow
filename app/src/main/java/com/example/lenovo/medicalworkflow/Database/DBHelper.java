@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String MEDICINE_COLUMN_INJECTION_WAY = "injection_way";
     public static final String MEDICINE_COLUMN_CREATOR_ID = "creator_id";
     public static final String MEDICINE_COLUMN_SUBMISSION_ID = "submission_id";
-    public static final String a="1";
+
 
     public static final String USER_TABLE_NAME="USER";
     public static final String USER_COLUMN_ID = "_id";
@@ -315,6 +315,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(SUBMISSION_COLUMN_DOC_NAME, doc_name);
         contentValues.put(SUBMISSION_COLUMN_DOC_TYPE, doc_type);
         contentValues.put(SUBMISSION_COLUMN_CREATED_AT, getDateTime());
+        contentValues.put(SUBMISSION_COLUMN_STATUS, "NOWA");
         db.insert(SUBMISSION_TABLE_NAME, null, contentValues);
         return true;
     }
@@ -327,7 +328,14 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(SUBMISSION_COLUMN_DOCTOR_ID, doctor_id);
         contentValues.put(SUBMISSION_COLUMN_DOC_NAME, name);
         contentValues.put(SUBMISSION_COLUMN_DOC_TYPE, doc_type);
+        db.update(SUBMISSION_TABLE_NAME, contentValues, SUBMISSION_COLUMN_ID +" = ? ", new String[] { String.valueOf(id) } );
+        return true;
+    }
 
+    public boolean updateSubmissionStatus(Integer id,String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SUBMISSION_COLUMN_STATUS, status);
         db.update(SUBMISSION_TABLE_NAME, contentValues, SUBMISSION_COLUMN_ID +" = ? ", new String[] { String.valueOf(id) } );
         return true;
     }
@@ -676,6 +684,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("doc_name", "Recepta1");
         contentValues.put("doc_type", "Recepta standardowa");
         contentValues.put("created_at", getDateTime());
+        contentValues.put("status","NOWA");
         db.insert(SUBMISSION_TABLE_NAME, null, contentValues);
         return true;
     }
@@ -687,6 +696,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("doc_name", "Recepta2");
         contentValues.put("doc_type", "Skierowanie na leczenie uzdrowiskowe");
         contentValues.put("created_at", getDateTime());
+        contentValues.put("status","NOWA");
         db.insert(SUBMISSION_TABLE_NAME, null, contentValues);
         return true;
     }

@@ -40,6 +40,8 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity android:name=".ActivitiesClass.StatusPopUp"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
 
         <activity android:name=".ActivitiesClass.Doctor.SearchPatientForSubmissionList"/>
         <activity android:name=".ActivitiesClass.CheckSubmissionListByPatient"/>
