@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_dark"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/bac_dim_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:paddingLeft="3sp"
+                android:paddingRight="3sp"
+                android:paddingBottom="3sp"
+                android:paddingTop="3sp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:id="@+id/statusPopUpTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/statusPopUpTitle" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/acceptButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/acceptSubmission" />
+
+            <Button
+                android:id="@+id/rejectButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/rejectSubmission" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -161,7 +161,7 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
                     public void onClick(View v) {
 
                         popupWindow.dismiss();
-                    }});
+                    }});vvv
 
                 popupWindow.showAsDropDown(openStatusPopUp, 50, -30);
             }
