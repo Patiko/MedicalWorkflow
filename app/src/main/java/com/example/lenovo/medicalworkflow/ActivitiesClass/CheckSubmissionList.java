@@ -97,6 +97,7 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
         listView = (ListView) findViewById(R.id.listView1);
         listView.setAdapter(customAdapterSubmissions);
         customAdapterSubmissions.notifyDataSetChanged();
+      //  listView.invalidateViews();
 
 
   /*      array_list = mydb.getAllSubmissionByType(docType);
@@ -169,11 +170,37 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
 */
 
 
-    }
-
-    public void updateStatus(){
 
     }
+/*    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        new CheckSubmissionList();
+    }*/
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        finish();
+        Intent i = new Intent(this,CheckSubmissionList.class);
+        startActivity(i);
+        //  startActivity(getIntent());
+
+    }
+/*
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        //Refresh your stuff here
+        new CheckSubmissionList();
+    }
+*/
+
 
 
     private int getIndex(Spinner spinner, String myString){

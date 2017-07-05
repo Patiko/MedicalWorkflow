@@ -76,8 +76,9 @@ public class StatusPopUp extends Activity {
         setContentView(R.layout.edit_status_popup);
         acceptBtn= (Button) findViewById(R.id.acceptButton);
         rejectBtn= (Button) findViewById(R.id.rejectButton);
-
+        mydb = new DBHelper(this);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+
 
 
 
@@ -114,26 +115,41 @@ public class StatusPopUp extends Activity {
         });*/
 
     }
-    public void setAcceptStatus(){
-        int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
-        Cursor cursor=mydb.getAllSubmissionData(ValueSubmissionId);
-        mydb.updateSubmissionStatus(ValueSubmissionId,accepted);
+    public void setAcceptStatus(View view){
 
-        String submissionName= cursor.getString(cursor.getColumnIndex("doc_name"));
-        Toast.makeText(getApplicationContext(), "Wniosek " +submissionName+" został zaakceptowany!",
-                Toast.LENGTH_LONG).show();
+        int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
+        mydb.updateSubmissionStatus(ValueSubmissionId,accepted);
+        Cursor rs = mydb.getSubmissionData(ValueSubmissionId);
+        if(rs!=null && rs.moveToFirst()){
+
+            String doc_nam = rs.getString(rs.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_NAME));
+
+            if (!rs.isClosed())  {
+                rs.close();
+            }
+            Toast.makeText(getApplicationContext(), "Wniosek " +doc_nam+" został zaakceptowany!",
+                    Toast.LENGTH_LONG).show();
+
+        }
         finish();
     }
 
-    public void setDeclineStatus(){
-        int a;
-        int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
-        Cursor cursor=mydb.getAllSubmissionData(ValueSubmissionId);
-        mydb.updateSubmissionStatus(ValueSubmissionId,rejected);
+    public void setDeclineStatus(View view){
 
-        String submissionName= cursor.getString(cursor.getColumnIndex("doc_name"));
-        Toast.makeText(getApplicationContext(), "Wniosek " +submissionName+" został odrzucony!",
-                Toast.LENGTH_LONG).show();
+        int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
+        mydb.updateSubmissionStatus(ValueSubmissionId,rejected);
+        Cursor rs=mydb.getAllSubmissionData(ValueSubmissionId);
+        if(rs!=null && rs.moveToFirst()){
+
+            String doc_nam = rs.getString(rs.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_NAME));
+
+            if (!rs.isClosed())  {
+                rs.close();
+            }
+            Toast.makeText(getApplicationContext(), "Wniosek " +doc_nam+" został odrzucony!",
+                    Toast.LENGTH_LONG).show();
+
+        }
         finish();
     }
 

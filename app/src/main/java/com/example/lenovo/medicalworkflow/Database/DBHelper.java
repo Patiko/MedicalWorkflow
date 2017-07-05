@@ -336,7 +336,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(SUBMISSION_COLUMN_STATUS, status);
-        db.update(SUBMISSION_TABLE_NAME, contentValues, SUBMISSION_COLUMN_ID +" = ? ", new String[] { String.valueOf(id) } );
+        db.update(SUBMISSION_TABLE_NAME, contentValues, SUBMISSION_COLUMN_ID +" = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
 
@@ -349,14 +349,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getAllSubmissionData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "SELECT * FROM SUBMISSION WHERE "+SUBMISSION_COLUMN_ID+"="+id+"", null );
-
-            if (res == null) {
-                return null;
-            } else if (!res.moveToFirst()) {
-                res.close();
-                return null;
-            }
-
 
         return res;
     }

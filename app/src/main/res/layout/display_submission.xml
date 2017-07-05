@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="ZAAKCEPTOWANY"
+                    android:text="STATUS"
                     android:layout_weight="1.6"
                     android:gravity="right"/>
             </LinearLayout>

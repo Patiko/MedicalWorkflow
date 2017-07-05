@@ -45,6 +45,7 @@ public class DisplaySubmission extends Activity {
     TextView patientInsuredId;
     TextView doctor;
     TextView doctorPlace;
+    TextView status;
     ListView medicineListView;
     CustomAdapterMedicines customAdapterMedicines;
 
@@ -73,6 +74,7 @@ public class DisplaySubmission extends Activity {
         patientInsuredId = (TextView) findViewById(R.id.insuredTV);
         doctor = (TextView) findViewById(R.id.doctorTV);
         doctorPlace = (TextView) findViewById(R.id.doctorPlaceTV);
+        status = (TextView) findViewById(R.id.submissionStatus);
         medicineListView = (ListView) findViewById(R.id.medicinesListView);
 
         mydb = new DBHelper(this);
@@ -236,6 +238,7 @@ public class DisplaySubmission extends Activity {
                 String doc_typ = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_TYPE));
                 String createA = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_CREATED_AT));
                 String doc_i = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_ID));
+                String statu = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS));
 
                 if (!rs4.isClosed())  {
                     rs4.close();
@@ -244,6 +247,8 @@ public class DisplaySubmission extends Activity {
                 doc_type.setText("Typ: "+(CharSequence)doc_typ);
                 createdAt.setText("Data wystawienia: "+(CharSequence)createA);
                 doc_id.setText("ID: "+(CharSequence)doc_i);
+                status.setText((CharSequence)statu);
+
 
             }
         }
@@ -258,7 +263,48 @@ public class DisplaySubmission extends Activity {
 
 
     }
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        finish();
+        Intent i = new Intent(this,DisplaySubmission.class);
+        startActivity(i);
+      //  startActivity(getIntent());
 
+    }
+    @Override
+    public void onResume() {  // After a pause OR at startup
+        super.onResume();
+        //Refresh your stuff here
+        int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId, 0);
+        Cursor rs4 = mydb.getSubmissionData(ValueSubmissionId);
+        if (rs4 != null && rs4.moveToFirst()) {
+            //  id_To_Update2 = ValueDoctorId;
+
+            String doc_nam = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_NAME));
+            String doc_typ = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_TYPE));
+            String createA = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_CREATED_AT));
+            String doc_i = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_ID));
+            String statu = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS));
+
+            if (!rs4.isClosed()) {
+                rs4.close();
+            }
+            doc_name.setText("Nazwa: " + (CharSequence) doc_nam);
+            doc_type.setText("Typ: " + (CharSequence) doc_typ);
+            createdAt.setText("Data wystawienia: " + (CharSequence) createA);
+            doc_id.setText("ID: " + (CharSequence) doc_i);
+            status.setText((CharSequence) statu);
+        }
+    }
+
+/*    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        refreshData();
+    }*/
 
 
 

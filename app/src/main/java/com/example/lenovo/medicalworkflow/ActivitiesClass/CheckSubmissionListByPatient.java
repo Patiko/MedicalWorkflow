@@ -173,6 +173,17 @@ public class CheckSubmissionListByPatient extends Activity implements AdapterVie
 
     }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        finish();
+        Intent i = new Intent(this,CheckSubmissionList.class);
+        startActivity(i);
+        //  startActivity(getIntent());
+
+    }
 
 
     public void imageClick(View view){
