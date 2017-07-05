@@ -126,6 +126,7 @@ public class StatusPopUp extends Activity {
     }
 
     public void setDeclineStatus(){
+        int a;
         int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
         Cursor cursor=mydb.getAllSubmissionData(ValueSubmissionId);
         mydb.updateSubmissionStatus(ValueSubmissionId,rejected);
