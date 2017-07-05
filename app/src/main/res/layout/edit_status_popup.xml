@@ -43,14 +43,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/acceptSubmission" />
+                android:text="@string/acceptSubmission"
+                android:clickable="true"
+                android:onClick="setAcceptStatus"/>
 
             <Button
                 android:id="@+id/rejectButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/rejectSubmission" />
+                android:text="@string/rejectSubmission"
+                android:clickable="true"
+                android:onClick="setDeclineStatus"/>
 
         </LinearLayout>
 

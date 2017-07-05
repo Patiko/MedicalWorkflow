@@ -1,18 +1,25 @@
 package com.example.lenovo.medicalworkflow.ActivitiesClass;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.example.lenovo.medicalworkflow.Database.DBHelper;
 import com.example.lenovo.medicalworkflow.R;
 
 /**
@@ -58,9 +65,19 @@ public class StatusPopUp extends Activity {
 */
 
 public class StatusPopUp extends Activity {
+    Button acceptBtn, rejectBtn;
+    SharedPreferences sharedPreferences;
+    private DBHelper mydb;
+    String accepted="ZAAKCEPTOWANA";
+    String rejected="ODRZUCONA";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_status_popup);
+        acceptBtn= (Button) findViewById(R.id.acceptButton);
+        rejectBtn= (Button) findViewById(R.id.rejectButton);
+
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
 
 
 
@@ -79,7 +96,44 @@ public class StatusPopUp extends Activity {
         back_dim_layout.setVisibility(View.VISIBLE);*/
 
 
+        /*      acceptBtn.setOnClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 
+                int id_To_Search = cursor.getInt(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_ID));
+
+                    Intent intent = new Intent(getApplicationContext(), DisplaySubmission.class);
+                    //        intent.putExtras(dataBundle);
+                    startActivity(intent);
+                    // arrayAdapter.notifyDataSetChanged();
+                }
+
+
+
+            }
+        });*/
+
+    }
+    public void setAcceptStatus(){
+        int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
+        Cursor cursor=mydb.getAllSubmissionData(ValueSubmissionId);
+        mydb.updateSubmissionStatus(ValueSubmissionId,accepted);
+
+        String submissionName= cursor.getString(cursor.getColumnIndex("doc_name"));
+        Toast.makeText(getApplicationContext(), "Wniosek " +submissionName+" został zaakceptowany!",
+                Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    public void setDeclineStatus(){
+        int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
+        Cursor cursor=mydb.getAllSubmissionData(ValueSubmissionId);
+        mydb.updateSubmissionStatus(ValueSubmissionId,rejected);
+
+        String submissionName= cursor.getString(cursor.getColumnIndex("doc_name"));
+        Toast.makeText(getApplicationContext(), "Wniosek " +submissionName+" został odrzucony!",
+                Toast.LENGTH_LONG).show();
+        finish();
     }
 
 }

@@ -17,7 +17,9 @@
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_ui">
+
                 <TextView
                     android:text="@string/docName"
                     android:textSize="20sp"
@@ -26,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/docNameTV"
                     android:gravity="center"
-                    android:background="@drawable/border_ui" />
+                    />
                 <ImageView
                     android:id="@+id/editSubmissionStatus"
                     android:layout_width="wrap_content"
@@ -34,25 +36,46 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:clickable="true"
-                    android:onClick="statusPopUp"
 
                     android:src="@mipmap/edit1_icon"
                     android:layout_alignBottom="@+id/docNameTV" />
 
 
             </RelativeLayout>
-
-
-            <TextView
-                android:text="@string/docType"
-                android:textSize="16sp"
-                android:textStyle="bold"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/docTypeTV"
-                android:gravity="center"
-                android:background="@drawable/border_ui"
-                />
+                android:orientation="horizontal"
+                android:background="@drawable/border_ui">
+
+                <TextView
+                    android:text="@string/docType"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/docTypeTV"
+
+
+                    android:layout_weight="1"
+                    />
+            <!--    <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>-->
+                <TextView
+                    android:id="@+id/submissionStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="ZAAKCEPTOWANY"
+                    android:layout_weight="1.6"
+                    android:gravity="right"/>
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
 
@@ -123,6 +146,8 @@
 
                     android:textSize="12sp" />
                 <!-- android:layout_weight="0.3"-->
+
+
                 <TextView
                     android:id="@+id/patientPayerTV"
                     android:layout_width="match_parent"

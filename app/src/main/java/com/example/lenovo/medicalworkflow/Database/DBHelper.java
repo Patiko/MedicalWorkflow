@@ -348,7 +348,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllSubmissionData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM SUBMISSION s, USER u, MEDICINE m WHERE s.user_id=u._id and s.medicine_id=m._id and s.doctor_id=u._id AND "+"s."+SUBMISSION_COLUMN_ID+"="+id+"", null );
+        Cursor res =  db.rawQuery( "SELECT * FROM SUBMISSION WHERE "+SUBMISSION_COLUMN_ID+"="+id+"", null );
+
+            if (res == null) {
+                return null;
+            } else if (!res.moveToFirst()) {
+                res.close();
+                return null;
+            }
+
+
         return res;
     }
 
