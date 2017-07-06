@@ -91,8 +91,14 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
         spinnerDocType.setOnItemSelectedListener(this);
 
         String docType = (String) spinnerDocType.getSelectedItem().toString();
+        String loggedProfile = sharedPreferences.getString(LoginActivity.LoggedProfileId,"");
+        if(loggedProfile.equals(LoginActivity.patient)){
+            cursor = (Cursor) mydb.getAllSubmissionByTypeAndPatient(docType,ValueDoctorId);
+        }else {
+            cursor = (Cursor) mydb.getAllSubmissionByType(docType,ValueDoctorId);
+        }
 
-        cursor = (Cursor) mydb.getAllSubmissionByType(docType);
+    //    cursor = (Cursor) mydb.getAllSubmissionByType(docType,ValueDoctorId);
         customAdapterSubmissions = new CustomAdapterSubmissions(CheckSubmissionList.this, cursor, 0);
         listView = (ListView) findViewById(R.id.listView1);
         listView.setAdapter(customAdapterSubmissions);
@@ -223,8 +229,14 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
         int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);
         int ValuePatientId = sharedPreferences.getInt(LoginActivity.UsedUserId,0);
         String docType = (String) spinnerDocType.getSelectedItem().toString();
+        String loggedProfile = sharedPreferences.getString(LoginActivity.LoggedProfileId,"");
+        if(loggedProfile.equals(LoginActivity.patient)){
+            cursor = (Cursor) mydb.getAllSubmissionByTypeAndPatient(docType,ValueDoctorId);
+        }else {
+            cursor = (Cursor) mydb.getAllSubmissionByType(docType,ValueDoctorId);
+        }
 
-        cursor = (Cursor) mydb.getAllSubmissionByType(docType);
+
         customAdapterSubmissions = new CustomAdapterSubmissions(CheckSubmissionList.this, cursor, 0);
         listView = (ListView) findViewById(R.id.listView1);
         listView.setAdapter(customAdapterSubmissions);

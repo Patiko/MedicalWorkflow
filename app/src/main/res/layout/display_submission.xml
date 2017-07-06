@@ -46,7 +46,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/border_ui">
+                android:background="@drawable/border_ui"
+                android:paddingLeft="3sp"
+                android:paddingRight="3sp"
+                android:paddingBottom="3sp"
+                android:paddingTop="3sp">
 
                 <TextView
                     android:text="@string/docType"

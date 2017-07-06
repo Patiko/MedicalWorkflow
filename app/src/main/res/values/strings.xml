@@ -39,7 +39,7 @@
 
     <string name="checkSubmissionList">Lista wniosków</string>
     <string name="submissionTypeTV">Typ wniosku</string>
-    <string name="checkSubmissionListText">Lista wszystkich wniosków</string>
+    <string name="checkSubmissionListText">Lista wniosków zalogowanego użytkonika</string>
     <string name="checkSubmissionListByPatientText">Lista wniosków dla wybranego pacjenta</string>
     <string name="createdDate">Data wystawienia: </string>
     <string name="doc_id">ID: </string>

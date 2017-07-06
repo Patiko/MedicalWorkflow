@@ -74,6 +74,20 @@
                     android:textAllCaps="false"
                     android:textSize="15sp" />
 
+                <Button
+                    android:id="@+id/checkSubmissionListB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="3sp"
+                    android:layout_marginLeft="3sp"
+                    android:layout_marginRight="3sp"
+                    android:layout_marginTop="3sp"
+                    android:background="@drawable/button_shape"
+                    android:text="@string/checkSubmissionListText"
+                    android:textAllCaps="false"
+                    android:textSize="15sp" />
+
 <!--                <Button
                     android:id="@+id/checkMedicineListB"
                     android:layout_width="match_parent"

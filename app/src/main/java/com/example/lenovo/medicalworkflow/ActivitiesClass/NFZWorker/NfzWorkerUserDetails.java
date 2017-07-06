@@ -104,7 +104,7 @@ public class NfzWorkerUserDetails extends Activity {
     /*    if(extras !=null) {
             int Value = extras.getInt("userIdKey");*/
         int Value = sharedpreferences.getInt(LoginActivity.UserId,0);
-        Toast.makeText(getApplicationContext(), "USER ID " + Value, Toast.LENGTH_LONG).show();
+     //   Toast.makeText(getApplicationContext(), "USER ID " + Value, Toast.LENGTH_LONG).show();
         if (Value > 0) {
             //means this is the view part not the add contact part.
 /*                if(mydb.getMedicineData(Value).equals(null)||mydb.getMedicineData(Value).equals("")){

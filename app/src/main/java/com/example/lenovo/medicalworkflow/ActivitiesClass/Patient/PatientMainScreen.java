@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.medicalworkflow.ActivitiesClass.CheckSubmissionList;
 import com.example.lenovo.medicalworkflow.Database.AndroidDatabaseManager;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
@@ -33,6 +34,14 @@ public class PatientMainScreen extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(PatientMainScreen.this, PatientUserDetails.class);
           //      i.putExtra("userIdKey",userIdFromLogin+1);
+                startActivity(i);
+            }
+        });
+
+        b2=(Button)findViewById(R.id.checkSubmissionListB);
+        b2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent i = new Intent(PatientMainScreen.this, CheckSubmissionList.class);
                 startActivity(i);
             }
         });

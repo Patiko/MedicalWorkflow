@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,8 +52,28 @@ public class CheckSubmissionListByPatient extends Activity implements AdapterVie
 
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         //int ValueUserId = sharedPreferences.getInt(LoginActivity.UsedMedicineId,0);
-        int ValuePatientId = sharedPreferences.getInt(LoginActivity.UsedUserId,0);
+        int ValuePatientId= sharedPreferences.getInt(LoginActivity.UsedUserId,0);
         int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);
+
+    /*    String loggedProfile = sharedPreferences.getString(LoginActivity.LoggedProfileId,"");
+        switch (loggedProfile){
+            case LoginActivity.doctor:
+
+                ValuePatientId= sharedPreferences.getInt(LoginActivity.UsedUserId,0);
+                break;
+            case LoginActivity.patient:
+                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień!",
+                        Toast.LENGTH_LONG).show();
+                break;
+            case LoginActivity.pharmacist:
+
+                break;
+            case LoginActivity.nfzWorker:
+                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień!",
+                        Toast.LENGTH_LONG).show();
+                break;
+        }*/
+
 
         spinnerDocType = (Spinner) findViewById(R.id.submissionTypeSpinner);
         mydb = new DBHelper(this);
@@ -71,6 +93,7 @@ public class CheckSubmissionListByPatient extends Activity implements AdapterVie
         spinnerDocType.setOnItemSelectedListener(this);
 
         String docType = (String) spinnerDocType.getSelectedItem().toString();
+
 
         cursor = (Cursor) mydb.getAllSubmissionByTypeAndPatient(docType,ValuePatientId);
         customAdapterSubmissions = new CustomAdapterSubmissions(CheckSubmissionListByPatient.this, cursor, 0);
@@ -179,7 +202,7 @@ public class CheckSubmissionListByPatient extends Activity implements AdapterVie
         //When BACK BUTTON is pressed, the activity on the stack is restarted
         //Do what you want on the refresh procedure here
         finish();
-        Intent i = new Intent(this,CheckSubmissionList.class);
+        Intent i = new Intent(this,CheckSubmissionListByPatient.class);
         startActivity(i);
         //  startActivity(getIntent());
 

@@ -456,10 +456,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-    public Cursor getAllSubmissionByType(String doc_type) {
+    public Cursor getAllSubmissionByType(String doc_type, Integer doctor_id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor =db.query(SUBMISSION_TABLE_NAME,null," doc_type=? ",new String[]{doc_type},null,null,null);
+        Cursor cursor =db.query(SUBMISSION_TABLE_NAME,null," doc_type=? and doctor_id=? ",new String[]{doc_type,Integer.toString(doctor_id)},null,null,null);
         cursor.moveToFirst();
         if (cursor == null) {
             return null;

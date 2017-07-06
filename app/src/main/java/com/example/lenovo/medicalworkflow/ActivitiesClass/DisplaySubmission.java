@@ -261,6 +261,46 @@ public class DisplaySubmission extends Activity {
         });
 
 
+        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES,Context.MODE_PRIVATE);
+        String loggedProfile = sharedPreferences.getString(LoginActivity.LoggedProfileId,"");
+        switch (loggedProfile){
+            case LoginActivity.doctor:
+                openStatusPopUp = (ImageView) findViewById(R.id.editSubmissionStatus);
+                openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
+                    public void onClick(View a){
+                        startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));
+                    }
+                });
+                break;
+            case LoginActivity.patient:
+                openStatusPopUp = (ImageView) findViewById(R.id.editSubmissionStatus);
+                openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
+                    public void onClick(View a){
+                        Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
+            case LoginActivity.pharmacist:
+                openStatusPopUp = (ImageView) findViewById(R.id.editSubmissionStatus);
+                openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
+                    public void onClick(View a){
+                        startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));
+                    }
+                });
+                break;
+            case LoginActivity.nfzWorker:
+                openStatusPopUp = (ImageView) findViewById(R.id.editSubmissionStatus);
+                openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
+                    public void onClick(View a){
+                        Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
+        }
+
+
 
     }
     @Override
