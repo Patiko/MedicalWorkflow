@@ -46,12 +46,16 @@ public class DisplaySubmission extends Activity {
     TextView doctor;
     TextView doctorPlace;
     TextView status;
+    TextView realisationDate;
+    TextView expiryDate;
     ListView medicineListView;
     CustomAdapterMedicines customAdapterMedicines;
 
     ImageView editStatusPopUp;
     ImageView openStatusPopUp;
     Button acceptSubmission, rejectSubmission;
+
+
 
     Cursor rs, rs2, rs3,rs4;
 
@@ -76,6 +80,9 @@ public class DisplaySubmission extends Activity {
         doctorPlace = (TextView) findViewById(R.id.doctorPlaceTV);
         status = (TextView) findViewById(R.id.submissionStatus);
         medicineListView = (ListView) findViewById(R.id.medicinesListView);
+        realisationDate = (TextView) findViewById(R.id.realisationDateTV);
+        expiryDate = (TextView) findViewById(R.id.expiryDateTV);
+
 
         mydb = new DBHelper(this);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES,Context.MODE_PRIVATE);
@@ -239,15 +246,21 @@ public class DisplaySubmission extends Activity {
                 String createA = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_CREATED_AT));
                 String doc_i = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_ID));
                 String statu = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS));
+                String realisation_dat = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_REALISATION_DATE));
+                String expiry_dat = rs4.getString(rs4.getColumnIndex(DBHelper.SUBMISSION_COLUMN_EXPIRY_DATE));
 
                 if (!rs4.isClosed())  {
                     rs4.close();
                 }
-                doc_name.setText("Nazwa: "+ (CharSequence)doc_nam);
-                doc_type.setText("Typ: "+(CharSequence)doc_typ);
-                createdAt.setText("Data wystawienia: "+(CharSequence)createA);
-                doc_id.setText("ID: "+(CharSequence)doc_i);
+                doc_name.setText(" Nazwa: "+ (CharSequence)doc_nam);
+                doc_type.setText(" Typ: "+(CharSequence)doc_typ);
+                createdAt.setText(" Data wystawienia: "+(CharSequence)createA);
+                doc_id.setText(" ID: "+(CharSequence)doc_i);
                 status.setText((CharSequence)statu);
+                realisationDate.setText(" Data realizacji od dnia: "+(CharSequence)realisation_dat);
+                expiryDate.setText(" Data ważności: "+(CharSequence)expiry_dat);
+
+
 
 
             }
@@ -332,10 +345,10 @@ public class DisplaySubmission extends Activity {
             if (!rs4.isClosed()) {
                 rs4.close();
             }
-            doc_name.setText("Nazwa: " + (CharSequence) doc_nam);
-            doc_type.setText("Typ: " + (CharSequence) doc_typ);
-            createdAt.setText("Data wystawienia: " + (CharSequence) createA);
-            doc_id.setText("ID: " + (CharSequence) doc_i);
+            doc_name.setText(" Nazwa: " + (CharSequence) doc_nam);
+            doc_type.setText(" Typ: " + (CharSequence) doc_typ);
+            createdAt.setText(" Data wystawienia: " + (CharSequence) createA);
+            doc_id.setText(" ID: " + (CharSequence) doc_i);
             status.setText((CharSequence) statu);
         }
     }

@@ -1,7 +1,9 @@
 package com.example.lenovo.medicalworkflow.Database;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -68,6 +70,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String SUBMISSION_COLUMN_DOC_TYPE = "doc_type";
     public static final String SUBMISSION_COLUMN_CREATED_AT = "created_at";
     public static final String SUBMISSION_COLUMN_STATUS = "status";
+    public static final String SUBMISSION_COLUMN_EXPIRY_DATE = "expiry_date";
+    public static final String SUBMISSION_COLUMN_REALISATION_DATE = "realisation_date";
 
 
     public static final String STATE_TABLE_NAME= "STATE";
@@ -110,7 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
         );
 
         db.execSQL(
-                "CREATE TABLE " + SUBMISSION_TABLE_NAME+"(_id integer primary key, user_id integer,doctor_id integer, doc_name text, doc_type text, created_at datetime, status text)"
+                "CREATE TABLE " + SUBMISSION_TABLE_NAME+"(_id integer primary key, user_id integer,doctor_id integer, doc_name text, doc_type text, created_at datetime, status text, expiry_date datetime, realisation_date datetime)"
         );
 
         //  db.execSQL(CREATE_TABLE_SUBMISSION);
@@ -305,8 +309,29 @@ public class DBHelper extends SQLiteOpenHelper {
         return dateFormat.format(date);
     }
 
+    public String getDatePlusDays( int days) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd.MM.yyyy HH:mm", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR,days);
+
+        return dateFormat.format(new Date(calendar.getTimeInMillis()));
+    }
+
+    public String getExpiryDate(String date,String dateFormat, int days) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat s = new SimpleDateFormat(dateFormat,Locale.getDefault());
+        Date usedData = s.parse(date);
+        calendar.setTime(usedData);
+        calendar.add(Calendar.DAY_OF_YEAR,days);
+        return s.format(new Date(calendar.getTimeInMillis()));
+    }
+
+
+
     //SUBMISSION TABLE //
-    public boolean insertSubmission( Integer user_id ,Integer doctor_id, String doc_name, String doc_type ) {
+    public boolean insertSubmission( Integer user_id ,Integer doctor_id, String doc_name, String doc_type, String expiry_date, String realisation_date ) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
      //   contentValues.put(SUBMISSION_COLUMN_MEDICINE_ID, medicine_id);
@@ -316,6 +341,9 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(SUBMISSION_COLUMN_DOC_TYPE, doc_type);
         contentValues.put(SUBMISSION_COLUMN_CREATED_AT, getDateTime());
         contentValues.put(SUBMISSION_COLUMN_STATUS, "NOWA");
+        contentValues.put(SUBMISSION_COLUMN_EXPIRY_DATE, expiry_date);
+        contentValues.put(SUBMISSION_COLUMN_REALISATION_DATE, realisation_date);
+
         db.insert(SUBMISSION_TABLE_NAME, null, contentValues);
         return true;
     }
@@ -686,6 +714,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("doc_type", "Recepta standardowa");
         contentValues.put("created_at", getDateTime());
         contentValues.put("status","NOWA");
+        contentValues.put("expiry_date",getDatePlusDays(30));
+        contentValues.put("realisation_date",getDateTime());
         db.insert(SUBMISSION_TABLE_NAME, null, contentValues);
         return true;
     }
@@ -698,6 +728,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("doc_type", "Skierowanie na leczenie uzdrowiskowe");
         contentValues.put("created_at", getDateTime());
         contentValues.put("status","NOWA");
+        contentValues.put("expiry_date",getDatePlusDays(30));
+        contentValues.put("realisation_date",getDateTime());
         db.insert(SUBMISSION_TABLE_NAME, null, contentValues);
         return true;
     }

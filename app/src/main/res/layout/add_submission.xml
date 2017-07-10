@@ -89,6 +89,18 @@
                 android:inputType="text" />
         </LinearLayout>
 
+<!--        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="checkboxClicked"
+                android:text="@string/expiryFlagCB"
+                android:id="@+id/expiryFlag"/>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -108,12 +120,62 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/chosenDateTV"
                 android:text="Wybrana data"
+                android:layout_gravity="center"
                 android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="setDate"
+                android:src="@mipmap/date_picker_icon"
+                />
 
 
+        </LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="checkboxClicked"
+                android:text="@string/realisationDate"
+                android:id="@+id/expiryFlag"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/layoutExpiry"
+            android:paddingTop="6sp"
+            android:paddingBottom="6sp"
+            android:paddingRight="45sp"
+            android:paddingLeft="45sp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chosenDateTV"
+                android:text="Wybrana data"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="setDate"
+                android:src="@mipmap/date_picker_icon"
+                android:layout_weight="1"
+
+                />
 
 
         </LinearLayout>
+
+
         <!--   <EditText
                         android:id="@+id/docExpiryET"
                         android:layout_width="match_parent"
@@ -122,24 +184,13 @@
                         android:inputType="number"
                         android:hint="@string/expiryHint"
                         />-->
-        <Button
-            android:id="@+id/calnedarB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
 
-            android:text="@string/calendarBT"
-            android:background="@drawable/button_shape"
-            android:textAllCaps="false"
-            android:textSize="15sp"
-            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:paddingTop="6sp"
-            android:paddingBottom="6sp"
-            >
+            android:paddingBottom="6sp">
             <TextView
                 android:id="@+id/docTypeTV"
                 android:layout_width="match_parent"
