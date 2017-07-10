@@ -93,6 +93,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:id="@+id/layoutExpiry"
+            android:paddingTop="6sp"
+            android:paddingBottom="6sp">
+            <TextView
+                android:id="@+id/docExpiryTV"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/docExpiryWeeks"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chosenDateTV"
+                android:text="Wybrana data"
+                android:layout_weight="1"/>
+
+
+
+
+        </LinearLayout>
+        <!--   <EditText
+                        android:id="@+id/docExpiryET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:inputType="number"
+                        android:hint="@string/expiryHint"
+                        />-->
+        <Button
+            android:id="@+id/calnedarB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:text="@string/calendarBT"
+            android:background="@drawable/button_shape"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:paddingTop="6sp"
             android:paddingBottom="6sp"
             >

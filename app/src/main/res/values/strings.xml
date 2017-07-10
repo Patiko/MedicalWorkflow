@@ -18,6 +18,10 @@
 
     <string name="npwz">Numer Prawa Wykonywania Zawodu</string>
     <string name="specialisations">Specjalizacje</string>
+    <string name="docExpiryWeeks">Okres ważności (liczba tygodni)</string>
+    <string name="expiryFlagCB">Czy wniosek jest bezterminowy?</string>
+    <string name="expiryHint">Wprowadź 0, gdy bezterminowy</string>
+    <string name="calendarBT">Ustaw date</string>
 
     <string name="workData">Dane miejsca pracy</string>
     <string name="regon">REGON</string>

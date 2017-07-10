@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.example.lenovo.medicalworkflow.Database.DBHelper;
 import com.example.lenovo.medicalworkflow.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Lenovo on 26.06.2017.
@@ -31,6 +33,11 @@ public class AddSubmission extends Activity {
     TextView docName;
     String docType;
     Spinner spinner_docType;
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private int year, month, day;
+    TextView dateView;
+
 
 
 
@@ -53,6 +60,8 @@ public class AddSubmission extends Activity {
 
         spinner_docType.setAdapter(adapter_profil);
         spinner_docType.setOnItemSelectedListener(new AddSubmission.Listener_Of_Selecting_Doc_Type_Spinner());
+
+        dateView = (TextView) findViewById(R.id.chosenDateTV);
 
 
     }
@@ -85,24 +94,35 @@ public class AddSubmission extends Activity {
 
         docType =Listener_Of_Selecting_Doc_Type_Spinner.subType;
         if(!docName.getText().toString().equals("")){
-            if (mydb.insertSubmission(ValuePatientId,ValueDoctorId,docName.getText().toString(),docType)) {
-                medIdList = mydb.getAllMedicinesByUser(ValueDoctorId);
-                ValueSubmissionId=mydb.getSubmissionIdByValues(ValuePatientId,docName.getText().toString(),docType);
+            if((docType.equals("Recepta farmaceutyczna") &&
+                    !sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist))  ||
+                    (!docType.equals("Recepta farmaceutyczna") &&
+                    sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist))){
+
+                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień!",
+                        Toast.LENGTH_LONG).show();
+
+            } else {
+                if (mydb.insertSubmission(ValuePatientId,ValueDoctorId,docName.getText().toString(),docType)) {
+                    medIdList = mydb.getAllMedicinesByUser(ValueDoctorId);
+                    ValueSubmissionId=mydb.getSubmissionIdByValues(ValuePatientId,docName.getText().toString(),docType);
 
 
-                for(int i=0; i<medIdList.size(); i++){
-                    mydb.updateMedicineBySubmission(medIdList.get(i),ValueSubmissionId);
+                    for(int i=0; i<medIdList.size(); i++){
+                        mydb.updateMedicineBySubmission(medIdList.get(i),ValueSubmissionId);
+                    }
+
+                    Toast.makeText(getApplicationContext(), "Wniosek został dodany",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Wniosek niedodany",
+                            Toast.LENGTH_SHORT).show();
                 }
 
-                Toast.makeText(getApplicationContext(), "Wniosek został dodany",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "Wniosek niedodany",
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), CheckSubmissionList.class);
+                startActivity(intent);
             }
 
-            Intent intent = new Intent(getApplicationContext(), CheckSubmissionList.class);
-            startActivity(intent);
         }else {
             Toast.makeText(getApplicationContext(), "Nazwa wniosku nie może być pusta!",
                     Toast.LENGTH_LONG).show();
