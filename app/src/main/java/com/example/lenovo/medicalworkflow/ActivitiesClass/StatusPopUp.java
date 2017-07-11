@@ -118,17 +118,30 @@ public class StatusPopUp extends Activity {
     public void setAcceptStatus(View view){
 
         int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
-        mydb.updateSubmissionStatus(ValueSubmissionId,accepted);
+      //  mydb.updateSubmissionStatus(ValueSubmissionId,accepted);
         Cursor rs = mydb.getSubmissionData(ValueSubmissionId);
         if(rs!=null && rs.moveToFirst()){
 
             String doc_nam = rs.getString(rs.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_NAME));
+            String statu = rs.getString(rs.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS));
 
+            if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) &&
+                    statu.equals(LoginActivity.doctorCheckStatus)){
+                mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorAcceptedStatus);
+                Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" został zaakceptowany!",
+                        Toast.LENGTH_LONG).show();
+            }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
+                    statu.equals(LoginActivity.pharmacistCheckStatus)){
+                mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistAcceptedStatus);
+                Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" został zaakceptowany!",
+                        Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" w złym statusie!!!!",
+                        Toast.LENGTH_LONG).show();
+            }
             if (!rs.isClosed())  {
                 rs.close();
             }
-            Toast.makeText(getApplicationContext(), "Wniosek " +doc_nam+" został zaakceptowany!",
-                    Toast.LENGTH_LONG).show();
 
         }
         finish();
@@ -137,17 +150,31 @@ public class StatusPopUp extends Activity {
     public void setDeclineStatus(View view){
 
         int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
-        mydb.updateSubmissionStatus(ValueSubmissionId,rejected);
+      //  mydb.updateSubmissionStatus(ValueSubmissionId,rejected);
         Cursor rs=mydb.getAllSubmissionData(ValueSubmissionId);
         if(rs!=null && rs.moveToFirst()){
 
             String doc_nam = rs.getString(rs.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_NAME));
+            String statu = rs.getString(rs.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS));
+
+            if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) &&
+                    statu.equals(LoginActivity.doctorCheckStatus)){
+                mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorRejectedStatus);
+                Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" został odrzucony!",
+                        Toast.LENGTH_LONG).show();
+            }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
+                    statu.equals(LoginActivity.pharmacistCheckStatus)){
+                mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistRejectedStatus);
+                Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" został odrzucony!",
+                        Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" w złym statusie!!!!",
+                        Toast.LENGTH_LONG).show();
+            }
 
             if (!rs.isClosed())  {
                 rs.close();
             }
-            Toast.makeText(getApplicationContext(), "Wniosek " +doc_nam+" został odrzucony!",
-                    Toast.LENGTH_LONG).show();
 
         }
         finish();

@@ -42,6 +42,15 @@ public class LoginActivity extends Activity {
     public static final String nfzWorker ="Pracownik NFZ";
     public static final String pharmacist ="Farmaceuta";
 
+    public static final String nowaStatus="NOWA";
+    public static final String doctorCheckStatus="SPRAWDZANA PRZEZ LEKARZA";
+    public static final String doctorAcceptedStatus="ZAAKCEPTOWANA PRZEZ LEKARZA";
+    public static final String doctorRejectedStatus="ODRZUCONA PRZEZ LEKARZA";
+    public static final String pharmacistCheckStatus="SPRAWDZANA PRZEZ FARMACEUTE";
+    public static final String pharmacistAcceptedStatus="WYDANA";
+    public static final String pharmacistRejectedStatus="ODRZUCONA PRZEZ FARMACEUTE";
+
+
     public static final String MyPREFERENCES = "MyPrefLoggedUser" ;
     public static final String UserId = "idKey";
     public static final String LoginId = "loginKey";

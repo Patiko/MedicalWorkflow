@@ -252,6 +252,20 @@ public class DisplaySubmission extends Activity {
                 if (!rs4.isClosed())  {
                     rs4.close();
                 }
+                if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) &&
+                        statu.equals(LoginActivity.nowaStatus)){
+                    mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorCheckStatus);
+                    Toast.makeText(getApplicationContext(), "Lekarzu, sprawdź poprawność danych...",
+                            Toast.LENGTH_LONG).show();
+                }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
+                        statu.equals(LoginActivity.doctorAcceptedStatus)){
+                    mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
+                    Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
+                            Toast.LENGTH_LONG).show();
+                }
+
+
+
                 doc_name.setText(" Nazwa: "+ (CharSequence)doc_nam);
                 doc_type.setText(" Typ: "+(CharSequence)doc_typ);
                 createdAt.setText(" Data wystawienia: "+(CharSequence)createA);

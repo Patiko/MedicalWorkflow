@@ -100,7 +100,6 @@ public class AddSubmission extends Activity {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
         if (id == 999) {
             return new DatePickerDialog(this,
                     myDateListener, year, month, day);
@@ -111,9 +110,7 @@ public class AddSubmission extends Activity {
     private DatePickerDialog.OnDateSetListener myDateListener = new
             DatePickerDialog.OnDateSetListener() {
                 @Override
-                public void onDateSet(DatePicker arg0,
-                                      int arg1, int arg2, int arg3) {
-                    // TODO Auto-generated method stub
+                public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
