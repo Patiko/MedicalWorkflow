@@ -25,44 +25,6 @@ import com.example.lenovo.medicalworkflow.R;
 /**
  * Created by Lenovo on 03.07.2017.
  */
-/*
-
-public class StatusPopUp extends Activity {
-    ImageView openStatusPopUp;
-    Button acceptSubmission, rejectSubmission;
-
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.display_submission);
-
-        openStatusPopUp = (ImageView) findViewById(R.id.editSubmissionStatus);
-        openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View a){
-                LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popUpView = layoutInflater.inflate(R.layout.edit_status_popup,null);
-                final PopupWindow popupWindow = new PopupWindow(
-                        popUpView,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                acceptSubmission = (Button)popUpView.findViewById(R.id.acceptButton);
-                acceptSubmission.setOnClickListener(new Button.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                         popupWindow.dismiss();
-                    }});
-                rejectSubmission = (Button)popUpView.findViewById(R.id.rejectButton);
-                rejectSubmission.setOnClickListener(new Button.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        popupWindow.dismiss();
-                    }});
-
-                popupWindow.showAsDropDown(openStatusPopUp, 50, -30);
-            }
-        });
-    }
-}
-*/
 
 public class StatusPopUp extends Activity {
     Button acceptBtn, rejectBtn;
@@ -108,9 +70,6 @@ public class StatusPopUp extends Activity {
                     startActivity(intent);
                     // arrayAdapter.notifyDataSetChanged();
                 }
-
-
-
             }
         });*/
 
@@ -136,7 +95,7 @@ public class StatusPopUp extends Activity {
                 Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" został zaakceptowany!",
                         Toast.LENGTH_LONG).show();
             }else {
-                Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" w złym statusie!!!!",
+                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień podczas danego statusu dla "+doc_nam+"!!!",
                         Toast.LENGTH_LONG).show();
             }
             if (!rs.isClosed())  {
@@ -168,7 +127,7 @@ public class StatusPopUp extends Activity {
                 Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" został odrzucony!",
                         Toast.LENGTH_LONG).show();
             }else {
-                Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" w złym statusie!!!!",
+                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień podczas danego statusu dla "+doc_nam+"!!!",
                         Toast.LENGTH_LONG).show();
             }
 

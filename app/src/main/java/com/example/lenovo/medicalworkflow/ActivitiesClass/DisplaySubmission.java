@@ -88,11 +88,11 @@ public class DisplaySubmission extends Activity {
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES,Context.MODE_PRIVATE);
        // int ValueUserId = sharedPreferences.getInt(LoginActivity.UsedMedicineId,0);
         int ValuePatientId = sharedPreferences.getInt(LoginActivity.UsedUserId,0);              //////////DO INSERTU
-        int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);                   //////////DO INSERTU
+        final int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);                   //////////DO INSERTU
         int ValueMedicineId = sharedPreferences.getInt(LoginActivity.UsedMedicineId,0);        //////////DO INSERTU
         String ValueUserPeselId = sharedPreferences.getString(LoginActivity.PeselId,"");
 
-        int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
+        final int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
 
         if(ValueSubmissionId>0){
             //means this is the view part not the add contact part.
@@ -253,7 +253,7 @@ public class DisplaySubmission extends Activity {
                     rs4.close();
                 }
                 if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) &&
-                        statu.equals(LoginActivity.nowaStatus)){
+                        statu.equals(LoginActivity.nowaStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
                     mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorCheckStatus);
                     Toast.makeText(getApplicationContext(), "Lekarzu, sprawdź poprawność danych...",
                             Toast.LENGTH_LONG).show();
@@ -262,8 +262,28 @@ public class DisplaySubmission extends Activity {
                     mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
                     Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
                             Toast.LENGTH_LONG).show();
-                }
+                }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
+                        statu.equals(LoginActivity.pharmacistAcceptedStatus)){
+                    startActivity(new Intent(DisplaySubmission.this,GiveAwayPopUp.class));
+                    Toast.makeText(getApplicationContext(), "Farmaceuto, czy wydałeś wniosek pacjentowi?",
+                            Toast.LENGTH_LONG).show();
+                }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) &&
+                        statu.equals(LoginActivity.pharmacistRejectedStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
+                    mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorCheckStatus);
+                    Toast.makeText(getApplicationContext(), "Lekarzu, sprawdź ponownie poprawność danych...",
+                            Toast.LENGTH_LONG).show();
 
+                }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
+                        statu.equals(LoginActivity.nowaStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
+                    mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
+                    Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
+                            Toast.LENGTH_LONG).show();
+                } else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
+                        statu.equals(LoginActivity.pharmacistRejectedStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
+                    Toast.makeText(getApplicationContext(), "Wniosek odrzucony!",
+                            Toast.LENGTH_LONG).show();
+
+                }
 
 
                 doc_name.setText(" Nazwa: "+ (CharSequence)doc_nam);
@@ -273,7 +293,6 @@ public class DisplaySubmission extends Activity {
                 status.setText((CharSequence)statu);
                 realisationDate.setText(" Data realizacji od dnia: "+(CharSequence)realisation_dat);
                 expiryDate.setText(" Data ważności: "+(CharSequence)expiry_dat);
-
 
 
 
@@ -290,12 +309,61 @@ public class DisplaySubmission extends Activity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES,Context.MODE_PRIVATE);
         String loggedProfile = sharedPreferences.getString(LoginActivity.LoggedProfileId,"");
+        /*Cursor rs5 = mydb.getSubmissionData(ValueSubmissionId);
+        if(rs4!=null && rs5.moveToFirst()){
+
+            final String statu = rs5.getString(rs5.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS));
+
+            if (!rs5.isClosed())  {
+                rs5.close();
+            }
+            if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) &&
+                    statu.equals(LoginActivity.nowaStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
+                mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorCheckStatus);
+                Toast.makeText(getApplicationContext(), "Lekarzu, sprawdź poprawność danych...",
+                        Toast.LENGTH_LONG).show();
+            }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
+                    statu.equals(LoginActivity.doctorAcceptedStatus)){
+                mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
+                Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
+                        Toast.LENGTH_LONG).show();
+            }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
+                    statu.equals(LoginActivity.pharmacistAcceptedStatus)){
+                startActivity(new Intent(DisplaySubmission.this,GiveAwayPopUp.class));
+                Toast.makeText(getApplicationContext(), "Farmaceuto, czy wydałeś wniosek pacjentowi?",
+                        Toast.LENGTH_LONG).show();
+            }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) &&
+                    statu.equals(LoginActivity.pharmacistRejectedStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
+                mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorCheckStatus);
+
+            }
+*/
         switch (loggedProfile){
             case LoginActivity.doctor:
                 openStatusPopUp = (ImageView) findViewById(R.id.editSubmissionStatus);
                 openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
                     public void onClick(View a){
                         startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));
+
+           /*             if(statu.equals(LoginActivity.doctorAcceptedStatus)){
+                            Toast.makeText(getApplicationContext(), "Pacjent musi odwiedzić farmaceute!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.doctorRejectedStatus)){
+                            Toast.makeText(getApplicationContext(), "Wniosek odrzucony!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if(statu.equals(LoginActivity.pharmacistCheckStatus)){
+                            Toast.makeText(getApplicationContext(), "Farmaceuta sprawdza wniosek!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.pharmacistAcceptedStatus)){
+                            Toast.makeText(getApplicationContext(), "Pacjent musi odwiedzić apteke w celu odebrania wniosku!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.successStatus)){
+                            Toast.makeText(getApplicationContext(), "Wydano!",
+                                    Toast.LENGTH_LONG).show();
+                        }else {
+                            startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));
+                        }
+*/
                     }
                 });
                 break;
@@ -305,6 +373,39 @@ public class DisplaySubmission extends Activity {
                     public void onClick(View a){
                         Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień!",
                                 Toast.LENGTH_LONG).show();
+                    /*    if(statu.equals(LoginActivity.nowaStatus)){
+                            Toast.makeText(getApplicationContext(), "Lekarz musi sprawdzć wniosek!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.doctorCheckStatus)){
+                            Toast.makeText(getApplicationContext(), "Lekarz sprawdza wniosek!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if(statu.equals(LoginActivity.doctorAcceptedStatus)){
+                            Toast.makeText(getApplicationContext(), "Odwiedź apteke!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.doctorRejectedStatus)){
+                            Toast.makeText(getApplicationContext(), "Wniosek odrzucony!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.pharmacistCheckStatus)){
+                            Toast.makeText(getApplicationContext(), "Farmaceuta sprawdza wniosek!",
+                                    Toast.LENGTH_LONG).show();
+
+                        } else if(statu.equals(LoginActivity.pharmacistAcceptedStatus)){
+                            Toast.makeText(getApplicationContext(), "Odwiedź apteke w celu odebrania wniosku!",
+                                    Toast.LENGTH_LONG).show();
+
+                        }else if(statu.equals(LoginActivity.pharmacistRejectedStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
+                            Toast.makeText(getApplicationContext(), "Odwiedź lekarza w celu ponownej weryfikacji!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if(statu.equals(LoginActivity.successStatus)){
+                            Toast.makeText(getApplicationContext(), "Wydano!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.pharmacistAcceptedStatus)){
+                            Toast.makeText(getApplicationContext(), "Odwiedź farmaceute w celu odebrania!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.successStatus)){
+                            Toast.makeText(getApplicationContext(), "Wydano!",
+                                    Toast.LENGTH_LONG).show();
+                        }*/
                     }
                 });
                 break;
@@ -313,6 +414,43 @@ public class DisplaySubmission extends Activity {
                 openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
                     public void onClick(View a){
                         startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));
+
+                        /*if(statu.equals(LoginActivity.nowaStatus) && !mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
+                            Toast.makeText(getApplicationContext(), "Lekarz musi sprawdzć wniosek!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.doctorCheckStatus)){
+                            Toast.makeText(getApplicationContext(), "Lekarz sprawdza wniosek!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if(statu.equals(LoginActivity.doctorAcceptedStatus)){
+                            Toast.makeText(getApplicationContext(), "Pacjent musi odwiedzić apteke!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.doctorRejectedStatus)){
+                            Toast.makeText(getApplicationContext(), "Wniosek odrzucony!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.pharmacistCheckStatus)){
+                            Toast.makeText(getApplicationContext(), "Farmaceuta sprawdza wniosek!",
+                                    Toast.LENGTH_LONG).show();
+                          //  startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));
+                        } else if(statu.equals(LoginActivity.pharmacistAcceptedStatus)){
+                            Toast.makeText(getApplicationContext(), "Odwiedź apteke w celu odebrania wniosku!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.pharmacistRejectedStatus) && !mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
+                            Toast.makeText(getApplicationContext(), "Odwiedź lekarza w celu ponownej weryfikacji!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if(statu.equals(LoginActivity.successStatus)){
+                            Toast.makeText(getApplicationContext(), "Wydano!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.pharmacistAcceptedStatus)){
+                            Toast.makeText(getApplicationContext(), "Odwiedź apteke w celu odebrania wniosku!",
+                                    Toast.LENGTH_LONG).show();
+                        }else if(statu.equals(LoginActivity.successStatus)){
+                            Toast.makeText(getApplicationContext(), "Wydano!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));
+                        }
+                     //   startActivity(new Intent(DisplaySubmission.this,StatusPopUp.class));*/
                     }
                 });
                 break;
@@ -326,6 +464,7 @@ public class DisplaySubmission extends Activity {
                 });
                 break;
         }
+
 
 
 

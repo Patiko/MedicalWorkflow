@@ -24,6 +24,8 @@
     <string name="calendarBT">Ustaw date</string>
     <string name="realisationDate">Data realizacji od dnia</string>
     <string name="expiryDate">Data ważności</string>
+    <string name="giveAwayQuestion">Czy juz wydano wniosek?</string>
+    <string name="giveAwaySub">Wniosek wydany</string>
 
     <string name="workData">Dane miejsca pracy</string>
     <string name="regon">REGON</string>

@@ -381,6 +381,27 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
+
+    public Boolean isLoggedUserSubmissionCreator(int id, int loggedUserId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =db.query(SUBMISSION_TABLE_NAME,null,SUBMISSION_COLUMN_ID+"=?",new String[]{Integer.toString(id)},null,null,null);
+        if(cursor.getCount()<1) // UserName Not Exist
+        {
+            cursor.close();
+            return false;
+        }
+        cursor.moveToFirst();
+        Integer creator_id= cursor.getInt(cursor.getColumnIndex("doctor_id"));
+        cursor.close();
+      /*  if(loggedUserId==creator_id){
+            return true;
+        }else {
+            return false;
+        }*/
+        return loggedUserId==creator_id ;
+
+    }
+
     public Cursor getPatientDetailsBySubmission(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "SELECT * FROM SUBMISSION s join USER u on s.user_id=u._id WHERE "+"s."+SUBMISSION_COLUMN_ID+"="+id+"", null );

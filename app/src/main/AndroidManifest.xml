@@ -42,6 +42,8 @@
         </activity>
         <activity android:name=".ActivitiesClass.StatusPopUp"
             android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".ActivitiesClass.GiveAwayPopUp"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
 
         <activity android:name=".ActivitiesClass.Doctor.SearchPatientForSubmissionList"/>
         <activity android:name=".ActivitiesClass.CheckSubmissionListByPatient"/>

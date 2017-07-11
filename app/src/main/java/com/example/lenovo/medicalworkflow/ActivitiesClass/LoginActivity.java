@@ -47,8 +47,9 @@ public class LoginActivity extends Activity {
     public static final String doctorAcceptedStatus="ZAAKCEPTOWANA PRZEZ LEKARZA";
     public static final String doctorRejectedStatus="ODRZUCONA PRZEZ LEKARZA";
     public static final String pharmacistCheckStatus="SPRAWDZANA PRZEZ FARMACEUTE";
-    public static final String pharmacistAcceptedStatus="WYDANA";
+    public static final String pharmacistAcceptedStatus="ZAAKCEPTOWANA PRZEZ FARMACEUTE";
     public static final String pharmacistRejectedStatus="ODRZUCONA PRZEZ FARMACEUTE";
+    public static final String successStatus="WYDANO";
 
 
     public static final String MyPREFERENCES = "MyPrefLoggedUser" ;

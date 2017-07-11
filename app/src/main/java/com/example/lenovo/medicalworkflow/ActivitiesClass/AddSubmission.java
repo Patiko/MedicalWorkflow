@@ -171,7 +171,7 @@ public class AddSubmission extends Activity {
                     (!docType.equals("Recepta farmaceutyczna") &&
                     sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist))){
 
-                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień!",
+                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień! - Wybierz inny typ.",
                         Toast.LENGTH_LONG).show();
 
             } else {
