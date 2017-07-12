@@ -328,6 +328,31 @@ public class DBHelper extends SQLiteOpenHelper {
         return s.format(new Date(calendar.getTimeInMillis()));
     }
 
+    public Boolean isCurrentDateAfterRealisationDate(Integer submission_id ){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+SUBMISSION_TABLE_NAME+"WHERE "+SUBMISSION_COLUMN_ID+"="+submission_id,null);
+        if (cursor.getCount() < 1) // Submission Not Exist
+        {
+            cursor.close();
+            return false;
+        }
+        cursor.moveToFirst();
+        String realisationDateStr = cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_REALISATION_DATE));
+        cursor.close();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy",Locale.getDefault());
+        try {
+            Date realisationDate =format.parse(realisationDateStr);
+            if(System.currentTimeMillis()>=realisationDate.getTime()){
+                return true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
 
 
     //SUBMISSION TABLE //

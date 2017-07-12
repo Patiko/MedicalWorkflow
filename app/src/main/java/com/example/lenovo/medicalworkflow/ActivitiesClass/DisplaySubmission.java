@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -252,6 +253,7 @@ public class DisplaySubmission extends Activity {
                 if (!rs4.isClosed())  {
                     rs4.close();
                 }
+
                 if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) &&
                         statu.equals(LoginActivity.nowaStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
                     mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorCheckStatus);
@@ -259,6 +261,12 @@ public class DisplaySubmission extends Activity {
                             Toast.LENGTH_LONG).show();
                 }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
                         statu.equals(LoginActivity.doctorAcceptedStatus)){
+                    if(!mydb.isCurrentDateAfterRealisationDate(ValueSubmissionId)){
+                        //To DO//
+                        mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
+                        Toast.makeText(getApplicationContext(), "Data realizacji jest przeszła",
+                                Toast.LENGTH_LONG).show();
+                    }
                     mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
                     Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
                             Toast.LENGTH_LONG).show();
@@ -294,7 +302,11 @@ public class DisplaySubmission extends Activity {
                 realisationDate.setText(" Data realizacji od dnia: "+(CharSequence)realisation_dat);
                 expiryDate.setText(" Data ważności: "+(CharSequence)expiry_dat);
 
-
+                if((statu.equals(LoginActivity.doctorRejectedStatus) || statu.equals(LoginActivity.pharmacistRejectedStatus))
+                        && (mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId) ||
+                sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.patient))){
+                    status.setPaintFlags(status.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }
 
             }
         }
