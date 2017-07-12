@@ -2,7 +2,9 @@ package com.example.lenovo.medicalworkflow.CustomAdapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.example.lenovo.medicalworkflow.ActivitiesClass.DisplaySubmission;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
 import com.example.lenovo.medicalworkflow.R;
 
@@ -24,8 +27,8 @@ public class CustomAdapterSubmissions  extends CursorAdapter {
     public CustomAdapterSubmissions(Context context, Cursor c, int flags) {
         super(context, c, flags);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
 
+    }
 
 
     @Override
@@ -41,6 +44,7 @@ public class CustomAdapterSubmissions  extends CursorAdapter {
         holder.txtPesel   =   (TextView)  view.findViewById(R.id.txtPesel);
         holder.txtFirstNameDoc    =   (TextView)  view.findViewById(R.id.txtFirstNameDoc);
         holder.txtLastNameDoc   =   (TextView)  view.findViewById(R.id.txtLastNameDoc);*/
+
         view.setTag(holder);
         return view;
     }
@@ -54,11 +58,25 @@ public class CustomAdapterSubmissions  extends CursorAdapter {
             view.setBackgroundResource(R.drawable.item_list_backgroundcolor2);
         }*/
 
+
+
+
+
         ViewHolder holder  =   (ViewHolder)    view.getTag();
         // holder.txtId.setText(cursor.getString(cursor.getColumnIndex(DBHelper.USER_COLUMN_ID)));
         holder.txtName.setText(cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_DOC_NAME)));
         holder.txtCreatedAt.setText(cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_CREATED_AT)));
-        holder.txtStatus.setText(cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS)));
+        String statu = cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_STATUS));
+        holder.txtStatus.setText(statu);
+        if((statu.equals(LoginActivity.doctorRejectedStatus) || statu.equals(LoginActivity.pharmacistRejectedStatus) || statu.equals(LoginActivity.expiredStatus) )){
+            holder.txtStatus.setPaintFlags(holder.txtStatus.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            holder.txtStatus.setPaintFlags(holder.txtStatus.getPaintFlags() &~ Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
+       /* if((statu.equals(LoginActivity.doctorRejectedStatus) || statu.equals(LoginActivity.pharmacistRejectedStatus))){
+            holder.txtStatus.setPaintFlags(holder.txtStatus.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }*/
 
 /*        holder.txtFirstNameDoc.setText(cursor.getString(cursor.getColumnIndex(DBHelper.USER_COLUMN_FIRST_NAME)));
         holder.txtLastNameDoc.setText(cursor.getString(cursor.getColumnIndex(DBHelper.USER_COLUMN_LAST_NAME)));
@@ -67,6 +85,7 @@ public class CustomAdapterSubmissions  extends CursorAdapter {
         holder.txtPesel.setText(cursor.getString(cursor.getColumnIndex(DBHelper.USER_COLUMN_PESEL)));*/
 
     }
+
 
     static class ViewHolder {
         //   TextView txtId;

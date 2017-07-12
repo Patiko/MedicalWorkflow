@@ -328,9 +328,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return s.format(new Date(calendar.getTimeInMillis()));
     }
 
-    public Boolean isCurrentDateAfterRealisationDate(Integer submission_id ){
+    public Boolean isRealisationDatePast(Integer submission_id ){ //If submission realisation date is in the past, return true - OK scenario
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+SUBMISSION_TABLE_NAME+"WHERE "+SUBMISSION_COLUMN_ID+"="+submission_id,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+SUBMISSION_TABLE_NAME+" WHERE "+SUBMISSION_COLUMN_ID+"="+submission_id,null);
         if (cursor.getCount() < 1) // Submission Not Exist
         {
             cursor.close();
@@ -345,6 +345,35 @@ public class DBHelper extends SQLiteOpenHelper {
             Date realisationDate =format.parse(realisationDateStr);
             if(System.currentTimeMillis()>=realisationDate.getTime()){
                 return true;
+            }else{
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public Boolean isSubmissionExpired(Integer submission_id ){ //If submission expired (or equal current), return true - NOK scenario
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+SUBMISSION_TABLE_NAME+" WHERE "+SUBMISSION_COLUMN_ID+"="+submission_id,null);
+        if (cursor.getCount() < 1) // Submission Not Exist
+        {
+            cursor.close();
+            return false;
+        }
+        cursor.moveToFirst();
+        String expiryDateStr = cursor.getString(cursor.getColumnIndex(DBHelper.SUBMISSION_COLUMN_EXPIRY_DATE));
+        cursor.close();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy",Locale.getDefault());
+        try {
+            Date expiryDate =format.parse(expiryDateStr);
+            if(System.currentTimeMillis()>=expiryDate.getTime()){
+                return true;
+            }else{
+                return false;
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -719,19 +748,19 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("login", "f");
         contentValues.put("password", "f");
         contentValues.put("profile", "Farmaceuta");
-        contentValues.put("insured", "");
+        contentValues.put("insured", "234/1992");
         contentValues.put("birthdate", "");
-        contentValues.put("phoneNumber", "");
-        contentValues.put("street", "");
-        contentValues.put("nr_dom", "");
+        contentValues.put("phoneNumber", "222345123");
+        contentValues.put("street", "Bankowa");
+        contentValues.put("nr_dom", "32");
         contentValues.put("nr_mies", "");
-        contentValues.put("post_code", "");
-        contentValues.put("city", "");
-        contentValues.put("npwz", "");
+        contentValues.put("post_code", "00-950");
+        contentValues.put("city", "Warszawa");
+        contentValues.put("npwz", "545632");
         contentValues.put("specialisations", "");
-        contentValues.put("work_name", "");
-        contentValues.put("registry_entry", "");
-        contentValues.put("regon", "");
+        contentValues.put("work_name", "Apteka 24h");
+        contentValues.put("registry_entry", "1007");
+        contentValues.put("regon", "123456789");
         contentValues.put("payer_place", "");
         db.insert(USER_TABLE_NAME, null, contentValues);
         return true;

@@ -50,6 +50,7 @@ public class LoginActivity extends Activity {
     public static final String pharmacistAcceptedStatus="ZAAKCEPTOWANA PRZEZ FARMACEUTE";
     public static final String pharmacistRejectedStatus="ODRZUCONA PRZEZ FARMACEUTE";
     public static final String successStatus="WYDANO";
+    public static final String expiredStatus="WYGAŚNIĘTA";
 
 
     public static final String MyPREFERENCES = "MyPrefLoggedUser" ;

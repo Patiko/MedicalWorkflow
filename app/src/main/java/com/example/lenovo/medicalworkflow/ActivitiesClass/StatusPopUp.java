@@ -95,7 +95,7 @@ public class StatusPopUp extends Activity {
                 Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" został zaakceptowany!",
                         Toast.LENGTH_LONG).show();
             }else {
-                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień podczas danego statusu dla "+doc_nam+"!!!",
+                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień !!!",
                         Toast.LENGTH_LONG).show();
             }
             if (!rs.isClosed())  {
@@ -127,7 +127,7 @@ public class StatusPopUp extends Activity {
                 Toast.makeText(getApplicationContext(), "Wniosek "+doc_nam+" został odrzucony!",
                         Toast.LENGTH_LONG).show();
             }else {
-                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień podczas danego statusu dla "+doc_nam+"!!!",
+                Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień !!!",
                         Toast.LENGTH_LONG).show();
             }
 

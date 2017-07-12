@@ -259,17 +259,25 @@ public class DisplaySubmission extends Activity {
                     mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorCheckStatus);
                     Toast.makeText(getApplicationContext(), "Lekarzu, sprawdź poprawność danych...",
                             Toast.LENGTH_LONG).show();
+                    status.setPaintFlags(status.getPaintFlags() &~ Paint.STRIKE_THRU_TEXT_FLAG);
                 }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
                         statu.equals(LoginActivity.doctorAcceptedStatus)){
-                    if(!mydb.isCurrentDateAfterRealisationDate(ValueSubmissionId)){
+                    if(!mydb.isRealisationDatePast(ValueSubmissionId)){
                         //To DO//
-                        mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
-                        Toast.makeText(getApplicationContext(), "Data realizacji jest przeszła",
+                      //  mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
+                        Toast.makeText(getApplicationContext(), "Data realizacji jest wyznaczona od dnia "+realisation_dat,
                                 Toast.LENGTH_LONG).show();
+                    }else if(mydb.isSubmissionExpired(ValueSubmissionId)){
+                        mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.expiredStatus);
+                        Toast.makeText(getApplicationContext(), "Wniosek wygasł w dniu "+expiry_dat,
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
+                        Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
+                                Toast.LENGTH_LONG).show();
+                        status.setPaintFlags(status.getPaintFlags() &~ Paint.STRIKE_THRU_TEXT_FLAG);
                     }
-                    mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
-                    Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
-                            Toast.LENGTH_LONG).show();
+
                 }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
                         statu.equals(LoginActivity.pharmacistAcceptedStatus)){
                     startActivity(new Intent(DisplaySubmission.this,GiveAwayPopUp.class));
@@ -280,19 +288,32 @@ public class DisplaySubmission extends Activity {
                     mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.doctorCheckStatus);
                     Toast.makeText(getApplicationContext(), "Lekarzu, sprawdź ponownie poprawność danych...",
                             Toast.LENGTH_LONG).show();
+                    status.setPaintFlags(status.getPaintFlags() &~ Paint.STRIKE_THRU_TEXT_FLAG);
 
                 }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
                         statu.equals(LoginActivity.nowaStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
-                    mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
-                    Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
-                            Toast.LENGTH_LONG).show();
+                    if(!mydb.isRealisationDatePast(ValueSubmissionId)){
+                        //To DO//
+                        //  mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
+                        Toast.makeText(getApplicationContext(), "Data realizacji jest wyznaczona od dnia "+realisation_dat,
+                                Toast.LENGTH_LONG).show();
+                    }else if(mydb.isSubmissionExpired(ValueSubmissionId)){
+                        mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.expiredStatus);
+                        Toast.makeText(getApplicationContext(), "Wniosek wygasł w dniu "+expiry_dat,
+                                Toast.LENGTH_LONG).show();
+                    }else {
+                        mydb.updateSubmissionStatus(ValueSubmissionId,LoginActivity.pharmacistCheckStatus);
+                        Toast.makeText(getApplicationContext(), "Farmaceuto, sprawdź poprawność danych...",
+                                Toast.LENGTH_LONG).show();
+                        status.setPaintFlags(status.getPaintFlags() &~ Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
+
                 } else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) &&
                         statu.equals(LoginActivity.pharmacistRejectedStatus) && mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId)){
                     Toast.makeText(getApplicationContext(), "Wniosek odrzucony!",
                             Toast.LENGTH_LONG).show();
 
                 }
-
 
                 doc_name.setText(" Nazwa: "+ (CharSequence)doc_nam);
                 doc_type.setText(" Typ: "+(CharSequence)doc_typ);
@@ -302,10 +323,12 @@ public class DisplaySubmission extends Activity {
                 realisationDate.setText(" Data realizacji od dnia: "+(CharSequence)realisation_dat);
                 expiryDate.setText(" Data ważności: "+(CharSequence)expiry_dat);
 
-                if((statu.equals(LoginActivity.doctorRejectedStatus) || statu.equals(LoginActivity.pharmacistRejectedStatus))
+                if((statu.equals(LoginActivity.doctorRejectedStatus) || statu.equals(LoginActivity.pharmacistRejectedStatus) || statu.equals(LoginActivity.expiredStatus) )
                         && (mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId) ||
                 sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.patient))){
                     status.setPaintFlags(status.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                } else {
+                    status.setPaintFlags(status.getPaintFlags() &~ Paint.STRIKE_THRU_TEXT_FLAG);
                 }
 
             }
