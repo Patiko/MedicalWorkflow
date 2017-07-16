@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistMainScreen;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.RemedyTypePopUp;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
@@ -212,15 +214,31 @@ public class UsedPatientDetails extends Activity {
                 city.setFocusable(false);
                 city.setClickable(false);
 
+                String ValueProfileId = sharedpreferences.getString(LoginActivity.LoggedProfileId,"");
                 b2 = (Button) findViewById(R.id.button2);
                 b2.setVisibility(View.VISIBLE);
-                b2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(UsedPatientDetails.this,CheckMedicineList.class);
-                        startActivity(i);
-                    }
-                });
+                if(ValueProfileId.equals(LoginActivity.pharmacist)){
+                    b2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(LoginActivity.UsedRemedyTypeId, LoginActivity.remedyTypeMedicine);
+                            editor.apply();
+
+                            Intent i = new Intent(UsedPatientDetails.this,CheckMedicineList.class);
+                            startActivity(i);
+                        }
+                    });
+                }else {
+                    b2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(UsedPatientDetails.this,RemedyTypePopUp.class);
+                            startActivity(i);
+                        }
+                    });
+                }
+
 
                /*     npwz.setText((CharSequence)npw);
                     specialisations.setText((CharSequence)specialisatio);

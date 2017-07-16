@@ -18,11 +18,13 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DisplayDevice;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DisplayMedicine;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistMainScreen;
+import com.example.lenovo.medicalworkflow.CustomAdapters.CustomAdapterDevices;
 import com.example.lenovo.medicalworkflow.CustomAdapters.CustomAdapterMedicines;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
 import com.example.lenovo.medicalworkflow.R;
@@ -51,10 +53,19 @@ public class DisplaySubmission extends Activity {
     TextView expiryDate;
     ListView medicineListView;
     CustomAdapterMedicines customAdapterMedicines;
+    CustomAdapterDevices customAdapterDevices;
 
     ImageView editStatusPopUp;
     ImageView openStatusPopUp;
     Button acceptSubmission, rejectSubmission;
+
+
+    String submissionNameTitle= " Nazwa ";
+    String submissionTypeTitle=" Typ ";
+    String submissionCreatedDateTitle=" Data wystawienia ";
+    String submissionIdTitle=" ID ";
+    String submissionRealisationTitle=" Data realizacji od dnia: ";
+    String submissionExpiryTitle=" Data wygaśnięcia: ";
 
 
 
@@ -92,6 +103,7 @@ public class DisplaySubmission extends Activity {
         final int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);                   //////////DO INSERTU
         int ValueMedicineId = sharedPreferences.getInt(LoginActivity.UsedMedicineId,0);        //////////DO INSERTU
         String ValueUserPeselId = sharedPreferences.getString(LoginActivity.PeselId,"");
+        String ValueRemedyType = sharedPreferences.getString(LoginActivity.UsedRemedyTypeId,"");
 
         final int ValueSubmissionId = sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0);
 
@@ -211,31 +223,62 @@ public class DisplaySubmission extends Activity {
 
 
          //   rs3 = mydb.getAllMedicinesByCreator(ValueDoctorId);
-            rs3 = mydb.getAllMedicinesBySubmission(ValueSubmissionId);
-            customAdapterMedicines = new CustomAdapterMedicines(DisplaySubmission.this, rs3, 0);
-            medicineListView = (ListView) findViewById(R.id.medicinesListView);
-            medicineListView.setAdapter(customAdapterMedicines);
+            Boolean isMedicine = mydb.isChoosenMedicine(ValueSubmissionId);
+            if(isMedicine){
+                rs3 = mydb.getAllMedicinesBySubmission(ValueSubmissionId);
+                customAdapterMedicines = new CustomAdapterMedicines(DisplaySubmission.this, rs3, 0);
+                medicineListView = (ListView) findViewById(R.id.medicinesListView);
+                medicineListView.setAdapter(customAdapterMedicines);
 
-            medicineListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-                    int id_To_Search = rs3.getInt(rs3.getColumnIndex(DBHelper.MEDICINE_COLUMN_ID));
-                    if(id_To_Search!=0){
+                medicineListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+                        int id_To_Search = rs3.getInt(rs3.getColumnIndex(DBHelper.MEDICINE_COLUMN_ID));
+                        if(id_To_Search!=0){
 
-                        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt(LoginActivity.UsedMedicineId,id_To_Search);
-                        editor.apply();
+                            sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt(LoginActivity.UsedMedicineId,id_To_Search);
+                            editor.apply();
 
-                        Intent intent = new Intent(getApplicationContext(), DisplayMedicine.class);
-                        startActivity(intent);
+                            Intent intent = new Intent(getApplicationContext(), DisplayMedicine.class);
+                            startActivity(intent);
              /*           Button editB = (Button)findViewById(R.id.button2);
                         editB.setVisibility(View.GONE);
                         Button deleteB = (Button)findViewById(R.id.button3);
                         deleteB.setVisibility(View.GONE);*/
+                        }
                     }
-                }
-            });
+                });
+
+            } else {
+                rs3 = mydb.getAllDevicesBySubmission(ValueSubmissionId);
+                customAdapterDevices = new CustomAdapterDevices(DisplaySubmission.this, rs3, 0);
+                medicineListView = (ListView) findViewById(R.id.medicinesListView);
+                medicineListView.setAdapter(customAdapterDevices);
+
+                medicineListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+                        int id_To_Search = rs3.getInt(rs3.getColumnIndex(DBHelper.MEDICINE_COLUMN_ID));
+                        if(id_To_Search!=0){
+
+                            sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt(LoginActivity.UsedMedicineId,id_To_Search);
+                            editor.apply();
+
+                            Intent intent = new Intent(getApplicationContext(), DisplayDevice.class);
+                            startActivity(intent);
+             /*           Button editB = (Button)findViewById(R.id.button2);
+                        editB.setVisibility(View.GONE);
+                        Button deleteB = (Button)findViewById(R.id.button3);
+                        deleteB.setVisibility(View.GONE);*/
+                        }
+                    }
+                });
+            }
+
 
 
             Cursor rs4 = mydb.getSubmissionData(ValueSubmissionId);
@@ -314,14 +357,20 @@ public class DisplaySubmission extends Activity {
                             Toast.LENGTH_LONG).show();
 
                 }
+                String doc_name_str=submissionNameTitle+ (CharSequence)doc_nam;
+                String doc_type_str=submissionTypeTitle+ (CharSequence)doc_typ;
+                String createdAt_str=submissionCreatedDateTitle+(CharSequence)createA;
+                String doc_id_str=submissionIdTitle+(CharSequence)doc_i;
+                String realisation_date_str=submissionRealisationTitle+(CharSequence)realisation_dat;
+                String expiry_date_str=submissionExpiryTitle+(CharSequence)expiry_dat;
 
-                doc_name.setText(" Nazwa: "+ (CharSequence)doc_nam);
-                doc_type.setText(" Typ: "+(CharSequence)doc_typ);
-                createdAt.setText(" Data wystawienia: "+(CharSequence)createA);
-                doc_id.setText(" ID: "+(CharSequence)doc_i);
+                doc_name.setText(doc_name_str);
+                doc_type.setText(doc_type_str);
+                createdAt.setText(createdAt_str);
+                doc_id.setText(doc_id_str);
                 status.setText((CharSequence)statu);
-                realisationDate.setText(" Data realizacji od dnia: "+(CharSequence)realisation_dat);
-                expiryDate.setText(" Data ważności: "+(CharSequence)expiry_dat);
+                realisationDate.setText(realisation_date_str);
+                expiryDate.setText(expiry_date_str);
 
                 if((statu.equals(LoginActivity.doctorRejectedStatus) || statu.equals(LoginActivity.pharmacistRejectedStatus) || statu.equals(LoginActivity.expiredStatus) )
                         && (mydb.isLoggedUserSubmissionCreator(ValueSubmissionId,ValueDoctorId) ||

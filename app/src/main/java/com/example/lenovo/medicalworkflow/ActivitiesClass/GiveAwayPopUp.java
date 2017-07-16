@@ -83,6 +83,12 @@ public class GiveAwayPopUp extends Activity {
         finish();
     }
 
+    public void closePopUp(View view){
+
+        finish();
+    }
+
+
 
 
 }

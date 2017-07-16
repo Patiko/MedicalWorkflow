@@ -16,18 +16,18 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/giveAwayTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:gravity="center_horizontal"
-                android:paddingBottom="3sp"
                 android:paddingLeft="3sp"
                 android:paddingRight="3sp"
+                android:paddingBottom="3sp"
                 android:paddingTop="3sp"
-                android:text="@string/giveAwayQuestion"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/statusPopUpTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/remedyTypeTitle" />
         </LinearLayout>
 
 
@@ -36,31 +36,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout1"
+            android:orientation="horizontal"
             android:layout_marginTop="10sp"
-            android:paddingLeft="30sp"
-            android:paddingRight="30sp"
-            android:orientation="horizontal">
+            >
 
             <Button
-                android:id="@+id/giveAwayButton"
+                android:id="@+id/chooseMedicine"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:layout_weight="1"
+                android:text="@string/chooseMedicineTxt"
                 android:clickable="true"
-                android:onClick="setGiveAwayStatus"
-                android:text="@string/giveAwaySub"
-                android:layout_weight="1"/>
+                android:onClick="chooseMedicine"
+                />
 
             <Button
-                android:id="@+id/closeButton"
+                android:id="@+id/chooseDevice"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:layout_weight="1"
+                android:text="@string/chooseDeviceTxt"
                 android:clickable="true"
-                android:onClick="closePopUp"
-                android:text="@string/closePopUp"
-                android:layout_weight="1"/>
-
+                android:onClick="chooseDevice"/>
 
         </LinearLayout>
 

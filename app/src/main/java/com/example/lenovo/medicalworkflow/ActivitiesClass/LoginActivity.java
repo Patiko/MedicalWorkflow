@@ -61,6 +61,10 @@ public class LoginActivity extends Activity {
     public static final String LoggedProfileId = "loggedProfileKey";
     public static final String UsedMedicineId = "usedMedicineKey";
     public static final String UsedSubmissionId = "usedSubmissionKey";
+    public static final String UsedRemedyTypeId = "usedRemedyTypeKey";
+
+    public static final String remedyTypeMedicine="Lek";
+    public static final String remedyTypeDevice="Wyrob medyczny";
 
     SharedPreferences sharedpreferences;
 
@@ -303,6 +307,7 @@ public class LoginActivity extends Activity {
             mydb.insertDummyPracownikNFZUser();
             mydb.insertDummyFarmaceutaUser();
             mydb.insertDummyMedicine();
+            mydb.insertDummyDevice();
             mydb.insertDummySubmission();
             mydb.insertDummySubmission2();
 

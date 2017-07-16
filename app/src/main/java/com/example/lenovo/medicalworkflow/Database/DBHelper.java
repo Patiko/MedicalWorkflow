@@ -35,7 +35,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String MEDICINE_COLUMN_INJECTION_WAY = "injection_way";
     public static final String MEDICINE_COLUMN_CREATOR_ID = "creator_id";
     public static final String MEDICINE_COLUMN_SUBMISSION_ID = "submission_id";
+    public static final String MEDICINE_COLUMN_IS_MEDICINE = "is_medicine";
 
+    public static final String MEDICINE_COLUMN_DEVICE_ID = "device_id";
+    public static final String MEDICINE_COLUMN_DEVICE_QUANTITY = "device_quantity";
+    public static final String MEDICINE_COLUMN_DEVICE_NAME = "device_name";
+    public static final String MEDICINE_COLUMN_DEVICE_INSTRUCTIONS = "device_instructions";
 
     public static final String USER_TABLE_NAME="USER";
     public static final String USER_COLUMN_ID = "_id";
@@ -104,7 +109,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "CREATE TABLE " + MEDICINE_TABLE_NAME + "(" +
-                        "_id integer primary key, name text,type text,quantity text, refundable text,injection_way text, creator_id integer, submission_id integer)"
+                        "_id integer primary key, name text,type text,quantity text, refundable text,injection_way text, creator_id integer, submission_id integer, " +
+                        "device_id text, device_quantity text, device_name text, device_instructions text, is_medicine integer)"
         );
 
         db.execSQL(
@@ -114,8 +120,10 @@ public class DBHelper extends SQLiteOpenHelper {
         );
 
         db.execSQL(
-                "CREATE TABLE " + SUBMISSION_TABLE_NAME+"(_id integer primary key, user_id integer,doctor_id integer, doc_name text, doc_type text, created_at datetime, status text, expiry_date datetime, realisation_date datetime)"
+                "CREATE TABLE " + SUBMISSION_TABLE_NAME+"(_id integer primary key, user_id integer,doctor_id integer, doc_name text, doc_type text, created_at datetime, status text, " +
+                        "expiry_date datetime, realisation_date datetime)"
         );
+
 
         //  db.execSQL(CREATE_TABLE_SUBMISSION);
 
@@ -190,6 +198,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("refundable", refundable);
         contentValues.put("injection_way", injection_way);
         contentValues.put("creator_id",creator_id );
+        contentValues.put("is_medicine",1);
       //  contentValues.put("submission_id",0);
         db.insert(MEDICINE_TABLE_NAME, null, contentValues);
         return true;
@@ -221,14 +230,124 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor2.moveToFirst();
         Integer submission_id = cursor2.getInt(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_SUBMISSION_ID));
         cursor2.close();
-
-
         return submission_id;*/
     }
+    public boolean insertDevice(Integer creator_id, String device_id, String device_quantity, String device_name, String device_instructions) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MEDICINE_COLUMN_CREATOR_ID, creator_id);
+        contentValues.put(MEDICINE_COLUMN_DEVICE_ID, device_id);
+        contentValues.put(MEDICINE_COLUMN_DEVICE_QUANTITY, device_quantity);
+        contentValues.put(MEDICINE_COLUMN_DEVICE_NAME, device_name);
+        contentValues.put(MEDICINE_COLUMN_DEVICE_INSTRUCTIONS, device_instructions);
+        contentValues.put(MEDICINE_COLUMN_IS_MEDICINE,0);
+        db.insert(MEDICINE_TABLE_NAME, null, contentValues);
+        return true;
+    }
 
-    public Integer getSubmissionIdByValues(Integer patient_id, String name, String type ){
+    public Cursor getDeviceData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM SUBMISSION WHERE user_id ="+patient_id+" AND doc_name='"+name+"' AND doc_type='"+type+"'",null);
+        Cursor res =  db.rawQuery( "SELECT * FROM "+ MEDICINE_TABLE_NAME +" where _id= "+id+" AND "+MEDICINE_COLUMN_DEVICE_ID+" IS NOT NULL", null );
+        return res;
+    }
+
+    public boolean updateDevice(Integer id, Integer creator_id, String device_id, String device_quantity, String device_name, String device_instructions) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MEDICINE_COLUMN_CREATOR_ID, creator_id);
+        contentValues.put(MEDICINE_COLUMN_DEVICE_ID, device_id);
+        contentValues.put(MEDICINE_COLUMN_DEVICE_QUANTITY, device_quantity);
+        contentValues.put(MEDICINE_COLUMN_DEVICE_NAME, device_name);
+        contentValues.put(MEDICINE_COLUMN_DEVICE_INSTRUCTIONS, device_instructions);
+
+        //  contentValues.put("submission_id",submission_id);
+        db.update(MEDICINE_TABLE_NAME, contentValues, MEDICINE_COLUMN_ID+" = ? ", new String[] { Integer.toString(id) } );
+        return true;
+    }
+
+    public Cursor getAllDevicesByCreator(Integer creator_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =db.query(MEDICINE_TABLE_NAME,null," creator_id=? AND submission_id is null and device_id is not null",new String[]{Integer.toString(creator_id)},null,null,null);
+
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return cursor;
+    }
+
+    public Boolean isChoosenMedicine(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MEDICINE_TABLE_NAME+" WHERE "+MEDICINE_COLUMN_SUBMISSION_ID+"="+id,null);
+        if (cursor.getCount() < 1) // Medicine Not Exist
+        {
+            cursor.close();
+            return false;
+        }
+        cursor.moveToFirst();
+
+        int remedy_type = cursor.getInt(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_IS_MEDICINE));
+     //   String device_id = cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_DEVICE_ID));
+    //    String device_name = cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_DEVICE_NAME));
+        cursor.close();
+
+        return remedy_type==1;
+    }
+    public Boolean isDupa(int id, int loggedUserId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(SUBMISSION_TABLE_NAME, null, SUBMISSION_COLUMN_ID + "=?", new String[]{Integer.toString(id)}, null, null, null);
+        if (cursor.getCount() < 1) // UserName Not Exist
+        {
+            cursor.close();
+            return false;
+        }
+        cursor.moveToFirst();
+        Integer creator_id = cursor.getInt(cursor.getColumnIndex("doctor_id"));
+        cursor.close();
+      /*  if(loggedUserId==creator_id){
+            return true;
+        }else {
+            return false;
+        }*/
+        return loggedUserId == creator_id;
+    }
+
+    public ArrayList<Integer> getAllDevicesByUser(Integer creator_id) {
+        ArrayList<Integer> array_list = new ArrayList<Integer>();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "SELECT * FROM "+ MEDICINE_TABLE_NAME + " WHERE "+MEDICINE_COLUMN_CREATOR_ID+" = "+creator_id+" AND "+MEDICINE_COLUMN_SUBMISSION_ID+" is null AND "
+                +MEDICINE_COLUMN_DEVICE_ID +" is not null", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+
+            array_list.add(res.getInt(res.getColumnIndex(MEDICINE_COLUMN_ID)));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+
+    public Cursor getAllDevicesBySubmission(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =db.query(MEDICINE_TABLE_NAME,null," submission_id=? AND device_id is not null",new String[]{Integer.toString(id)},null,null,null);
+
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return cursor;
+    }
+
+    public Integer getSubmissionIdByValues(Integer patient_id, String name, String type, String realisationDate ){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM SUBMISSION WHERE user_id ="+patient_id+" AND doc_name='"+name+"' AND doc_type='"+type+"'" +" AND realisation_date = '"+realisationDate+"'",null);
         if (cursor.getCount() < 1) // Submission Not Exist
         {
             cursor.close();
@@ -269,6 +388,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(MEDICINE_TABLE_NAME, contentValues, "_id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
+
+
+
     public boolean updateMedicineBySubmission(Integer id, Integer submission_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -469,7 +591,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllMedicinesBySubmission(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor =db.query(MEDICINE_TABLE_NAME,null," submission_id=?",new String[]{Integer.toString(id)},null,null,null);
+        Cursor cursor =db.query(MEDICINE_TABLE_NAME,null," submission_id=? AND device_id is null",new String[]{Integer.toString(id)},null,null,null);
 
         if (cursor == null) {
             return null;
@@ -495,7 +617,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllMedicinesByCreator(Integer creator_id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor =db.query(MEDICINE_TABLE_NAME,null," creator_id=? AND submission_id is null",new String[]{Integer.toString(creator_id)},null,null,null);
+        Cursor cursor =db.query(MEDICINE_TABLE_NAME,null," creator_id=? AND submission_id is null and device_id is null",new String[]{Integer.toString(creator_id)},null,null,null);
 
         if (cursor == null) {
             return null;
@@ -525,7 +647,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM "+ MEDICINE_TABLE_NAME + " WHERE creator_id = "+creator_id+" AND submission_id is null", null );
+        Cursor res =  db.rawQuery( "SELECT * FROM "+ MEDICINE_TABLE_NAME + " WHERE "+MEDICINE_COLUMN_CREATOR_ID+" = "+creator_id+" AND "+MEDICINE_COLUMN_SUBMISSION_ID+" is null AND "
+                +MEDICINE_COLUMN_DEVICE_ID +" is null", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
@@ -776,6 +899,20 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("injection_way", "Do połknięcia");
         contentValues.put("creator_id",2);
         contentValues.put("submission_id",1);
+        contentValues.put("is_medicine",1);
+        db.insert(MEDICINE_TABLE_NAME, null, contentValues);
+        return true;
+    }
+    public boolean insertDummyDevice(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("creator_id",2);
+      //  contentValues.put("submission_id",1);
+        contentValues.put("device_id", "9254.01");
+        contentValues.put("device_quantity", 1);
+        contentValues.put("device_name", "Inhalator dyszowy - nebulizator (generator aerozolu)");
+        contentValues.put("device_instructions", " Lorem ipsum dolor sit amet, consectetur adipiscing elit...");
+        contentValues.put("is_medicine",0);
         db.insert(MEDICINE_TABLE_NAME, null, contentValues);
         return true;
     }

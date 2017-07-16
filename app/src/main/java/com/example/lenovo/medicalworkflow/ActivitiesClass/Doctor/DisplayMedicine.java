@@ -49,7 +49,7 @@ public class DisplayMedicine extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_medicine);
+        setContentView(R.layout.display_medicine);
         name = (TextView) findViewById(R.id.editTextName);
         type = (TextView) findViewById(R.id.editTextType);
         quantity = (TextView) findViewById(R.id.editTextQuantity);
@@ -309,10 +309,7 @@ public class DisplayMedicine extends Activity {
             } else if(quantity.getText().toString().equals("")){
                 Toast.makeText(getApplicationContext(), "Proszę podać ilość",
                         Toast.LENGTH_LONG).show();
-            } else if(refundable.getText().toString().equals("")){
-            Toast.makeText(getApplicationContext(), "Proszę wybrać czy lek jest refundowalny",
-                    Toast.LENGTH_LONG).show();
-        }
+            }
     }
 
 

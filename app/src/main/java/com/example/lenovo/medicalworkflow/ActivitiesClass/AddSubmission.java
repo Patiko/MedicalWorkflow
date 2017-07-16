@@ -51,6 +51,7 @@ public class AddSubmission extends Activity {
 
 
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_submission);
@@ -119,10 +120,17 @@ public class AddSubmission extends Activity {
             };
 
     private void showDate(int year, int month, int day) {
-        if(month<10){
+
+        if(month<10 && day <10){
+            realisationDate.setText(new StringBuilder().append("0").append(day).append(".").append("0")
+                    .append(month).append(".").append(year));
+        }else if(month<10 && day>=10){
             realisationDate.setText(new StringBuilder().append(day).append(".").append("0")
                     .append(month).append(".").append(year));
-        }else {
+        }else if(day<10 && month>=10){
+            realisationDate.setText(new StringBuilder().append("0").append(day).append(".")
+                    .append(month).append(".").append(year));
+        } else {
             realisationDate.setText(new StringBuilder().append(day).append(".")
                     .append(month).append(".").append(year));
         }
@@ -151,13 +159,14 @@ public class AddSubmission extends Activity {
         int ValuePatientId = sharedPreferences.getInt(LoginActivity.UsedUserId,0);              //////////DO INSERTU
         int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);                   //////////DO INSERTU
         int ValueMedicineId = sharedPreferences.getInt(LoginActivity.UsedMedicineId,0);
+        String ValueRemedyType = sharedPreferences.getString(LoginActivity.UsedRemedyTypeId,"");
         String expiryDateStr = null;
         try {
             expiryDateStr = mydb.getExpiryDate(realisationDate.getText().toString(),"dd.MM.yyyy",30);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        ArrayList<Integer> medIdList = new ArrayList<Integer>();
+        ArrayList<Integer> medIdList;
 
         int ValueSubmissionId;
 
@@ -175,25 +184,48 @@ public class AddSubmission extends Activity {
                         Toast.LENGTH_LONG).show();
 
             } else {
+                if(ValueRemedyType.equals(LoginActivity.remedyTypeMedicine)){
+                    if (mydb.insertSubmission(ValuePatientId,ValueDoctorId,docName.getText().toString(),docType,expiryDateStr,realisationDate.getText().toString())) {
+                        medIdList = mydb.getAllMedicinesByUser(ValueDoctorId);
+                        ValueSubmissionId=mydb.getSubmissionIdByValues(ValuePatientId,docName.getText().toString(),docType,realisationDate.getText().toString());
 
-                if (mydb.insertSubmission(ValuePatientId,ValueDoctorId,docName.getText().toString(),docType,expiryDateStr,realisationDate.getText().toString())) {
-                    medIdList = mydb.getAllMedicinesByUser(ValueDoctorId);
-                    ValueSubmissionId=mydb.getSubmissionIdByValues(ValuePatientId,docName.getText().toString(),docType);
 
+                        for(int i=0; i<medIdList.size(); i++){
+                            mydb.updateMedicineBySubmission(medIdList.get(i),ValueSubmissionId);
+                        }
 
-                    for(int i=0; i<medIdList.size(); i++){
-                        mydb.updateMedicineBySubmission(medIdList.get(i),ValueSubmissionId);
+                        Toast.makeText(getApplicationContext(), "Wniosek został dodany",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Wniosek niedodany",
+                                Toast.LENGTH_SHORT).show();
                     }
 
-                    Toast.makeText(getApplicationContext(), "Wniosek został dodany",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Wniosek niedodany",
-                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), CheckSubmissionList.class);
+                    startActivity(intent);
+
+                }else if(ValueRemedyType.equals(LoginActivity.remedyTypeDevice)){
+                    if (mydb.insertSubmission(ValuePatientId,ValueDoctorId,docName.getText().toString(),docType,expiryDateStr,realisationDate.getText().toString())) {
+                        medIdList = mydb.getAllDevicesByUser(ValueDoctorId);
+                        ValueSubmissionId=mydb.getSubmissionIdByValues(ValuePatientId,docName.getText().toString(),docType,realisationDate.getText().toString());
+
+
+                        for(int i=0; i<medIdList.size(); i++){
+                            mydb.updateMedicineBySubmission(medIdList.get(i),ValueSubmissionId);
+                        }
+
+                        Toast.makeText(getApplicationContext(), "Wniosek został dodany",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Wniosek niedodany",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    Intent intent = new Intent(getApplicationContext(), CheckSubmissionList.class);
+                    startActivity(intent);
                 }
 
-                Intent intent = new Intent(getApplicationContext(), CheckSubmissionList.class);
-                startActivity(intent);
+
             }
 
         }else {

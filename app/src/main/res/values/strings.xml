@@ -25,7 +25,22 @@
     <string name="realisationDate">Data realizacji od dnia</string>
     <string name="expiryDate">Data ważności</string>
     <string name="giveAwayQuestion">Czy juz wydano wniosek?</string>
-    <string name="giveAwaySub">Wniosek wydany</string>
+    <string name="giveAwaySub">Wydaj wniosek</string>
+    <string name="closePopUp">Zamknij</string>
+
+    <string name="remedyTypeTitle">Wybierz skladnik wniosku</string>
+    <string name="chooseMedicineTxt">Dodaj leki</string>
+    <string name="chooseDeviceTxt">Dodaj wyrób medyczny</string>
+    <string name="device_details">Szczegóły wyrobu</string>
+    <string name="device_id_TV">Liczba porządkowa wyrobu medycznego:</string>
+    <string name="device_quantity">Liczba sztuk:</string>
+    <string name="device_name">Określenie wyrobu medycznego wraz z pisemnym uzasadnieniem (np. według klasyfikacji ICD-10):</string>
+    <string name="device_instructions">Dodatkowe wskazania zlecającego zaopatrzenie:</string>
+    <string name="saveDevice">Zapisz wyrób medyczny</string>
+    <string name="checkDeviceList">Lista dodanych wyrobów</string>
+    <string name="addDevice">Dodaj wyrób</string>
+    <string name="deviceTitleTV">Środek pomocniczy</string>
+
 
     <string name="workData">Dane miejsca pracy</string>
     <string name="regon">REGON</string>
