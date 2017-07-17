@@ -66,6 +66,12 @@ public class LoginActivity extends Activity {
     public static final String remedyTypeMedicine="Lek";
     public static final String remedyTypeDevice="Wyrob medyczny";
 
+    public static final String submissionTypeZlecenie="Zlecenie na wyroby medyczne";
+    public static final String submissionTypeRStand="Recepta standardowa";
+    public static final String submissionTypeRFarm="Recepta farmaceutyczna";
+
+
+
     SharedPreferences sharedpreferences;
 
     @Override

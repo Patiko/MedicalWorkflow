@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.7"
+            android:layout_weight="0.6"
 
             android:text="@string/device_id_TV" />
 
@@ -41,6 +41,7 @@
             android:id="@+id/editDeviceId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:text="9254.01">
 
@@ -58,14 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:text="@string/device_quantity"/>
 
         <TextView
             android:id="@+id/edit_device_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
+            android:layout_weight="1"
             android:text="1 szt"
             />
     </LinearLayout>

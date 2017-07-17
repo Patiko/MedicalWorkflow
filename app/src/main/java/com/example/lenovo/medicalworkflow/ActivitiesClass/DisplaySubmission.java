@@ -7,14 +7,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +21,8 @@ import com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorMainScree
 import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistMainScreen;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.PopUps.GiveAwayPopUp;
+import com.example.lenovo.medicalworkflow.ActivitiesClass.PopUps.StatusPopUp;
 import com.example.lenovo.medicalworkflow.CustomAdapters.CustomAdapterDevices;
 import com.example.lenovo.medicalworkflow.CustomAdapters.CustomAdapterMedicines;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;

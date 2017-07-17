@@ -1,4 +1,4 @@
-package com.example.lenovo.medicalworkflow.ActivitiesClass;
+package com.example.lenovo.medicalworkflow.ActivitiesClass.PopUps;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.Database.DBHelper;
 import com.example.lenovo.medicalworkflow.R;
 

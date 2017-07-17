@@ -206,8 +206,8 @@ public class NfzWorkerUserDetails extends Activity {
         /*Bundle extras = getIntent().getExtras();
         if(extras !=null) {*/
         // int userId = extras.getInt("userIdKey");
-        if(post_code.getText().toString().trim().length() != 5) {
-            Toast.makeText(getApplicationContext(), "Proszę podać 5-cyfrowy kod pocztowy np. 05950",
+        if(post_code.getText().toString().trim().length() != 6) {
+            Toast.makeText(getApplicationContext(), "Proszę podać 5-cyfrowy kod pocztowy np. 05-950",
                     Toast.LENGTH_LONG).show();
         }else {
             if(mydb.updateUser(id_To_Update,first_name.getText().toString(),last_name.getText().toString(),pesel.getText().toString(),login.getText().toString(),

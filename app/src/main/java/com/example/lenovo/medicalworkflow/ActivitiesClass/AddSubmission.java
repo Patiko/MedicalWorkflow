@@ -70,11 +70,27 @@ public class AddSubmission extends Activity {
         int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);                   //////////DO INSERTU
         int ValueMedicineId = sharedPreferences.getInt(LoginActivity.UsedMedicineId,0);        //////////DO INSERTU
         String ValueUserPeselId = sharedPreferences.getString(LoginActivity.PeselId,"");
+        String ValueRemedyType = sharedPreferences.getString(LoginActivity.UsedRemedyTypeId,"");
+       // ArrayAdapter<CharSequence> adapter_profil = null;
+       /* if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) && ValueRemedyType.equals(LoginActivity.remedyTypeMedicine)){
+            ArrayAdapter<CharSequence> adapter_profil = ArrayAdapter.createFromResource(this.getApplicationContext(),
+                    R.array.pharmacist_submission_type_array,android.R.layout.simple_spinner_item);
+        } else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) && ValueRemedyType.equals(LoginActivity.remedyTypeDevice)){
+
+        }*/
 
         ArrayAdapter<CharSequence> adapter_profil = ArrayAdapter.createFromResource(this.getApplicationContext(),
                 R.array.submission_type_array,android.R.layout.simple_spinner_item);
 
         spinner_docType.setAdapter(adapter_profil);
+        if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) && ValueRemedyType.equals(LoginActivity.remedyTypeMedicine)){
+            spinner_docType.setSelection(0);
+        }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) && ValueRemedyType.equals(LoginActivity.remedyTypeDevice)){
+            spinner_docType.setSelection(2);
+        }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) && ValueRemedyType.equals(LoginActivity.remedyTypeMedicine)){
+            spinner_docType.setSelection(1);
+        }
+        //spinner_docType.setSelection(2);
         spinner_docType.setOnItemSelectedListener(new AddSubmission.Listener_Of_Selecting_Doc_Type_Spinner());
 
       //  expiryDate = (TextView) findViewById(R.id.chosenDateTV);
@@ -84,6 +100,9 @@ public class AddSubmission extends Activity {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
+
+
+
     }
 
     public void checkboxClicked(View v) {
@@ -175,15 +194,17 @@ public class AddSubmission extends Activity {
            /* if (!expiryFlagCB.isChecked()) {
                 expiryDate.setText("");
             }*/
-            if((docType.equals("Recepta farmaceutyczna") &&
-                    !sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist))  ||
-                    (!docType.equals("Recepta farmaceutyczna") &&
-                    sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist))){
+            if((sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) && docType.equals(LoginActivity.submissionTypeRFarm)) ||
+                    (sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) && !docType.equals(LoginActivity.submissionTypeRFarm)) ||
+                    (sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) && ValueRemedyType.equals(LoginActivity.remedyTypeMedicine) &&
+                            !docType.equals(LoginActivity.submissionTypeRStand)) ||
+                    (sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) && ValueRemedyType.equals(LoginActivity.remedyTypeDevice) &&
+                    !docType.equals(LoginActivity.submissionTypeZlecenie))){
 
                 Toast.makeText(getApplicationContext(), "Brak odpowiednich uprawnień! - Wybierz inny typ.",
                         Toast.LENGTH_LONG).show();
 
-            } else {
+            } else  {
                 if(ValueRemedyType.equals(LoginActivity.remedyTypeMedicine)){
                     if (mydb.insertSubmission(ValuePatientId,ValueDoctorId,docName.getText().toString(),docType,expiryDateStr,realisationDate.getText().toString())) {
                         medIdList = mydb.getAllMedicinesByUser(ValueDoctorId);

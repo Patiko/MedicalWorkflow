@@ -10,8 +10,13 @@
     <string-array name="submission_type_array">
         <item>Recepta standardowa</item>
         <item>Recepta farmaceutyczna</item>
-        <item>Skierowanie na leczenie uzdrowiskowe</item>
         <item>Zlecenie na wyroby medyczne</item>
+    </string-array>
+
+    <!-- <item>Skierowanie na leczenie uzdrowiskowe</item>-->
+
+    <string-array name="pharmacist_submission_type_array">
+        <item>Recepta farmaceutyczna</item>
     </string-array>
 
 
