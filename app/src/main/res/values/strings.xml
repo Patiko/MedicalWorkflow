@@ -111,11 +111,12 @@
     <string name="checkMedicineList">Lista dodanych leków</string>
     <string name="save">Zapisz lek</string>
     <string name="medicine_details">Szczegóły leku</string>
-    <string name="medicine_name">Nazwa*</string>
-    <string name="medicine_type">Typ*</string>
-    <string name="medicine_quantity">Ilość*</string>
-    <string name="medicine_refundable">Refundowalny?*</string>
+    <string name="medicine_name">Nazwa</string>
+    <string name="medicine_type">Typ</string>
+    <string name="medicine_quantity">Ilość</string>
+    <string name="medicine_refundable">Refundowany?</string>
     <string name="medicine_injectionway">Sposób podania</string>
+    <string name="checkRefundTxT">Sprawdź czy lek jest refundowany</string>
 
 
     <string name="action_settings">Settings</string>
