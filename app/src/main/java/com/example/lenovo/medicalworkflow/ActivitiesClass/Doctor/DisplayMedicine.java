@@ -49,6 +49,7 @@ public class DisplayMedicine extends AppCompatActivity {
 
     TextView name ;
     TextView type;
+    TextView dosage;
     TextView quantity;
     RadioButton refundablee;
     TextView refundable;
@@ -72,7 +73,9 @@ public class DisplayMedicine extends AppCompatActivity {
         type = (TextView) findViewById(R.id.editTextType);
         quantity = (TextView) findViewById(R.id.editTextQuantity);
         //refundable = (TextView) findViewById(R.id.textView4);
+        dosage = (TextView) findViewById(R.id.editTextDosage);
         checkRefundBtn = (Button) findViewById(R.id.checkRefundBtn);
+
        // excelRecords = (ListView) findViewById(R.id.excelRecords);
 
 
@@ -125,6 +128,7 @@ public class DisplayMedicine extends AppCompatActivity {
 
                     String nam = rs.getString(rs.getColumnIndex(DBHelper.MEDICINE_COLUMN_NAME));
                     String typ = rs.getString(rs.getColumnIndex(DBHelper.MEDICINE_COLUMN_TYPE));
+                    String dosag = rs.getString(rs.getColumnIndex(DBHelper.MEDICINE_COLUMN_DOSAGE));
                     String quant = rs.getString(rs.getColumnIndex(DBHelper.MEDICINE_COLUMN_QUANTITY));
                     String refund = rs.getString(rs.getColumnIndex(DBHelper.MEDICINE_COLUMN_REFUNDABLE));
                     String inject = rs.getString(rs.getColumnIndex(DBHelper.MEDICINE_COLUMN_INJECTION_WAY));
@@ -148,6 +152,10 @@ public class DisplayMedicine extends AppCompatActivity {
                 type.setText((CharSequence)typ);
                 type.setFocusable(false);
                 type.setClickable(false);
+
+                    dosage.setText((CharSequence)dosag);
+                    dosage.setFocusable(false);
+                    dosage.setClickable(false);
 
                 quantity.setText((CharSequence)quant);
                 quantity.setFocusable(false);
@@ -243,9 +251,12 @@ public class DisplayMedicine extends AppCompatActivity {
             if(searchIfExists(name.getText().toString(),arrayList)){
                 Toast.makeText(getApplicationContext(), "Lek jest refundowany!",
                         Toast.LENGTH_SHORT).show();
+              //  radio1Refund.setClickable(false);
+               // radio2Refund.setClickable(false);
             }else {
                 Toast.makeText(getApplicationContext(), "Lek nie jest refundowany!",
                         Toast.LENGTH_SHORT).show();
+
             }
   /*          List<Integer> zwroconaLista=zwrocListe(name.getText().toString(),arrayList);  //ZWROC LISTE INDEXow GDZIE WYSTEPUJE PODANY NAME
             String lacze="";
@@ -267,6 +278,8 @@ public class DisplayMedicine extends AppCompatActivity {
             //display(subString);
          //   String finalList;
          //   displayList(arrayList);
+
+
             displayTextView(arrayList);
         }
         catch (Exception e){
@@ -291,6 +304,7 @@ public class DisplayMedicine extends AppCompatActivity {
             if(name.equals(lista.get(a))){
                 index=a;
                 refundFlag=true;
+                break;
             }else refundFlag=false;
         }
         return refundFlag;
@@ -374,12 +388,12 @@ public class DisplayMedicine extends AppCompatActivity {
     }*/
 
     public void insertMedicine(View view) {
-            if (!name.getText().toString().equals("") && !type.getText().toString().equals("") && !quantity.getText().toString().equals("")
+            if (!name.getText().toString().equals("") && !type.getText().toString().equals("") && !dosage.getText().toString().equals("") && !quantity.getText().toString().equals("")
            //       && !refundable.getText().toString().equals("")
                     ) {
             //    sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
                 Integer creator_id = sharedPreferences.getInt(LoginActivity.UserId,0);
-                if (mydb.insertMedicine(name.getText().toString(), type.getText().toString(),
+                if (mydb.insertMedicine(name.getText().toString(), type.getText().toString(), dosage.getText().toString(),
                         quantity.getText().toString(), refundable.getText().toString(),
                         injection_way.getText().toString(),creator_id)) {
 
@@ -399,10 +413,13 @@ public class DisplayMedicine extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Proszę podać nazwę leku",
                         Toast.LENGTH_LONG).show();
             } else if(type.getText().toString().equals("")){
-                Toast.makeText(getApplicationContext(), "Proszę podać typ",
+                Toast.makeText(getApplicationContext(), "Proszę podać postać leku np. tabl.",
+                        Toast.LENGTH_LONG).show();
+            }else if (dosage.getText().toString().equals("")){
+                Toast.makeText(getApplicationContext(), "Proszę podać dawke leku np. 50 mg",
                         Toast.LENGTH_LONG).show();
             } else if(quantity.getText().toString().equals("")){
-                Toast.makeText(getApplicationContext(), "Proszę podać ilość",
+                Toast.makeText(getApplicationContext(), "Proszę podać zawartość opakowania np. 30 szt.",
                         Toast.LENGTH_LONG).show();
             }
     }
@@ -429,14 +446,14 @@ public class DisplayMedicine extends AppCompatActivity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!name.getText().toString().equals("") && !type.getText().toString().equals("") && !quantity.getText().toString().equals("")
+                    if (!name.getText().toString().equals("") && !type.getText().toString().equals("") && !dosage.getText().toString().equals("") && !quantity.getText().toString().equals("")
                  //           && !refundable.getText().toString().equals("")
                             ) {
                         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
                         Integer creator_id = sharedPreferences.getInt(LoginActivity.UserId,0);
 
                         if(mydb.updateMedicine(Value,name.getText().toString(),
-                                type.getText().toString(), quantity.getText().toString(),
+                                type.getText().toString(), dosage.getText().toString(), quantity.getText().toString(),
                                 refundable.getText().toString(), injection_way.getText().toString(),creator_id)){
                             Toast.makeText(getApplicationContext(), "Lek został zmieniony", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(),CheckMedicineList.class);
@@ -450,10 +467,13 @@ public class DisplayMedicine extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Proszę podać nazwę leku",
                                 Toast.LENGTH_LONG).show();
                     } else if(type.getText().toString().equals("")){
-                        Toast.makeText(getApplicationContext(), "Proszę podać typ",
+                        Toast.makeText(getApplicationContext(), "Proszę podać postać leku np. tabl.",
+                                Toast.LENGTH_LONG).show();
+                    }else if (dosage.getText().toString().equals("")){
+                        Toast.makeText(getApplicationContext(), "Proszę podać dawke leku np. 50 mg",
                                 Toast.LENGTH_LONG).show();
                     } else if(quantity.getText().toString().equals("")){
-                        Toast.makeText(getApplicationContext(), "Proszę podać ilość",
+                        Toast.makeText(getApplicationContext(), "Proszę podać zawartość opakowania np. 30 szt.",
                                 Toast.LENGTH_LONG).show();
                     }
 
@@ -467,6 +487,10 @@ public class DisplayMedicine extends AppCompatActivity {
             type.setEnabled(true);
             type.setFocusableInTouchMode(true);
             type.setClickable(true);
+
+            dosage.setEnabled(true);
+            dosage.setFocusableInTouchMode(true);
+            dosage.setClickable(true);
 
             quantity.setEnabled(true);
             quantity.setFocusableInTouchMode(true);

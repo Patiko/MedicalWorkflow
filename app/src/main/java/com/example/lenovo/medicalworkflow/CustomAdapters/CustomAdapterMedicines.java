@@ -16,7 +16,7 @@ import com.example.lenovo.medicalworkflow.R;
  */
 
 public class CustomAdapterMedicines extends CursorAdapter {
-    TextView txtId,txtFirstName,txtLastName, txtPesel;
+
     private LayoutInflater mInflater;
 
     public CustomAdapterMedicines(Context context, Cursor c, int flags) {
@@ -29,10 +29,13 @@ public class CustomAdapterMedicines extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View   view    =    mInflater.inflate(R.layout.medicines_item, parent, false);
         CustomAdapterMedicines.ViewHolder holder  =   new CustomAdapterMedicines.ViewHolder();
-        //   holder.txtId    =   (TextView)  view.findViewById(R.id.txtId);
+
         holder.txtName    =   (TextView)  view.findViewById(R.id.txtName);
         holder.txtType   =   (TextView)  view.findViewById(R.id.txtType);
-        holder.txtRefundable   =   (TextView)  view.findViewById(R.id.txtRefundable);
+        holder.txtDosage   =   (TextView)  view.findViewById(R.id.txtDosage);
+        holder.txtQuantity   =   (TextView)  view.findViewById(R.id.txtQuantity);
+        holder.txtInjection   =   (TextView)  view.findViewById(R.id.injectionTV);
+        holder.txtRefundable   =   (TextView)  view.findViewById(R.id.refundableTV);
         view.setTag(holder);
         return view;
     }
@@ -48,9 +51,12 @@ public class CustomAdapterMedicines extends CursorAdapter {
 
         CustomAdapterMedicines.ViewHolder holder  =   (CustomAdapterMedicines.ViewHolder)    view.getTag();
         // holder.txtId.setText(cursor.getString(cursor.getColumnIndex(DBHelper.USER_COLUMN_ID)));
-        holder.txtName.setText("Nazwa leku: "+cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_NAME)));
-        holder.txtType.setText("Typ: "+cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_TYPE)));
-        holder.txtRefundable.setText("R: "+cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_REFUNDABLE)));
+        holder.txtName.setText(cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_NAME)));
+        holder.txtType.setText(cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_TYPE)));
+        holder.txtDosage.setText(cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_DOSAGE)));
+        holder.txtQuantity.setText(cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_QUANTITY)));
+        holder.txtRefundable.setText(cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_REFUNDABLE)));
+        holder.txtInjection.setText(cursor.getString(cursor.getColumnIndex(DBHelper.MEDICINE_COLUMN_INJECTION_WAY)));
 
     }
 
@@ -58,6 +64,10 @@ public class CustomAdapterMedicines extends CursorAdapter {
         //   TextView txtId;
         TextView txtName;
         TextView txtType;
+        TextView txtDosage;
+        TextView txtQuantity;
         TextView txtRefundable;
+        TextView txtInjection;
+
     }
 }

@@ -25,6 +25,7 @@
         </activity>
         <activity android:name="com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DoctorMainScreen" />
         <activity android:name="com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.DisplayMedicine" />
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
         <activity android:name="com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor.CheckMedicineList"
             android:label="@string/provideMedicineName"
             android:launchMode="singleTop">

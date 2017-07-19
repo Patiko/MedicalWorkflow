@@ -30,6 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String MEDICINE_COLUMN_ID = "_id";
     public static final String MEDICINE_COLUMN_NAME = "name";
     public static final String MEDICINE_COLUMN_TYPE = "type";
+    public static final String MEDICINE_COLUMN_DOSAGE = "dosage";
     public static final String MEDICINE_COLUMN_QUANTITY = "quantity";
     public static final String MEDICINE_COLUMN_REFUNDABLE = "refundable";
     public static final String MEDICINE_COLUMN_INJECTION_WAY = "injection_way";
@@ -109,7 +110,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "CREATE TABLE " + MEDICINE_TABLE_NAME + "(" +
-                        "_id integer primary key, name text,type text,quantity text, refundable text,injection_way text, creator_id integer, submission_id integer, " +
+                        "_id integer primary key, name text,type text, dosage text, quantity text, refundable text,injection_way text, creator_id integer, submission_id integer, " +
                         "device_id text, device_quantity text, device_name text, device_instructions text, is_medicine integer)"
         );
 
@@ -189,11 +190,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //MEDICINES TABLE //
-    public boolean insertMedicine(String name, String type, String quantity, String refundable, String injection_way,Integer creator_id) {
+    public boolean insertMedicine(String name, String type, String dosage, String quantity, String refundable, String injection_way,Integer creator_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
         contentValues.put("type", type);
+        contentValues.put("dosage", dosage);
         contentValues.put("quantity", quantity);
         contentValues.put("refundable", refundable);
         contentValues.put("injection_way", injection_way);
@@ -375,11 +377,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updateMedicine(Integer id, String name, String type, String quantity, String refundable, String injection_way, Integer creator_id) {
+    public boolean updateMedicine(Integer id, String name, String type, String dosage, String quantity, String refundable, String injection_way, Integer creator_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
         contentValues.put("type", type);
+        contentValues.put("dosage", dosage);
         contentValues.put("quantity", quantity);
         contentValues.put("refundable", refundable);
         contentValues.put("injection_way", injection_way);
@@ -893,10 +896,11 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", "Enarenal");
-        contentValues.put("type", "Tabletki");
-        contentValues.put("quantity", 30);
+        contentValues.put("type", "tabletki");
+        contentValues.put("dosage", "5 mg");
+        contentValues.put("quantity", "30 szt.");
         contentValues.put("refundable", "Tak");
-        contentValues.put("injection_way", "Do połknięcia");
+        contentValues.put("injection_way", "1x1 tabl. wieczorem");
         contentValues.put("creator_id",2);
         contentValues.put("submission_id",1);
         contentValues.put("is_medicine",1);
