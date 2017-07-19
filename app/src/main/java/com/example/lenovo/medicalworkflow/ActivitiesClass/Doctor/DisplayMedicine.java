@@ -1,20 +1,17 @@
 package com.example.lenovo.medicalworkflow.ActivitiesClass.Doctor;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -243,6 +240,29 @@ public class DisplayMedicine extends AppCompatActivity {
               //  }
 
             }
+            if(searchIfExists(name.getText().toString(),arrayList)){
+                Toast.makeText(getApplicationContext(), "Lek jest refundowany!",
+                        Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(getApplicationContext(), "Lek nie jest refundowany!",
+                        Toast.LENGTH_SHORT).show();
+            }
+  /*          List<Integer> zwroconaLista=zwrocListe(name.getText().toString(),arrayList);  //ZWROC LISTE INDEXow GDZIE WYSTEPUJE PODANY NAME
+            String lacze="";
+            if(zwroconaLista!=null){
+                for(int h=0; h<zwroconaLista.size(); h++){
+                    lacze=Integer.toString(zwroconaLista.get(h));
+                    lacze=lacze+"\n";
+
+                }
+                TextView xxx=(TextView) findViewById(R.id.textView1);
+                xxx.setText(lacze);
+
+
+            } else Toast.makeText(getApplicationContext(), "Lek nie jest refundowany!",
+                    Toast.LENGTH_SHORT).show();
+            */
+
 
             //display(subString);
          //   String finalList;
@@ -252,6 +272,30 @@ public class DisplayMedicine extends AppCompatActivity {
         catch (Exception e){
         }
     }
+    public List<Integer> zwrocListe(String name, List<String> lista){
+        Boolean refundFlag=false;
+        List<Integer> indexList=null;
+        for(int a=0; a<lista.size(); a++){
+            if(name.equals(lista.get(a))){
+                indexList.add(a);
+                refundFlag=true;
+            }else refundFlag=false;
+        }
+        return indexList;
+    }
+
+    public Boolean searchIfExists(String name, List<String> lista){
+        Boolean refundFlag=false;
+        int index;
+        for(int a=0; a<lista.size(); a++){
+            if(name.equals(lista.get(a))){
+                index=a;
+                refundFlag=true;
+            }else refundFlag=false;
+        }
+        return refundFlag;
+    }
+
         public void displayList(List<String> arrayList){
             ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, arrayList);
 
@@ -329,54 +373,7 @@ public class DisplayMedicine extends AppCompatActivity {
 
     }*/
 
-    public void imageClick(View view){
-
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        editor.apply();
-        startActivity(intent);
-        Toast.makeText(getApplicationContext(), "Wylogowano...",
-                Toast.LENGTH_LONG).show();
-    }
-
-    public void homeClick(View view){
-        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        String loggedProfile = sharedPreferences.getString(LoginActivity.LoggedProfileId,"");
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(LoginActivity.UsedSubmissionId);
-        editor.apply();
-        switch (loggedProfile){
-            case LoginActivity.doctor:
-                Intent intent = new Intent(getApplicationContext(), DoctorMainScreen.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
-            case LoginActivity.patient:
-                intent = new Intent(getApplicationContext(), PatientMainScreen.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
-            case LoginActivity.pharmacist:
-                intent = new Intent(getApplicationContext(), PharmacistMainScreen.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
-            case LoginActivity.nfzWorker:
-                intent = new Intent(getApplicationContext(), NfzWorkerMainScreen.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
-        }
-    }
-
-
-
     public void insertMedicine(View view) {
-
-
             if (!name.getText().toString().equals("") && !type.getText().toString().equals("") && !quantity.getText().toString().equals("")
            //       && !refundable.getText().toString().equals("")
                     ) {
@@ -414,8 +411,8 @@ public class DisplayMedicine extends AppCompatActivity {
 
     public void refundYesClicked(View v) {
         checkRefundBtn.setVisibility(View.VISIBLE);
-
     }
+
     public void refundNoClicked(View v) {
         checkRefundBtn.setVisibility(View.GONE);
     }
@@ -502,6 +499,48 @@ public class DisplayMedicine extends AppCompatActivity {
                 startActivity(intent);
 
 
+        }
+    }
+    public void imageClick(View view){
+
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.apply();
+        startActivity(intent);
+        Toast.makeText(getApplicationContext(), "Wylogowano...",
+                Toast.LENGTH_LONG).show();
+    }
+
+    public void homeClick(View view){
+        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        String loggedProfile = sharedPreferences.getString(LoginActivity.LoggedProfileId,"");
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(LoginActivity.UsedSubmissionId);
+        editor.apply();
+        switch (loggedProfile){
+            case LoginActivity.doctor:
+                Intent intent = new Intent(getApplicationContext(), DoctorMainScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+            case LoginActivity.patient:
+                intent = new Intent(getApplicationContext(), PatientMainScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+            case LoginActivity.pharmacist:
+                intent = new Intent(getApplicationContext(), PharmacistMainScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+            case LoginActivity.nfzWorker:
+                intent = new Intent(getApplicationContext(), NfzWorkerMainScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
         }
     }
 }
