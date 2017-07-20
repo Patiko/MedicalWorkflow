@@ -215,14 +215,24 @@ public class DisplayMedicine extends AppCompatActivity {
             AssetManager am =getAssets();
             //InputStream is=am.open("zalacznik-do-obwieszczenia-nowy.xls");
             InputStream is=am.open("zalacznik-do-obwieszczenia-1.xls");
+            String xxNames="";
+            String subStringNames="";
+            String xxDosages="";
+            String subStringDosages="";
+            String xxTypes="";
+            String subStringTypes="";
+            List<String> medicineNameListExcel= new ArrayList<String>();
+            List<String> medicineTypeListExcel= new ArrayList<String>();
+            List<String> medicineDosageListExcel= new ArrayList<String>();
+            List<String> medicineQuantityListExcel= new ArrayList<String>();
+
+            List<Integer> indexNameList= new ArrayList<Integer>();
 
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s=wb.getSheet(0);
             int row = s.getRows();
             int col = s.getColumns();
-            String xx="";
-            String subString="";
-            List<String> arrayList= new ArrayList<String>();
+
 /*
                  for (int i=3; i<row; i++){
                 //for(int c=0; c<col; c++){
@@ -232,70 +242,116 @@ public class DisplayMedicine extends AppCompatActivity {
                 }
               //  }
             display(xx);*/
+
+      ///////////// MEDICINE NAME LIST ///////////////
             for (int i=3; i<row; i++){
                 //for(int c=0; c<col; c++){
-                    Cell z = s.getCell(2,i);
-                    xx="";
-                    xx =xx+z.getContents();
-                int iend=xx.indexOf(",");
-                if(iend!= -1){
-                    subString="";
-                    subString = xx.substring(0,iend);
-                    arrayList.add(subString);
+                    Cell zNames = s.getCell(2,i);
+                xxNames="";
+                xxNames =xxNames+zNames.getContents();
+                int iendNames=xxNames.indexOf(",");
+                if(iendNames!= -1){
+                    subStringNames="";
+                    subStringNames = xxNames.substring(0,iendNames);
+                    medicineNameListExcel.add(subStringNames);
                 }
-                //subString=subString+"\n";
-
-              //  }
-
             }
-            if(searchIfExists(name.getText().toString(),arrayList)){
+            if(searchIfExists(name.getText().toString(),medicineNameListExcel)){
                 Toast.makeText(getApplicationContext(), "Lek jest refundowany!",
                         Toast.LENGTH_SHORT).show();
-              //  radio1Refund.setClickable(false);
-               // radio2Refund.setClickable(false);
+                //  radio1Refund.setClickable(false);
+                // radio2Refund.setClickable(false);
             }else {
                 Toast.makeText(getApplicationContext(), "Lek nie jest refundowany!",
                         Toast.LENGTH_SHORT).show();
 
             }
-  /*          List<Integer> zwroconaLista=zwrocListe(name.getText().toString(),arrayList);  //ZWROC LISTE INDEXow GDZIE WYSTEPUJE PODANY NAME
-            String lacze="";
-            if(zwroconaLista!=null){
-                for(int h=0; h<zwroconaLista.size(); h++){
-                    lacze=Integer.toString(zwroconaLista.get(h));
-                    lacze=lacze+"\n";
-
+            indexNameList = getIndexListEnteredNames(name.getText().toString(),medicineNameListExcel);  //ZWROC LISTE INDEXow GDZIE WYSTEPUJE PODANY NAME
+            String textToDisplay="";
+            if(!indexNameList.isEmpty()){
+                for(int h=0; h<indexNameList.size(); h++){
+                    textToDisplay=textToDisplay+Integer.toString(indexNameList.get(h));
+                    textToDisplay=textToDisplay+"\n";
                 }
-                TextView xxx=(TextView) findViewById(R.id.textView1);
-                xxx.setText(lacze);
+                TextView xxx=(TextView) findViewById(R.id.textView0);
+                xxx.setText(textToDisplay);
+            }
+         //   displayTextView(medicineNameListExcel);
 
+          /////////////// MEDICINE TYPE LIST /////////////////
+            for (int i=3; i<row; i++){
+                //for(int c=0; c<col; c++){
+                Cell zTypes = s.getCell(2,i);
+                xxTypes="";
+                xxTypes =xxTypes+zTypes.getContents();
+                // int iendDosages=xxDosages.indexOf(",", xxDosages.indexOf(",")+1); // INDEX OF SECOND OCCURENCE OF COMMA
+                // int iendDosages=xxDosages.indexOf(xxDosages.substring(s.lastIndexOf(':') + 1);
+                //if(iendDosages!= -1){
+                subStringTypes="";
 
-            } else Toast.makeText(getApplicationContext(), "Lek nie jest refundowany!",
-                    Toast.LENGTH_SHORT).show();
-            */
+                int lastIndexType = xxTypes.lastIndexOf(",");
+                int prevIndexType = xxTypes.lastIndexOf(",", lastIndexType - 1);
 
+                if(prevIndexType!=-1 && lastIndexType!=-1){
+                    subStringTypes = xxTypes.substring(prevIndexType +1, lastIndexType).trim();
+                    //subStringTypes = xxTypes.substring(typeStart, typeEnd);
+                    medicineTypeListExcel.add(subStringTypes);
+                }
+            }
+            if(searchIfExists(type.getText().toString(),medicineTypeListExcel)){
+                Toast.makeText(getApplicationContext(), "Lek jest refundowany! POSTAC",
+                        Toast.LENGTH_SHORT).show();
+                //  radio1Refund.setClickable(false);
+                // radio2Refund.setClickable(false);
+            }else {
+                Toast.makeText(getApplicationContext(), "Lek nie jest refundowany! POSTAC",
+                        Toast.LENGTH_SHORT).show();
 
-            //display(subString);
-         //   String finalList;
-         //   displayList(arrayList);
+            }
+               displayTextView(medicineTypeListExcel);
 
+            ///////////// MEDICINE DOSAGE LIST /////////////////
+            for (int i=3; i<row; i++){
+                //for(int c=0; c<col; c++){
+                Cell zDosages = s.getCell(2,i);
+                xxDosages="";
+                xxDosages =xxDosages+zDosages.getContents();
+               // int iendDosages=xxDosages.indexOf(",", xxDosages.indexOf(",")+1); // INDEX OF SECOND OCCURENCE OF COMMA
+                int iendDosages=xxDosages.lastIndexOf(',');
 
-            displayTextView(arrayList);
+                if(iendDosages!= -1){
+                    subStringDosages="";
+                    subStringDosages = xxDosages.substring(xxDosages.lastIndexOf(',')+2).trim();
+                    medicineDosageListExcel.add(subStringDosages);
+                }
+            }
+            if(searchIfExists(dosage.getText().toString(),medicineDosageListExcel)){
+                Toast.makeText(getApplicationContext(), "Lek jest refundowany! DAWKA",
+                        Toast.LENGTH_SHORT).show();
+                //  radio1Refund.setClickable(false);
+                // radio2Refund.setClickable(false);
+            }else {
+                Toast.makeText(getApplicationContext(), "Lek nie jest refundowany! DAWKA",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+         //   displayTextView(medicineDosageListExcel);
+
         }
         catch (Exception e){
         }
     }
-    public List<Integer> zwrocListe(String name, List<String> lista){
-        Boolean refundFlag=false;
-        List<Integer> indexList=null;
-        for(int a=0; a<lista.size(); a++){
-            if(name.equals(lista.get(a))){
-                indexList.add(a);
-                refundFlag=true;
-            }else refundFlag=false;
+    public List<Integer> getIndexListEnteredNames(String name, List<String> lista){
+
+        List<Integer> indexList= new ArrayList<Integer>();
+        for(int b=0; b<lista.size(); b++){
+            if(name.equals(lista.get(b))){
+                indexList.add(b);
+            }
         }
         return indexList;
     }
+
 
     public Boolean searchIfExists(String name, List<String> lista){
         Boolean refundFlag=false;
@@ -326,7 +382,7 @@ public class DisplayMedicine extends AppCompatActivity {
             finalStr=finalStr+"\n";
 
         }
-        TextView x = (TextView)findViewById(R.id.textView0);
+        TextView x = (TextView)findViewById(R.id.textView00);
         x.setText(finalStr);
     }
 /*    public void display(String value){
