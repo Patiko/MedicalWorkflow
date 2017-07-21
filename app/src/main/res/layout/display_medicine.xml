@@ -71,13 +71,17 @@
                 android:text="@string/medicine_name"
 
                 android:layout_weight="1"/>
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/nameAC" />
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_weight="0.5"
-
+                android:layout_weight="1"
                 android:inputType="text" >
                 <requestFocus />
             </EditText>
@@ -94,12 +98,16 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:text="@string/medicine_type"/>
-
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/typeAC" />
             <EditText
                 android:id="@+id/editTextType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
 
                 android:inputType="textEmailAddress" />
         </LinearLayout>
@@ -115,13 +123,16 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:text="@string/medicine_dosage"/>
-
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/dosageAC" />
             <EditText
                 android:id="@+id/editTextDosage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-
+                android:layout_weight="1"
                 android:inputType="textEmailAddress" />
         </LinearLayout>
         <LinearLayout
@@ -135,13 +146,17 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/medicine_quantity"/>
-
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/quantityAC" />
             <EditText
                 android:id="@+id/editTextQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:layout_weight="0.5" />
+                android:layout_weight="1" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

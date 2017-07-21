@@ -10,6 +10,7 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -59,8 +60,11 @@ public class DisplayMedicine extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     Button checkRefundBtn;
     ListView excelRecords;
-
-
+    AutoCompleteTextView nameAC, typeAC, dosageAC, quantityAC;
+    String nameListType="name";
+    String typeListType="type";
+    String dosageListType="dosage";
+    String quantityListType="quantity";
 
     TextView injection_way;
     int id_To_Update = 0;
@@ -72,19 +76,14 @@ public class DisplayMedicine extends AppCompatActivity {
         name = (TextView) findViewById(R.id.editTextName);
         type = (TextView) findViewById(R.id.editTextType);
         quantity = (TextView) findViewById(R.id.editTextQuantity);
-        //refundable = (TextView) findViewById(R.id.textView4);
         dosage = (TextView) findViewById(R.id.editTextDosage);
-        checkRefundBtn = (Button) findViewById(R.id.checkRefundBtn);
+        nameAC = (AutoCompleteTextView) findViewById(R.id.nameAC);
+        typeAC = (AutoCompleteTextView) findViewById(R.id.typeAC);
+        dosageAC = (AutoCompleteTextView) findViewById(R.id.dosageAC);
+        quantityAC = (AutoCompleteTextView) findViewById(R.id.quantityAC);
 
-       // excelRecords = (ListView) findViewById(R.id.excelRecords);
-
-
+        checkRefundBtn = (Button) findViewById(R.id.checkRefundBtn);;
         injection_way = (TextView) findViewById(R.id.editTextInjectionWay);
-
-        /*
-        int radioId = radioRefundGr.getCheckedRadioButtonId();
-        refundable=(RadioButton)findViewById(radioId);*/
-
         radioRefundGr =(RadioGroup) findViewById(R.id.radio_refundable) ;
         radio1Refund=(RadioButton) findViewById(R.id.radio_refund_yes);
         radio2Refund=(RadioButton) findViewById(R.id.radio_refund_no);
@@ -203,10 +202,113 @@ public class DisplayMedicine extends AppCompatActivity {
 
             }
         }).start();*/
+        ArrayAdapter adapterName = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getDependingParameterList(nameListType));
+        nameAC.setAdapter(adapterName);
+        nameAC.setThreshold(3);
+
+        ArrayAdapter adapterType = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getDependingParameterList(typeListType));
+        typeAC.setAdapter(adapterType);
+        typeAC.setThreshold(2);
+
+        ArrayAdapter adapterDosage = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getDependingParameterList(dosageListType));
+        dosageAC.setAdapter(adapterDosage);
+        dosageAC.setThreshold(1);
+
+        ArrayAdapter adapterQuantity = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getDependingParameterList(quantityListType));
+        quantityAC.setAdapter(adapterQuantity);
+        quantityAC.setThreshold(1);
 
 
+    }
+    public List<String> getDependingParameterList(String list_type){
+        List<String> lista= new ArrayList<String>();
+        try {
 
+            AssetManager am =getAssets();
+            //InputStream is=am.open("zalacznik-do-obwieszczenia-nowy.xls");
+            InputStream is=am.open("zalacznik-do-obwieszczenia-1.xls");
+            String xxNames="";
+            String subStringNames="";
+            String xxDosages="";
+            String subStringDosages="";
+            String xxTypes="";
+            String subStringTypes="";
+            String xxQuantity="";
+            String stringQuantity="";
+            List<String> medicineNameListExcel= new ArrayList<String>();
+            List<String> medicineTypeListExcel= new ArrayList<String>();
+            List<String> medicineDosageListExcel= new ArrayList<String>();
+            List<String> medicineQuantityListExcel= new ArrayList<String>();
 
+            Workbook wb = Workbook.getWorkbook(is);
+            Sheet s=wb.getSheet(0);
+            int row = s.getRows();
+            int col = s.getColumns();
+
+            if(list_type.equals(nameListType)){   ///////////// MEDICINE NAME LIST ///////////////
+                for (int i=3; i<row; i++){
+                    //for(int c=0; c<col; c++){
+                    Cell zNames = s.getCell(2,i);
+                    xxNames="";
+                    xxNames =xxNames+zNames.getContents();
+                    int iendNames=xxNames.indexOf(",");
+                    if(iendNames!= -1){
+                        subStringNames="";
+                        subStringNames = xxNames.substring(0,iendNames);
+                        medicineNameListExcel.add(subStringNames);
+
+                    }
+                }
+                lista=medicineNameListExcel;
+
+            }else if(list_type.equals(typeListType)){  /////////////// MEDICINE TYPE LIST /////////////////
+                for (int i=3; i<row; i++){
+                    Cell zTypes = s.getCell(2,i);
+                    xxTypes="";
+                    xxTypes =xxTypes+zTypes.getContents();
+                    subStringTypes="";
+                    int lastIndexType = xxTypes.lastIndexOf(",");
+                    int prevIndexType = xxTypes.lastIndexOf(",", lastIndexType - 1);
+                    if(prevIndexType!=-1 && lastIndexType!=-1){
+                        subStringTypes = xxTypes.substring(prevIndexType +1, lastIndexType).trim();
+                        medicineTypeListExcel.add(subStringTypes);
+                    }
+                }
+                lista= medicineTypeListExcel;
+            }else if(list_type.equals(dosageListType)){   ///////////// MEDICINE DOSAGE LIST /////////////////
+                for (int i=3; i<row; i++){
+                    Cell zDosages = s.getCell(2,i);
+                    xxDosages="";
+                    xxDosages =xxDosages+zDosages.getContents();
+                    int iendDosages=xxDosages.lastIndexOf(',');
+
+                    if(iendDosages!= -1){
+                        subStringDosages="";
+                        subStringDosages = xxDosages.substring(xxDosages.lastIndexOf(',')+2).trim();
+                        medicineDosageListExcel.add(subStringDosages);
+                    }
+                }
+                lista= medicineDosageListExcel;
+
+            }else if(list_type.equals(quantityListType)){   ///////////// MEDICINE QUANTITY LIST /////////////////
+                for (int i=3; i<row; i++){
+                    //for(int c=0; c<col; c++){
+                    Cell zQuantity = s.getCell(3,i);
+                    xxQuantity="";
+                    xxQuantity =xxQuantity+zQuantity.getContents();
+
+                    stringQuantity="";
+                    stringQuantity = xxQuantity.trim();
+                    medicineQuantityListExcel.add(stringQuantity);
+                }
+                lista= medicineQuantityListExcel;
+            }
+
+        }
+
+        catch (Exception e){
+        }
+        return lista;
     }
 
     public void checkRefund(View view){
@@ -221,6 +323,8 @@ public class DisplayMedicine extends AppCompatActivity {
             String subStringDosages="";
             String xxTypes="";
             String subStringTypes="";
+            String xxQuantity="";
+            String stringQuantity="";
             List<String> medicineNameListExcel= new ArrayList<String>();
             List<String> medicineTypeListExcel= new ArrayList<String>();
             List<String> medicineDosageListExcel= new ArrayList<String>();
@@ -308,7 +412,7 @@ public class DisplayMedicine extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
             }
-               displayTextView(medicineTypeListExcel);
+              // displayTextView(medicineTypeListExcel);
 
             ///////////// MEDICINE DOSAGE LIST /////////////////
             for (int i=3; i<row; i++){
@@ -336,6 +440,29 @@ public class DisplayMedicine extends AppCompatActivity {
 
             }
          //   displayTextView(medicineDosageListExcel);
+
+            ///////////// MEDICINE QUANTITY LIST /////////////////
+            for (int i=3; i<row; i++){
+                //for(int c=0; c<col; c++){
+                Cell zQuantity = s.getCell(3,i);
+                xxQuantity="";
+                xxQuantity =xxQuantity+zQuantity.getContents();
+
+                stringQuantity="";
+                stringQuantity = xxQuantity.trim();
+                medicineQuantityListExcel.add(stringQuantity);
+            }
+            if(searchIfExists(quantity.getText().toString(),medicineQuantityListExcel)){
+                Toast.makeText(getApplicationContext(), "Lek jest refundowany! ZAWARTOSC OPAKOWANIA",
+                        Toast.LENGTH_SHORT).show();
+                //  radio1Refund.setClickable(false);
+                // radio2Refund.setClickable(false);
+            }else {
+                Toast.makeText(getApplicationContext(), "Lek nie jest refundowany! ZAWARTOSC OPAKOWANIA",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+            displayTextView(medicineQuantityListExcel);
 
         }
         catch (Exception e){
