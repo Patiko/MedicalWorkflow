@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.medicalworkflow.ActivitiesClass.DisplayRefundList;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.NFZWorker.NfzWorkerMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Patient.PatientMainScreen;
 import com.example.lenovo.medicalworkflow.ActivitiesClass.Pharmacist.PharmacistMainScreen;
@@ -28,15 +31,13 @@ import com.example.lenovo.medicalworkflow.ActivitiesClass.LoginActivity;
 import com.example.lenovo.medicalworkflow.R;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+//import java.util.Iterator;
 import java.util.List;
 
 import jxl.Cell;
@@ -63,16 +64,18 @@ public class DisplayMedicine extends AppCompatActivity {
     RadioButton radio2Refund;
     SharedPreferences sharedPreferences;
     Button checkRefundBtn;
+    Button openRefundExcelFileBtn;
     ListView excelRecords;
     AutoCompleteTextView nameAC, typeAC, dosageAC, quantityAC;
-    String nameListType="name";
-    String typeListType="type";
-    String dosageListType="dosage";
-    String quantityListType="quantity";
+    public static final String nameListType="name";
+    public static final String typeListType="type";
+    public static final String dosageListType="dosage";
+    public static final String quantityListType="quantity";
     ArrayAdapter adapterName;
     ArrayAdapter adapterType;
     ArrayAdapter adapterDosage;
     ArrayAdapter adapterQuantity;
+    AssetManager assetttManager;
 
     TextView injection_way;
     int id_To_Update = 0;
@@ -90,7 +93,8 @@ public class DisplayMedicine extends AppCompatActivity {
         dosageAC = (AutoCompleteTextView) findViewById(R.id.dosageAC);
         quantityAC = (AutoCompleteTextView) findViewById(R.id.quantityAC);
 
-        checkRefundBtn = (Button) findViewById(R.id.checkRefundBtn);;
+        checkRefundBtn = (Button) findViewById(R.id.checkRefundBtn);
+        openRefundExcelFileBtn = (Button) findViewById(R.id.openRefundFile);
         injection_way = (TextView) findViewById(R.id.editTextInjectionWay);
         radioRefundGr =(RadioGroup) findViewById(R.id.radio_refundable) ;
         radio1Refund=(RadioButton) findViewById(R.id.radio_refund_yes);
@@ -119,7 +123,7 @@ public class DisplayMedicine extends AppCompatActivity {
         Button b = (Button)findViewById(R.id.button1);
         Button editB = (Button)findViewById(R.id.button2);
         Button deleteB = (Button)findViewById(R.id.button3);
-        checkRefundBtn.setVisibility(View.GONE);
+        //checkRefundBtn.setVisibility(View.GONE);
 
 
         if(Value>0){
@@ -153,21 +157,21 @@ public class DisplayMedicine extends AppCompatActivity {
 
 
 
-                name.setText((CharSequence)nam);
-                name.setFocusable(false);
-                name.setClickable(false);
+                nameAC.setText((CharSequence)nam);
+                nameAC.setFocusable(false);
+                nameAC.setClickable(false);
 
-                type.setText((CharSequence)typ);
-                type.setFocusable(false);
-                type.setClickable(false);
+                typeAC.setText((CharSequence)typ);
+                typeAC.setFocusable(false);
+                typeAC.setClickable(false);
 
-                    dosage.setText((CharSequence)dosag);
-                    dosage.setFocusable(false);
-                    dosage.setClickable(false);
+                    dosageAC.setText((CharSequence)dosag);
+                    dosageAC.setFocusable(false);
+                    dosageAC.setClickable(false);
 
-                quantity.setText((CharSequence)quant);
-                quantity.setFocusable(false);
-                quantity.setClickable(false);
+                quantityAC.setText((CharSequence)quant);
+                quantityAC.setFocusable(false);
+                quantityAC.setClickable(false);
 
 
                     if(refund.equals("Tak")){
@@ -194,6 +198,8 @@ public class DisplayMedicine extends AppCompatActivity {
             editB.setVisibility(View.GONE);
             deleteB.setVisibility(View.GONE);
         }
+
+
     /*    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
@@ -245,8 +251,29 @@ public class DisplayMedicine extends AppCompatActivity {
         quantityAC.setThreshold(1);
 */
 
+        openRefundExcelFileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DisplayMedicine.this, DisplayRefundList.class));
+
+            }
+        });
+        ConnectivityManager cm =
+                (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected){
+            openRefundExcelFileBtn.setVisibility(View.VISIBLE);
+            Toast.makeText(getApplicationContext(), "Dostęp do internetu włączony! Aktualna lista leków refundowanych jest dostępna!", Toast.LENGTH_LONG).show();
+        }else {
+            openRefundExcelFileBtn.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Uzyskaj dostęp do internetu, aby pobrać liste leków refundowanych!", Toast.LENGTH_LONG).show();
+        }
 
     }
+
     public void loadAutoCompleteList(View view){
 
     }
@@ -342,7 +369,7 @@ public class DisplayMedicine extends AppCompatActivity {
                     int iendNames=xxNames.indexOf(",");
                     if(iendNames!= -1){
                         subStringNames="";
-                        subStringNames = xxNames.substring(0,iendNames);
+                        subStringNames = xxNames.substring(0,iendNames).trim();
                         medicineNameListExcel.add(subStringNames);
 
                     }
@@ -355,18 +382,11 @@ public class DisplayMedicine extends AppCompatActivity {
                     xxTypes="";
                     xxTypes =xxTypes+zTypes.getContents();
                     subStringTypes="";
-                    /*int lastIndexType = xxTypes.lastIndexOf(",");
-                    int prevIndexType = xxTypes.lastIndexOf(",", lastIndexType - 1);
-                    if(prevIndexType!=-1 && lastIndexType!=-1){
-                        subStringTypes = i + " "+xxTypes.substring(prevIndexType +1, lastIndexType).trim();
-                       // StringBuilder sb = new StringBuilder();
-                        medicineTypeListExcel.add(subStringTypes);
-                    }*/
 
                     int firstIndexType = xxTypes.indexOf(",");
                     int secondIndexType = xxTypes.indexOf(",", firstIndexType + 1);
                     if(secondIndexType!=-1 && firstIndexType!=-1){
-                        subStringTypes = i + " "+xxTypes.substring(firstIndexType+1, secondIndexType).trim();
+                        subStringTypes = xxTypes.substring(firstIndexType+1, secondIndexType).trim();
                         medicineTypeListExcel.add(subStringTypes);
                     }
                 }
@@ -380,7 +400,7 @@ public class DisplayMedicine extends AppCompatActivity {
 
                     if(iendDosages!= -1){
                         subStringDosages="";
-                        subStringDosages = i + " "+ xxDosages.substring(xxDosages.lastIndexOf(',')+2).trim();
+                        subStringDosages = xxDosages.substring(xxDosages.lastIndexOf(',')+1).trim();
                         medicineDosageListExcel.add(subStringDosages);
                     }
                 }
@@ -433,16 +453,6 @@ public class DisplayMedicine extends AppCompatActivity {
             int row = s.getRows();
             int col = s.getColumns();
 
-/*
-                 for (int i=3; i<row; i++){
-                //for(int c=0; c<col; c++){
-                    Cell z = s.getCell(2,i);
-                    xx =xx+z.getContents();
-                     xx=xx+"\n";
-                }
-              //  }
-            display(xx);*/
-
       ///////////// MEDICINE NAME LIST ///////////////
             for (int i=3; i<row; i++){
                 //for(int c=0; c<col; c++){
@@ -452,7 +462,7 @@ public class DisplayMedicine extends AppCompatActivity {
                 int iendNames=xxNames.indexOf(",");
                 if(iendNames!= -1){
                     subStringNames="";
-                    subStringNames = xxNames.substring(0,iendNames);
+                    subStringNames = xxNames.substring(0,iendNames).trim();
                     medicineNameListExcel.add(subStringNames);
                 }
             }
@@ -473,7 +483,7 @@ public class DisplayMedicine extends AppCompatActivity {
                 int firstIndexType = xxTypes.indexOf(",");
                 int secondIndexType = xxTypes.indexOf(",", firstIndexType + 1);
                 if(secondIndexType!=-1 && firstIndexType!=-1){
-                    subStringTypes = i + " "+xxTypes.substring(firstIndexType+1, secondIndexType).trim();
+                    subStringTypes = xxTypes.substring(firstIndexType+1, secondIndexType).trim();
                     medicineTypeListExcel.add(subStringTypes);
                 }
             }
@@ -491,10 +501,9 @@ public class DisplayMedicine extends AppCompatActivity {
 
                 if(iendDosages!= -1){
                     subStringDosages="";
-                    subStringDosages = xxDosages.substring(xxDosages.lastIndexOf(',')+2);
+                    subStringDosages = xxDosages.substring(xxDosages.lastIndexOf(',')+1).trim();
                     medicineDosageListExcel.add(subStringDosages);
-                    /*if(subStringDosages.equals(""))
-                        Toast.makeText(getApplicationContext(), "Lek jest refundowany! DAWKA" +i+1, Toast.LENGTH_SHORT).show();*/
+
                 }
             }
 
@@ -530,14 +539,63 @@ public class DisplayMedicine extends AppCompatActivity {
         }
     }
 
-/*    @Override
+    @Override
     public void onResume() {
         super.onResume();
+        ConnectivityManager cm =
+                (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-    }*/
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected){
+            openRefundExcelFileBtn.setVisibility(View.VISIBLE);
+            Toast.makeText(getApplicationContext(), "Dostęp do internetu włączony! Aktualna lista leków refundowanych jest dostępna!", Toast.LENGTH_LONG).show();
+        }else {
+            openRefundExcelFileBtn.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Uzyskaj dostęp do internetu, aby pobrać liste leków refundowanych!", Toast.LENGTH_LONG).show();
+        }
 
-        public void refundYesClicked(View v) {
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        ConnectivityManager cm =
+                (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected){
+            openRefundExcelFileBtn.setVisibility(View.VISIBLE);
+            Toast.makeText(getApplicationContext(), "Dostęp do internetu włączony! Aktualna lista leków refundowanych jest dostępna!", Toast.LENGTH_LONG).show();
+        }else {
+            openRefundExcelFileBtn.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Uzyskaj dostęp do internetu, aby pobrać liste leków refundowanych!", Toast.LENGTH_LONG).show();
+        }
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        ConnectivityManager cm =
+                (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected){
+            openRefundExcelFileBtn.setVisibility(View.VISIBLE);
+            Toast.makeText(getApplicationContext(), "Dostęp do internetu włączony! Aktualna lista leków refundowanych jest dostępna!", Toast.LENGTH_LONG).show();
+        }else {
+            openRefundExcelFileBtn.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Uzyskaj dostęp do internetu, aby pobrać liste leków refundowanych!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+       public void refundYesClicked(View v) {
             checkRefundBtn.setVisibility(View.VISIBLE);
+           // openRefundExcelFileBtn.setVisibility(View.VISIBLE);
             adapterName = new ArrayAdapter(DisplayMedicine.this,android.R.layout.simple_list_item_1,getDependingParameterList(nameListType));
             nameAC.setAdapter(adapterName);
             nameAC.setThreshold(2);
@@ -603,24 +661,13 @@ public class DisplayMedicine extends AppCompatActivity {
 
     public void refundNoClicked(View v) {
         checkRefundBtn.setVisibility(View.GONE);
+       // openRefundExcelFileBtn.setVisibility(View.GONE);
         nameAC.setAdapter(null);
         typeAC.setAdapter(null);
         dosageAC.setAdapter(null);
         quantityAC.setAdapter(null);
 
     }
-
-    public List<Integer> getIndexListEnteredNames(String name, List<String> lista){
-
-        List<Integer> indexList= new ArrayList<Integer>();
-        for(int b=0; b<lista.size(); b++){
-            if(name.equals(lista.get(b))){
-                indexList.add(b);
-            }
-        }
-        return indexList;
-    }
-
 
     public Boolean searchIfExists(String name, List<String> lista){
         Boolean refundFlag=false;
@@ -635,16 +682,7 @@ public class DisplayMedicine extends AppCompatActivity {
         return refundFlag;
     }
 
-        public void displayList(List<String> arrayList){
-            ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, arrayList);
-
-           ListView excelRecords = (ListView)findViewById(R.id.excelRecords);
-            excelRecords.setAdapter(arrayAdapter);
-            arrayAdapter.notifyDataSetChanged();
-
-    }
-
-    public void displayTextView(List<String> arrayList){
+ /*   public void displayTextView(List<String> arrayList){
         String finalStr="";
         for(int j=0; j<arrayList.size();j++){
             finalStr=finalStr+arrayList.get(j);
@@ -653,13 +691,11 @@ public class DisplayMedicine extends AppCompatActivity {
         }
         TextView x = (TextView)findViewById(R.id.textView00);
         x.setText(finalStr);
-    }
+    }*/
 /*    public void display(String value){
         TextView x = (TextView)findViewById(R.id.textView0);
         x.setText(value);
     }*/
-
-
 
     public void saveUrl(final String filename, final String urlString)
             throws MalformedURLException, IOException {
@@ -685,41 +721,14 @@ public class DisplayMedicine extends AppCompatActivity {
         }
     }
 
-
-/*    public void radioRefundClicked(View view) {
-
-
-       RadioGroup radioRefundGr = (RadioGroup) findViewById(R.id.radio_refundable);
-        radio1Refund = (RadioButton) findViewById(R.id.radio_refund_yes);
-        radio2Refund = (RadioButton) findViewById(R.id.radio_refund_no);
-
-        int radioId = radioRefundGr.getCheckedRadioButtonId();
-        refundable=(RadioButton)findViewById(radioId);
-       // refundable = radioRefundBtn.getText().toString();
-
-
-       boolean checked = ((RadioButton) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.radio_refund_yes:
-                if (checked)
-                    refundable=radio1Refund.getId();
-                break;
-            case R.id.radio_refund_no:
-                if (checked)
-                    refundable.setText("no");
-                break;
-
-    }*/
-
     public void insertMedicine(View view) {
-            if (!name.getText().toString().equals("") && !type.getText().toString().equals("") && !dosage.getText().toString().equals("") && !quantity.getText().toString().equals("")
+            if (!nameAC.getText().toString().equals("") && !typeAC.getText().toString().equals("") && !dosageAC.getText().toString().equals("") && !quantityAC.getText().toString().equals("")
            //       && !refundable.getText().toString().equals("")
                     ) {
             //    sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
                 Integer creator_id = sharedPreferences.getInt(LoginActivity.UserId,0);
-                if (mydb.insertMedicine(name.getText().toString(), type.getText().toString(), dosage.getText().toString(),
-                        quantity.getText().toString(), refundable.getText().toString(),
+                if (mydb.insertMedicine(nameAC.getText().toString(), typeAC.getText().toString(), dosageAC.getText().toString(),
+                        quantityAC.getText().toString(), refundable.getText().toString(),
                         injection_way.getText().toString(),creator_id)) {
 
                     Toast.makeText(getApplicationContext(), "Lek został dodany",
@@ -734,16 +743,16 @@ public class DisplayMedicine extends AppCompatActivity {
                 startActivity(intent);
 
 
-            } else if (name.getText().toString().equals("")){
+            } else if (nameAC.getText().toString().equals("")){
                 Toast.makeText(getApplicationContext(), "Proszę podać nazwę leku",
                         Toast.LENGTH_LONG).show();
-            } else if(type.getText().toString().equals("")){
+            } else if(typeAC.getText().toString().equals("")){
                 Toast.makeText(getApplicationContext(), "Proszę podać postać leku np. tabl.",
                         Toast.LENGTH_LONG).show();
-            }else if (dosage.getText().toString().equals("")){
+            }else if (dosageAC.getText().toString().equals("")){
                 Toast.makeText(getApplicationContext(), "Proszę podać dawke leku np. 50 mg",
                         Toast.LENGTH_LONG).show();
-            } else if(quantity.getText().toString().equals("")){
+            } else if(quantityAC.getText().toString().equals("")){
                 Toast.makeText(getApplicationContext(), "Proszę podać zawartość opakowania np. 30 szt.",
                         Toast.LENGTH_LONG).show();
             }
@@ -759,14 +768,14 @@ public class DisplayMedicine extends AppCompatActivity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!name.getText().toString().equals("") && !type.getText().toString().equals("") && !dosage.getText().toString().equals("") && !quantity.getText().toString().equals("")
+                    if (!nameAC.getText().toString().equals("") && !typeAC.getText().toString().equals("") && !dosageAC.getText().toString().equals("") && !quantityAC.getText().toString().equals("")
                  //           && !refundable.getText().toString().equals("")
                             ) {
                         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
                         Integer creator_id = sharedPreferences.getInt(LoginActivity.UserId,0);
 
-                        if(mydb.updateMedicine(Value,name.getText().toString(),
-                                type.getText().toString(), dosage.getText().toString(), quantity.getText().toString(),
+                        if(mydb.updateMedicine(Value,nameAC.getText().toString(),
+                                typeAC.getText().toString(), dosageAC.getText().toString(), quantityAC.getText().toString(),
                                 refundable.getText().toString(), injection_way.getText().toString(),creator_id)){
                             Toast.makeText(getApplicationContext(), "Lek został zmieniony", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(),CheckMedicineList.class);
@@ -776,16 +785,16 @@ public class DisplayMedicine extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Lek pozostał niezmieniony", Toast.LENGTH_SHORT).show();
                         }
 
-                    }else if (name.getText().toString().equals("")){
+                    }else if (nameAC.getText().toString().equals("")){
                         Toast.makeText(getApplicationContext(), "Proszę podać nazwę leku",
                                 Toast.LENGTH_LONG).show();
-                    } else if(type.getText().toString().equals("")){
+                    } else if(typeAC.getText().toString().equals("")){
                         Toast.makeText(getApplicationContext(), "Proszę podać postać leku np. tabl.",
                                 Toast.LENGTH_LONG).show();
-                    }else if (dosage.getText().toString().equals("")){
+                    }else if (dosageAC.getText().toString().equals("")){
                         Toast.makeText(getApplicationContext(), "Proszę podać dawke leku np. 50 mg",
                                 Toast.LENGTH_LONG).show();
-                    } else if(quantity.getText().toString().equals("")){
+                    } else if(quantityAC.getText().toString().equals("")){
                         Toast.makeText(getApplicationContext(), "Proszę podać zawartość opakowania np. 30 szt.",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -793,21 +802,21 @@ public class DisplayMedicine extends AppCompatActivity {
                 }
             });
             b.setVisibility(View.VISIBLE);
-            name.setEnabled(true);
-            name.setFocusableInTouchMode(true);
-            name.setClickable(true);
+            nameAC.setEnabled(true);
+            nameAC.setFocusableInTouchMode(true);
+            nameAC.setClickable(true);
 
-            type.setEnabled(true);
-            type.setFocusableInTouchMode(true);
-            type.setClickable(true);
+            typeAC.setEnabled(true);
+            typeAC.setFocusableInTouchMode(true);
+            typeAC.setClickable(true);
 
-            dosage.setEnabled(true);
-            dosage.setFocusableInTouchMode(true);
-            dosage.setClickable(true);
+            dosageAC.setEnabled(true);
+            dosageAC.setFocusableInTouchMode(true);
+            dosageAC.setClickable(true);
 
-            quantity.setEnabled(true);
-            quantity.setFocusableInTouchMode(true);
-            quantity.setClickable(true);
+            quantityAC.setEnabled(true);
+            quantityAC.setFocusableInTouchMode(true);
+            quantityAC.setClickable(true);
 
 
             radio1Refund.setFocusable(true);

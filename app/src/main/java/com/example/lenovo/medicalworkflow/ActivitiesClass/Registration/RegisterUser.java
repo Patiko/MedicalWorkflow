@@ -2,6 +2,7 @@ package com.example.lenovo.medicalworkflow.ActivitiesClass.Registration;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -90,7 +91,7 @@ public class RegisterUser extends Activity {
         {
             // By using this you can get the position of patients_item which you
             // have selected from the dropdown
-
+            ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
             profilType = (parent.getItemAtPosition(pos)).toString();
 
         }

@@ -221,42 +221,27 @@
                 android:text="@string/checkRefundTxT"
                 android:layout_gravity="center"
                 android:onClick="checkRefund"
+                android:visibility="gone"
                 android:background="@drawable/button_shape"
                 android:textAllCaps="false"
-
                 android:textSize="15sp"
-                android:layout_marginBottom="20sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginBottom="3sp"
+                android:layout_marginTop="12sp"
                 android:layout_marginRight="3sp"
                 android:layout_marginLeft="3sp"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/openRefundFile"
-                android:text="@string/checkRefundTxT"
+                android:text="@string/openRefundFileTxT"
                 android:layout_gravity="center"
-                android:onClick="openRefundFile"
                 android:background="@drawable/button_shape"
-                android:visibility="gone"
                 android:textAllCaps="false"
                 android:textSize="15sp"
-                android:layout_marginBottom="20sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginBottom="12sp"
+                android:layout_marginTop="3sp"
                 android:layout_marginRight="3sp"
                 android:layout_marginLeft="3sp"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView0" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView00"
-                />
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/excelRecords"/>
 
         </LinearLayout>
 
@@ -297,7 +282,7 @@
             android:textAllCaps="false"
             android:textSize="15sp"
             android:layout_marginBottom="3sp"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="12sp"
             android:layout_marginRight="3sp"
             android:layout_marginLeft="3sp"/>
 

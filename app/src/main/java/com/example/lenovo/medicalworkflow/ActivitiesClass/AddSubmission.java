@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
@@ -161,6 +162,7 @@ public class AddSubmission extends Activity {
         static String subType;
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id)
         {
+            ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
             subType = (parent.getItemAtPosition(pos)).toString();
         }
         public void onNothingSelected(AdapterView<?> parent)

@@ -121,6 +121,14 @@
     <string name="recipeTitle">Rp.</string>
     <string name="odplatnoscTV">Odpłatność</string>
     <string name="injectionTitleTV">DS.</string>
+    <string name="openRefundFileTxT">Otwórz liste leków refundowanych</string>
+    <string name="displayRefundList">Leki refundowane</string>
+
+    <string name="lpHeader"> Lp. </string>
+    <string name="nameHeader">  Nazwa </string>
+    <string name="typeHeader"> Postać </string>
+    <string name="dosageHeader"> Dawka </string>
+    <string name="quantityHeader"> Zawartość opakowania </string>
 
 
 

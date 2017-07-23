@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -170,6 +171,7 @@ public class CheckSubmissionListByPatient extends Activity implements AdapterVie
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
         spinnerDocType.setSelection(position);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES,Context.MODE_PRIVATE);
         int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);
