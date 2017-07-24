@@ -122,7 +122,7 @@ public class DisplayMedicine extends AppCompatActivity {
         int Value = sharedPreferences.getInt(LoginActivity.UsedMedicineId,0);
         Button b = (Button)findViewById(R.id.button1);
         Button editB = (Button)findViewById(R.id.button2);
-        Button deleteB = (Button)findViewById(R.id.button3);
+        //Button deleteB = (Button)findViewById(R.id.button3);
         //checkRefundBtn.setVisibility(View.GONE);
 
 
@@ -153,7 +153,7 @@ public class DisplayMedicine extends AppCompatActivity {
 
                 b.setVisibility(View.GONE);
                 editB.setVisibility(View.VISIBLE);
-                deleteB.setVisibility(View.VISIBLE);
+            //    deleteB.setVisibility(View.VISIBLE);
 
 
 
@@ -196,60 +196,9 @@ public class DisplayMedicine extends AppCompatActivity {
             }}
         if(sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0)!=0){
             editB.setVisibility(View.GONE);
-            deleteB.setVisibility(View.GONE);
+         //   deleteB.setVisibility(View.GONE);
         }
 
-
-    /*    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        try {
-            saveUrl("zalacznik-do-obwieszczenia-1.xls","http://www.mz.gov.pl/wp-content/uploads/2017/04/zalacznik-do-obwieszczenia-1.xls");
-            Toast.makeText(getApplicationContext(), "Plik pobrany",
-                    Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-   /*     new Thread(new Runnable(){
-            @Override
-            public void run() {
-                // Do network action in this function
-
-            }
-        }).start();*/
-
-
-
-      /*  typeAC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                adapterType = new ArrayAdapter(DisplayMedicine.this,android.R.layout.simple_list_item_1,getValuesForAdapterLists(typeListType));
-                typeAC.setAdapter(adapterType);
-                typeAC.setThreshold(2);
-               *//* adapterDosage = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getValuesForAdapterLists(typeListType));
-                dosageAC.setAdapter(adapterDosage);
-                adapterQuantity = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getValuesForAdapterLists(typeListType));
-                quantityAC.setAdapter(adapterQuantity);*//*
-                // customerAutocomplete.dismissDropDown();
-
-            }
-        });*/
-
-
-
-      //  adapterType = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getDependingParameterList(typeListType));
-      //  adapterType = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getValuesForAdapterLists(typeListType));
-     //   typeAC.setAdapter(adapterType);
-     //   typeAC.setThreshold(2);
-
-        /*adapterDosage = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getValuesForAdapterLists(typeListType));
-        dosageAC.setAdapter(adapterDosage);
-        dosageAC.setThreshold(1);
-*/
-       /* adapterQuantity = new ArrayAdapter(this,android.R.layout.simple_list_item_1,getValuesForAdapterLists(typeListType));
-        quantityAC.setAdapter(adapterQuantity);
-        quantityAC.setThreshold(1);
-*/
 
         openRefundExcelFileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,9 +223,6 @@ public class DisplayMedicine extends AppCompatActivity {
 
     }
 
-    public void loadAutoCompleteList(View view){
-
-    }
     public List<String> getValuesForAdapterLists(String list_type){
         List<String> adapterList = new ArrayList<String>();
 

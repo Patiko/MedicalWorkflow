@@ -66,18 +66,18 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_marginBottom="3sp"
-
+                    android:visibility="gone"
                     android:layout_marginLeft="3sp"
                     android:layout_marginRight="3sp"
                     android:layout_marginTop="3sp"
                     android:background="@drawable/button_shape"
-
                     android:text="@string/addMedicine"
                     android:textAllCaps="false"
                     android:textSize="15sp" />
 
                 <Button
                     android:id="@+id/checkMedicineListB"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
@@ -116,6 +116,7 @@
                     android:layout_marginRight="3sp"
                     android:layout_marginTop="3sp"
                     android:background="@drawable/button_shape"
+                    android:visibility="gone"
 
                     android:text="@string/searchPatientTitle"
                     android:textAllCaps="false"

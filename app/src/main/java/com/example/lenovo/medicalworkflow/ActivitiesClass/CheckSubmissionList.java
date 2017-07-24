@@ -75,6 +75,7 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
         //int ValueUserId = sharedPreferences.getInt(LoginActivity.UsedMedicineId,0);
         int ValuePatientId = sharedPreferences.getInt(LoginActivity.UsedUserId,0);
         int ValueDoctorId = sharedPreferences.getInt(LoginActivity.UserId,0);
+        String ValueRemedyType = sharedPreferences.getString(LoginActivity.UsedRemedyTypeId,"");
 
         spinnerDocType = (Spinner) findViewById(R.id.submissionTypeSpinner);
         mydb = new DBHelper(this);
@@ -89,6 +90,13 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
         spinnerDocType.setAdapter(adapter_doc_type);
       //  spinnerDocType.setSelection(adapter_doc_type.getPosition(submissionTypeDefault));
     //    spinnerDocType.setSelection(getIndex(spinnerDocType,submissionTypeDefault));
+        if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) && ValueRemedyType.equals(LoginActivity.remedyTypeMedicine)){
+            spinnerDocType.setSelection(0);
+        }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.doctor) && ValueRemedyType.equals(LoginActivity.remedyTypeDevice)){
+            spinnerDocType.setSelection(2);
+        }else if(sharedPreferences.getString(LoginActivity.LoggedProfileId,"").equals(LoginActivity.pharmacist) && ValueRemedyType.equals(LoginActivity.remedyTypeMedicine)){
+            spinnerDocType.setSelection(1);
+        }
         spinnerDocType.setOnItemSelectedListener(this);
 
         String docType = (String) spinnerDocType.getSelectedItem().toString();
@@ -138,46 +146,8 @@ public class CheckSubmissionList extends Activity implements AdapterView.OnItemS
                     startActivity(intent);
                     // arrayAdapter.notifyDataSetChanged();
                 }
-
-
-
             }
         });
-
-
-/*
-
-        openStatusPopUp = (Button) findViewById(R.id.editSubmissionStatus);
-        openStatusPopUp.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View a){
-                LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popUpView = layoutInflater.inflate(R.layout.edit_status_popup,null);
-                final PopupWindow popupWindow = new PopupWindow(
-                        popUpView,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                acceptSubmission = (Button)popUpView.findViewById(R.id.acceptButton);
-                acceptSubmission.setOnClickListener(new Button.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-
-                        popupWindow.dismiss();
-                    }});
-                rejectSubmission = (Button)popUpView.findViewById(R.id.rejectButton);
-                rejectSubmission.setOnClickListener(new Button.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-
-                        popupWindow.dismiss();
-                    }});vvv
-
-                popupWindow.showAsDropDown(openStatusPopUp, 50, -30);
-            }
-        });
-*/
-
-
-
     }
 /*    @Override
     public void onRestart() {
