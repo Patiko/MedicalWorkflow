@@ -179,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:onClick="updateDevice"
-                android:text="@string/edit"
+                android:text="@string/editDevicee"
                 android:background="@drawable/button_shape"
                 android:textAllCaps="false"
                 android:textSize="15sp"
@@ -204,7 +204,7 @@
                 android:layout_marginRight="3sp"
                 android:layout_marginLeft="3sp"
                 android:layout_weight="1"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
 
         </LinearLayout>
 

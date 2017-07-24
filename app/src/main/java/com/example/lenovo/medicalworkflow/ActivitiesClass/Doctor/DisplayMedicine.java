@@ -485,6 +485,7 @@ public class DisplayMedicine extends AppCompatActivity {
         }
     }
 
+/*
     @Override
     public void onResume() {
         super.onResume();
@@ -537,6 +538,7 @@ public class DisplayMedicine extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Uzyskaj dostęp do internetu, aby pobrać liste leków refundowanych!", Toast.LENGTH_LONG).show();
         }
     }
+*/
 
 
        public void refundYesClicked(View v) {

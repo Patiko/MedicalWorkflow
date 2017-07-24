@@ -1086,7 +1086,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String profile_patient="Pacjent";
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+MEDICINE_TABLE_NAME+ " where creator_id='"+creator_id+"' and name like '"+name+"%'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MEDICINE_TABLE_NAME+ " where creator_id='"+creator_id+"' and name like '"+name+"%' AND submission_id is null and device_id is null", null);
         //  Cursor res =db.query(USER_TABLE_NAME,null," profile=? and pesel=?",new String[]{profile_patient,pesel},null,null,null);
 
 

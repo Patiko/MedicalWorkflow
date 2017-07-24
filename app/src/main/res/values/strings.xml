@@ -51,7 +51,7 @@
     <string name="providePesel">Podaj PESEL pacjenta</string>
     <string name="search">Szukaj</string>
     <string name="chooseUser">Wybierz tego pacjenta</string>
-    <string name="createSubmissionTitle">Utwórz recepte</string>
+    <string name="createSubmissionTitle">Utwórz wniosek</string>
 
     <string name="statusPopUpTitle">Zmień status wniosku</string>
     <string name="acceptSubmission">Zaakceptuj wniosek</string>
@@ -129,6 +129,7 @@
     <string name="typeHeader"> Postać </string>
     <string name="dosageHeader"> Dawka </string>
     <string name="quantityHeader"> Zawartość opakowania </string>
+    <string name="editDevicee">Edytuj wyrób</string>
 
 
 

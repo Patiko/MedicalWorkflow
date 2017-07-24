@@ -79,7 +79,7 @@ public class DisplayDevice extends Activity {
 
                 b1.setVisibility(View.GONE);
                 b2.setVisibility(View.VISIBLE);
-                b3.setVisibility(View.VISIBLE);
+               // b3.setVisibility(View.VISIBLE);
 
 
 
@@ -103,7 +103,7 @@ public class DisplayDevice extends Activity {
             }}
         if(sharedPreferences.getInt(LoginActivity.UsedSubmissionId,0)!=0){
             b2.setVisibility(View.GONE);
-            b3.setVisibility(View.GONE);
+          //  b3.setVisibility(View.GONE);
         }
 
 
